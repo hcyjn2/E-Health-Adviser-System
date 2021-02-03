@@ -1,0 +1,131 @@
+import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/mood_tracker/moodtracker_main.dart';
+
+class AnimatedButton extends StatefulWidget {
+  final Color primaryColor;
+  final String textDisplayed;
+  final int pageSelect;
+
+  AnimatedButton(this.primaryColor, this.textDisplayed, this.pageSelect);
+
+  @override
+  _AnimatedButtonState createState() => _AnimatedButtonState();
+}
+
+class _AnimatedButtonState extends State<AnimatedButton>
+    with TickerProviderStateMixin {
+  AnimationController _animationController;
+  AnimationController _scaleAnimationController;
+  AnimationController _fadeAnimationController;
+
+  Animation<double> _animation;
+  Animation<double> _scaleAnimation;
+  Animation<double> _fadeAnimation;
+
+  double buttonWidth = 200.0;
+  double scale = 1.0;
+  double colorOpacity = 0.6;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
+
+    _scaleAnimationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+
+    _fadeAnimationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+
+    _fadeAnimation = Tween<double>(
+      begin: 50.0,
+      end: 0.0,
+    ).animate(_fadeAnimationController);
+
+    _scaleAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.05,
+    ).animate(_scaleAnimationController)
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _scaleAnimationController.reverse();
+          _fadeAnimationController.forward();
+          _animationController.forward();
+        }
+      });
+
+    _animation = Tween<double>(begin: 0.0, end: buttonWidth)
+        .animate(_animationController)
+          ..addListener(() {});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _animationController.dispose();
+    _fadeAnimationController.dispose();
+    _scaleAnimationController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: <Widget>[
+      AnimatedBuilder(
+        animation: _scaleAnimationController,
+        builder: (context, child) => Transform.scale(
+          scale: _scaleAnimation.value,
+          child: InkWell(
+            onTap: () {
+              _scaleAnimationController.forward();
+              //This is to go to other pages
+              //will be using navigator to move
+              if (widget.pageSelect == 1) {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => TestPage()));
+              } else if (widget.pageSelect == 3) {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => MoodTrackerMain()));
+              } else {
+                print("other");
+              }
+            },
+            child: Container(
+              width: 350.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                  color: widget.primaryColor,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                '${widget.textDisplayed}',
+                textAlign: TextAlign.center,
+                style: TextStyle(height: 4, fontSize: 20),
+              ),
+            ),
+          ),
+        ),
+      )
+    ]);
+  }
+}
+
+//This class is just for testing purposes/placeholder page
+class TestPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Healthier"),
+        ),
+        body: Center(
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text("Back"),
+          ),
+        ));
+  }
+}

@@ -21,10 +21,10 @@ class MoodTrackerCalender extends StatefulWidget {
 class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
   //initialize properties
   DateTime _currentDate =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   List<MoodRecordDetail> moodRecordDetailList;
   EventList<Event> moodRecords;
@@ -57,27 +57,47 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
   void saveData(List<MoodRecordDetail> moodRecordDetailList,
       MoodRecordDetail newMoodRecordDetail) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    int counter = prefs.getInt('counter') ?? 0;
 
     if (moodRecordDetailList == null)
       moodRecordDetailList = [newMoodRecordDetail];
     else
       moodRecordDetailList.add(newMoodRecordDetail);
 
+    counter++;
     prefs.setString('key', MoodRecordDetail.encode(moodRecordDetailList));
+    prefs.setInt('counter', counter);
   }
 
-  Future<List<MoodRecordDetail>> loadData() async {
+  Future loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<MoodRecordDetail> decodedData =
-        MoodRecordDetail.decode(prefs.get('key'));
+    MoodRecordDetail.decode(prefs.get('key'));
+
+    if (decodedData == null) return null;
 
     return decodedData;
   }
 
   Future updateUI() async {
-    await saveData(moodRecordDetailList, widget.moodRecordDetail);
-    moodRecordDetailList = await loadData();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int counter = prefs.getInt('counter');
+
+    if (counter == null) {
+      await saveData(moodRecordDetailList, widget.moodRecordDetail);
+      moodRecordDetailList = await loadData();
+    } else
+      moodRecordDetailList = await loadData();
+
+    // moodRecordDetailList = await loadData().timeout(
+    //   Duration(milliseconds: 100),
+    //   onTimeout: () async {
+    //     print('timeout');
+    //     await saveData(moodRecordDetailList, widget.moodRecordDetail);
+    //     moodRecordDetailList = await loadData();
+    //   },
+    // );
 
     MoodRecordDetail newRecord = widget.moodRecordDetail;
     DateTime recordDate = DateTime.parse(widget.moodRecordDetail.dateTime);
@@ -106,6 +126,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
         );
       }
     }
+    await saveData(moodRecordDetailList, widget.moodRecordDetail);
   }
 
   @override
@@ -147,12 +168,12 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                 children: <Widget>[
                   Expanded(
                       child: Text(
-                    _currentMonth,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
-                    ),
-                  )),
+                        _currentMonth,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24.0,
+                        ),
+                      )),
                   FlatButton(
                     color: Colors.redAccent[100],
                     child: Text('PREV'),
@@ -191,12 +212,11 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return //calendar properties
-                        CalendarCarousel<Event>(
-                      dayCrossAxisAlignment: CrossAxisAlignment.start,
-                      onDayPressed: (DateTime date, List<Event> events) {
-                        this.setState(() => _currentDate = date);
-                        events.forEach((event) {
-                          if (event.date == date) {
+                      CalendarCarousel<Event>(
+                        dayCrossAxisAlignment: CrossAxisAlignment.start,
+                        onDayPressed: (DateTime date, List<Event> events) {
+                          this.setState(() => _currentDate = date);
+                          if (events.isNotEmpty) {
                             return showDialog(
                                 context: context,
                                 builder: (context) {
@@ -207,11 +227,12 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                       textAlign: TextAlign.center,
                                     ),
                                     content: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        event.getIcon(),
+                                        events.first.getIcon(),
                                         SizedBox(
                                           height: 20,
                                         ),
@@ -222,7 +243,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                                 horizontal: 15, vertical: 10),
                                             child: SingleChildScrollView(
                                               child: Text(
-                                                event.title,
+                                                events.first.title,
                                                 style: kThickFont.copyWith(
                                                     fontSize: 17),
                                                 textAlign: TextAlign.center,
@@ -233,7 +254,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                           decoration: BoxDecoration(
                                             color: Colors.grey[300],
                                             borderRadius:
-                                                BorderRadius.circular(10.0),
+                                            BorderRadius.circular(10.0),
                                           ),
                                         ),
                                         SizedBox(
@@ -242,7 +263,11 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                         MaterialButton(
                                           elevation: 5.0,
                                           color: Colors.grey[400],
-                                          child: Text('BACK'),
+                                          child: Text(
+                                            'BACK',
+                                            style:
+                                            kThickFont.copyWith(fontSize: 17),
+                                          ),
                                           onPressed: () async {
                                             Navigator.pop(context);
                                           },
@@ -252,43 +277,42 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                   );
                                 });
                           }
-                        });
-                      },
-                      weekendTextStyle: TextStyle(
-                        color: Colors.red,
-                      ),
-                      thisMonthDayBorderColor: Colors.grey,
+                        },
+                        weekendTextStyle: TextStyle(
+                          color: Colors.red,
+                        ),
+                        thisMonthDayBorderColor: Colors.grey,
 //          weekDays: null, /// for pass null when you do not want to render weekDays
-                      showHeader: false,
-                      weekFormat: false,
-                      markedDatesMap: moodRecords,
-                      height: 270.0,
-                      selectedDateTime: _currentDate,
-                      showIconBehindDayText: true,
+                        showHeader: false,
+                        weekFormat: false,
+                        markedDatesMap: moodRecords,
+                        height: 270.0,
+                        selectedDateTime: _currentDate,
+                        showIconBehindDayText: true,
 //          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
-                      customGridViewPhysics: NeverScrollableScrollPhysics(),
-                      markedDateShowIcon: true,
-                      markedDateIconMaxShown: 1,
-                      markedDateIconMargin: 10.80,
-                      selectedDayTextStyle: TextStyle(
-                          color: Colors.tealAccent,
-                          fontWeight: FontWeight.bold),
-                      todayTextStyle: TextStyle(
-                        color: Colors.blue,
-                      ),
-                      markedDateIconBuilder: (event) {
-                        return event.icon;
-                      },
-                      minSelectedDate:
-                          _currentDate.subtract(Duration(days: 360)),
-                      maxSelectedDate: _currentDate.add(Duration(days: 360)),
-                      todayButtonColor: Colors.transparent,
-                      todayBorderColor: Colors.transparent,
-                      selectedDayButtonColor: Colors.transparent,
-                      targetDateTime: _targetDateTime,
-                      markedDateMoreShowTotal: null,
-                      isScrollable: false,
-                    );
+                        customGridViewPhysics: NeverScrollableScrollPhysics(),
+                        markedDateShowIcon: true,
+                        markedDateIconMaxShown: 1,
+                        markedDateIconMargin: 10.80,
+                        selectedDayTextStyle: TextStyle(
+                            color: Colors.tealAccent,
+                            fontWeight: FontWeight.bold),
+                        todayTextStyle: TextStyle(
+                          color: Colors.blue,
+                        ),
+                        markedDateIconBuilder: (event) {
+                          return event.icon;
+                        },
+                        minSelectedDate:
+                        _currentDate.subtract(Duration(days: 360)),
+                        maxSelectedDate: _currentDate.add(Duration(days: 360)),
+                        todayButtonColor: Colors.transparent,
+                        todayBorderColor: Colors.transparent,
+                        selectedDayButtonColor: Colors.transparent,
+                        targetDateTime: _targetDateTime,
+                        markedDateMoreShowTotal: null,
+                        isScrollable: false,
+                      );
                   } else {
                     return Text(
                       'Loading...',
@@ -298,6 +322,15 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                 },
               ),
               height: 310,
+            ),
+            FlatButton(
+              color: Colors.purpleAccent[100],
+              child: Text('CLEAR'),
+              onPressed: () async {
+                SharedPreferences preferences =
+                await SharedPreferences.getInstance();
+                await preferences.clear();
+              },
             ),
           ],
         ),

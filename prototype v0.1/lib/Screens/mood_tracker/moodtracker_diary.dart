@@ -6,9 +6,9 @@ import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 
 class MoodTrackerDiary extends StatelessWidget {
   DateTime _currentDate =
-      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   final int moodLevel;
-  String _diaryContent;
+  String _diaryContent = '';
 
   final textEditingController = new TextEditingController();
 
@@ -35,7 +35,7 @@ class MoodTrackerDiary extends StatelessWidget {
                 colorOfCard: Colors.white.withOpacity(0.9),
                 cardChild: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                   child: TextField(
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
@@ -61,16 +61,42 @@ class MoodTrackerDiary extends StatelessWidget {
                 ),
               ),
               buttonAction: () {
-                String dateString = _currentDate.toString();
-                MoodRecordDetail moodRecordDetail = MoodRecordDetail(
-                    dateTime: dateString,
-                    title: _diaryContent,
-                    moodLevel: moodLevel);
-                Navigator.pushNamed(
-                  context,
-                  '/calendar',
-                  arguments: moodRecordDetail,
-                );
+                if (_diaryContent.isEmpty) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text(
+                            'Write something that led to this feeling...',
+                            style: kThickFont.copyWith(
+                                fontSize: 19, fontWeight: FontWeight.w100),
+                            textAlign: TextAlign.center,
+                          ),
+                          content: MaterialButton(
+                            elevation: 5.0,
+                            color: Colors.grey[400],
+                            child: Text(
+                              'OKAY',
+                              style: kThickFont.copyWith(fontSize: 17),
+                            ),
+                            onPressed: () async {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        );
+                      });
+                } else {
+                  String dateString = _currentDate.toString();
+                  MoodRecordDetail moodRecordDetail = MoodRecordDetail(
+                      dateTime: dateString,
+                      title: _diaryContent,
+                      moodLevel: moodLevel);
+                  Navigator.pushNamed(
+                    context,
+                    '/calendar',
+                    arguments: moodRecordDetail,
+                  );
+                }
               },
             )
           ],

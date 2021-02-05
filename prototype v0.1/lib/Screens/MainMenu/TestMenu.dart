@@ -4,6 +4,8 @@ import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/Tests/AnxietyTest.dart';
 import 'package:main_menu/components/Tests/StressTest.dart';
 
+import 'AnimatedButton.dart';
+
 class TestMenu extends StatelessWidget with MenuFunction {
   void stressTest(BuildContext context) {
     Navigator.of(context)
@@ -17,49 +19,36 @@ class TestMenu extends StatelessWidget with MenuFunction {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SwipeableWidget(
-        height: double.infinity,
-        onSwipeCallback: () {
-          returnBack(context);
-        },
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                child: Text(
-                  'Stress Test',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    color: Colors.black,
-                  ),
+    return Material(
+      child: SafeArea(
+        child: SwipeableWidget(
+          height: double.infinity,
+          onSwipeCallback: () {
+            returnBack(context);
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: AnimatedButton(
+                  textDisplayed: 'Stress Test',
+                  onTap: () {
+                    stressTest(context);
+                  },
                 ),
-                onPressed: () {
-                  stressTest(context);
-                },
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: RaisedButton(
-                child: Text(
-                  'Anxiety Test',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 22.0,
-                    color: Colors.black,
-                  ),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: AnimatedButton(
+                  textDisplayed: 'Anxiety Test',
+                  onTap: () {
+                    anxietyTest(context);
+                  },
                 ),
-                onPressed: () {
-                  anxietyTest(context);
-                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

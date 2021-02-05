@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Screens/Help/ImmediateHelpScreen.dart';
 import 'Screens/MainMenu/MainMenuScreen.dart';
 import 'Screens/MainMenu/TestMenu.dart';
 import 'Screens/Welcome/welcomescreen.dart';
@@ -34,6 +35,7 @@ class _MyAppState extends State<MyApp> {
           '/mainmenu/moodtracker': (context) => MoodTrackerMain(),
           '/mainmenu': (context) => MainMenuScreen(),
           '/mainmenu/test': (context) => TestMenu(),
+          '/mainmenu/helpScreen': (context) => ImmediateHelpScreen(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/diary') {

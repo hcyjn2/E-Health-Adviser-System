@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/intl.dart' show DateFormat;
+import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
-import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart' show DateFormat;
+import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,13 +20,14 @@ class MoodTrackerCalender extends StatefulWidget {
   MoodTrackerCalender({this.moodRecordDetail});
 }
 
-class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
+class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
+    with MenuFunction {
   //initialize properties
   DateTime _currentDate =
-  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime =
-  DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
   List<MoodRecordDetail> moodRecordDetailList;
   EventList<Event> moodRecords;
@@ -73,7 +76,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     List<MoodRecordDetail> decodedData =
-    MoodRecordDetail.decode(prefs.get('key'));
+        MoodRecordDetail.decode(prefs.get('key'));
 
     if (decodedData == null) return null;
 
@@ -143,76 +146,81 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-              child: Text(
-                'Your Journey',
-                style: kThickFont,
-                textAlign: TextAlign.center,
+    return SwipeableWidget(
+      onSwipeCallback: () {
+        returnBack(context);
+      },
+      height: double.infinity,
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+                child: Text(
+                  'Your Journey',
+                  style: kThickFont,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            //Calendar NavBar
-            Container(
-              margin: EdgeInsets.only(
-                top: 30.0,
-                bottom: 16.0,
-                left: 16.0,
-                right: 16.0,
+              //Calendar NavBar
+              Container(
+                margin: EdgeInsets.only(
+                  top: 30.0,
+                  bottom: 16.0,
+                  left: 16.0,
+                  right: 16.0,
+                ),
+                child: new Row(
+                  children: <Widget>[
+                    Expanded(
+                        child: Text(
+                      _currentMonth,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                      ),
+                    )),
+                    FlatButton(
+                      color: Colors.redAccent[100],
+                      child: Text('PREV'),
+                      onPressed: () {
+                        setState(() {
+                          _targetDateTime = DateTime(
+                              _targetDateTime.year, _targetDateTime.month - 1);
+                          _currentMonth =
+                              DateFormat.yMMM().format(_targetDateTime);
+                        });
+                      },
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    FlatButton(
+                      color: Colors.greenAccent[100],
+                      child: Text('NEXT'),
+                      onPressed: () {
+                        setState(() {
+                          _targetDateTime = DateTime(
+                              _targetDateTime.year, _targetDateTime.month + 1);
+                          _currentMonth =
+                              DateFormat.yMMM().format(_targetDateTime);
+                        });
+                      },
+                    )
+                  ],
+                ),
               ),
-              child: new Row(
-                children: <Widget>[
-                  Expanded(
-                      child: Text(
-                        _currentMonth,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24.0,
-                        ),
-                      )),
-                  FlatButton(
-                    color: Colors.redAccent[100],
-                    child: Text('PREV'),
-                    onPressed: () {
-                      setState(() {
-                        _targetDateTime = DateTime(
-                            _targetDateTime.year, _targetDateTime.month - 1);
-                        _currentMonth =
-                            DateFormat.yMMM().format(_targetDateTime);
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  FlatButton(
-                    color: Colors.greenAccent[100],
-                    child: Text('NEXT'),
-                    onPressed: () {
-                      setState(() {
-                        _targetDateTime = DateTime(
-                            _targetDateTime.year, _targetDateTime.month + 1);
-                        _currentMonth =
-                            DateFormat.yMMM().format(_targetDateTime);
-                      });
-                    },
-                  )
-                ],
-              ),
-            ),
-            //Mood Calendar
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 7.5),
-              child: FutureBuilder(
-                future: calendarFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return //calendar properties
-                      CalendarCarousel<Event>(
+              //Mood Calendar
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 7.5),
+                child: FutureBuilder(
+                  future: calendarFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return //calendar properties
+                          CalendarCarousel<Event>(
                         dayCrossAxisAlignment: CrossAxisAlignment.start,
                         onDayPressed: (DateTime date, List<Event> events) {
                           this.setState(() => _currentDate = date);
@@ -228,8 +236,9 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                     ),
                                     content: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                      mainAxisAlignment: MainAxisAlignment.start,
+                                          CrossAxisAlignment.stretch,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         events.first.getIcon(),
@@ -254,7 +263,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                           decoration: BoxDecoration(
                                             color: Colors.grey[300],
                                             borderRadius:
-                                            BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                           ),
                                         ),
                                         SizedBox(
@@ -265,8 +274,8 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                                           color: Colors.grey[400],
                                           child: Text(
                                             'BACK',
-                                            style:
-                                            kThickFont.copyWith(fontSize: 17),
+                                            style: kThickFont.copyWith(
+                                                fontSize: 17),
                                           ),
                                           onPressed: () async {
                                             Navigator.pop(context);
@@ -304,7 +313,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                           return event.icon;
                         },
                         minSelectedDate:
-                        _currentDate.subtract(Duration(days: 360)),
+                            _currentDate.subtract(Duration(days: 360)),
                         maxSelectedDate: _currentDate.add(Duration(days: 360)),
                         todayButtonColor: Colors.transparent,
                         todayBorderColor: Colors.transparent,
@@ -313,26 +322,27 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender> {
                         markedDateMoreShowTotal: null,
                         isScrollable: false,
                       );
-                  } else {
-                    return Text(
-                      'Loading...',
-                      style: kThickFont.copyWith(fontSize: 15),
-                    );
-                  }
+                    } else {
+                      return Text(
+                        'Loading...',
+                        style: kThickFont.copyWith(fontSize: 15),
+                      );
+                    }
+                  },
+                ),
+                height: 310,
+              ),
+              FlatButton(
+                color: Colors.purpleAccent[100],
+                child: Text('CLEAR'),
+                onPressed: () async {
+                  SharedPreferences preferences =
+                      await SharedPreferences.getInstance();
+                  await preferences.clear();
                 },
               ),
-              height: 310,
-            ),
-            FlatButton(
-              color: Colors.purpleAccent[100],
-              child: Text('CLEAR'),
-              onPressed: () async {
-                SharedPreferences preferences =
-                await SharedPreferences.getInstance();
-                await preferences.clear();
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

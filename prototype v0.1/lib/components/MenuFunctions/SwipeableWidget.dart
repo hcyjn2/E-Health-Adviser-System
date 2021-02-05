@@ -19,7 +19,7 @@ class SwipeableWidget extends StatefulWidget {
       @required this.child,
       @required this.height,
       @required this.onSwipeCallback,
-      this.swipePercentageNeeded = 0.75})
+      this.swipePercentageNeeded = 0.50})
       : assert(child != null &&
             onSwipeCallback != null &&
             swipePercentageNeeded <= 1.0),
@@ -64,12 +64,14 @@ class _SwipeableWidgetState extends State<SwipeableWidget>
           child: FractionallySizedBox(
             widthFactor: _controller.value,
             heightFactor: 1.0,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: widget.child,
-                ),
-              ],
+            child: OverflowBox(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: widget.child,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

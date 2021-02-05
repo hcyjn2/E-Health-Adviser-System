@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:main_menu/Screens/Login/components/loginbg.dart';
-import 'package:main_menu/Screens/MainMenu/MainMenuScreen.dart';
 import 'package:main_menu/Screens/SignUp/signupscreen.dart';
 import 'package:main_menu/components/EmailField.dart';
-import 'package:main_menu/components/buttons.dart';
-import 'package:main_menu/components/PasswordField.dart';
 import 'package:main_menu/components/LoginCheckAcc.dart';
+import 'package:main_menu/components/PasswordField.dart';
+import 'package:main_menu/components/buttons.dart';
 import 'package:main_menu/components/forgotpw.dart';
 
 class LoginBody extends StatelessWidget {
@@ -31,14 +30,7 @@ class LoginBody extends StatelessWidget {
           LoginSignUpButtons(
             text: "LOGIN",
             press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return MainMenuScreen();
-                  },
-                ),
-              );
+              Navigator.pushNamed(context, '/mainmenu');
             },
           ),
           SizedBox(height: 15),

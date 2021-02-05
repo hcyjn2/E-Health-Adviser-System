@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/Screens/mood_tracker/moodtracker_main.dart';
 
 class AnimatedButton extends StatefulWidget {
   final Color primaryColor;
   final String textDisplayed;
-  final int pageSelect;
+  final Function onTap;
 
-  AnimatedButton(this.primaryColor, this.textDisplayed, this.pageSelect);
+  AnimatedButton(
+      {this.primaryColor = Colors.grey,
+      @required this.textDisplayed,
+      @required this.onTap});
 
   @override
   _AnimatedButtonState createState() => _AnimatedButtonState();
@@ -80,17 +82,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
           child: InkWell(
             onTap: () {
               _scaleAnimationController.forward();
-              //This is to go to other pages
-              //will be using navigator to move
-              if (widget.pageSelect == 1) {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => TestPage()));
-              } else if (widget.pageSelect == 3) {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => MoodTrackerMain()));
-              } else {
-                print("other");
-              }
+              widget.onTap();
             },
             child: Container(
               width: 350.0,

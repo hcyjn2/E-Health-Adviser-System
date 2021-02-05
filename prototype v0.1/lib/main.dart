@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Screens/MainMenu/MainMenuScreen.dart';
+import 'Screens/MainMenu/TestMenu.dart';
 import 'Screens/Welcome/welcomescreen.dart';
 import 'Screens/mood_tracker/moodtracker_calender.dart';
 import 'Screens/mood_tracker/moodtracker_diary.dart';
@@ -29,7 +31,9 @@ class _MyAppState extends State<MyApp> {
         ),
         home: WelcomeScreen(),
         routes: {
-          '/moodtracker': (context) => MoodTrackerMain(),
+          '/mainmenu/moodtracker': (context) => MoodTrackerMain(),
+          '/mainmenu': (context) => MainMenuScreen(),
+          '/mainmenu/test': (context) => TestMenu(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/diary') {

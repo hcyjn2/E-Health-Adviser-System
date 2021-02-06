@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/mood_tracker/bottom_button.dart';
-import 'package:main_menu/components/mood_tracker/custom_card.dart';
-import 'package:main_menu/components/mood_tracker/icon_content.dart';
 import 'package:main_menu/constants.dart';
+import 'package:main_menu/components/mood_tracker/custom_card.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:main_menu/components/mood_tracker/icon_content.dart';
 
 class MoodTrackerMain extends StatefulWidget {
   @override
   _MoodTrackerMainState createState() => _MoodTrackerMainState();
 }
 
-class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
+class _MoodTrackerMainState extends State<MoodTrackerMain> {
   int moodLevel = 3;
   IconData emotionIcon = FontAwesomeIcons.meh;
   String emotionDescription = 'Meh';
@@ -44,74 +42,69 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
 
   @override
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      onSwipeCallback: () {
-        returnBack(context);
-      },
-      height: double.infinity,
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(
-                height: 20,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SafeArea(
+          child: Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'How are you feeling today?',
+              style: kThickFont,
+              textAlign: TextAlign.center,
+            ),
+            Expanded(
+                child: CustomCard(
+              colorOfCard: Colors.grey.withOpacity(0.5),
+              cardChild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconContent(emotionIcon, emotionDescription, labelColor),
+                  SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: Color(0xFF8D8E98),
+                      thumbColor: Color(0xFFA6FFF8),
+                      thumbShape: RoundSliderThumbShape(enabledThumbRadius: 14),
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 28),
+                      overlayColor: Color(0x29A6FFF8),
+                      trackHeight: 16,
+                    ),
+                    child: Slider(
+                        value: moodLevel.toDouble(),
+                        min: 1,
+                        max: 5,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            moodLevel = newValue.round();
+                            updateIconContent();
+                          });
+                        }),
+                  )
+                ],
               ),
-              Text(
-                'How are you feeling today?',
-                style: kThickFont,
-                textAlign: TextAlign.center,
-              ),
-              Expanded(
-                  child: CustomCard(
-                colorOfCard: Colors.grey.withOpacity(0.5),
-                cardChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconContent(emotionIcon, emotionDescription, labelColor),
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Colors.white,
-                        inactiveTrackColor: Color(0xFF8D8E98),
-                        thumbColor: Color(0xFFA6FFF8),
-                        thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 14),
-                        overlayShape:
-                            RoundSliderOverlayShape(overlayRadius: 28),
-                        overlayColor: Color(0x29A6FFF8),
-                        trackHeight: 16,
-                      ),
-                      child: Slider(
-                          value: moodLevel.toDouble(),
-                          min: 1,
-                          max: 5,
-                          onChanged: (double newValue) {
-                            setState(() {
-                              moodLevel = newValue.round();
-                              updateIconContent();
-                            });
-                          }),
-                    )
-                  ],
+            )),
+            BottomButton(
+                rippleColor: Colors.grey,
+                buttonColor: Color(0xFFA6FFF8),
+                buttonText: Text(
+                  'Next',
+                  style: kThickFont.copyWith(fontSize: 30),
                 ),
-              )),
-              BottomButton(
-                  containerColor: Color(0xFFA6FFF8),
-                  buttonText: Text(
-                    'Next',
-                    style: kThickFont.copyWith(fontSize: 30),
-                  ),
-                  buttonAction: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/diary',
-                      arguments: moodLevel,
-                    );
-                  })
-            ],
-          ),
+                buttonAction: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/diary',
+                    arguments: moodLevel,
+                  );
+                })
+          ],
         ),
-      ),
+      )),
     );
   }
 }

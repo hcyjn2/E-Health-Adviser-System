@@ -135,6 +135,9 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
               setSelectedAnxietyAnswer(value);
             },
           ),
+          SizedBox(
+            height: 55,
+          )
         ],
         onAction: nextQuestion,
         header: 'Simply answer next ' +

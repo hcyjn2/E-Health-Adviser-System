@@ -3,24 +3,28 @@ import 'package:flutter/material.dart';
 class BottomButton extends StatelessWidget {
   final Text buttonText;
   final Function buttonAction;
-  final Color containerColor;
+  final Color buttonColor;
+  final Color rippleColor;
 
   BottomButton(
       {@required this.buttonText,
       @required this.buttonAction,
-      @required this.containerColor});
+      @required this.buttonColor,
+      @required this.rippleColor});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: buttonAction,
-      child: Container(
-        child: Center(child: buttonText),
+    return Padding(
+      padding: const EdgeInsets.only(top: 21),
+      child: Ink(
         height: 75,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-            color: containerColor, borderRadius: BorderRadius.circular(2.5)),
+        color: buttonColor,
+        child: InkWell(
+          splashColor: rippleColor,
+          onTap: buttonAction,
+          child: Center(child: buttonText),
+        ),
       ),
     );
   }

@@ -22,7 +22,7 @@ class LoginSignUpButtons extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(0),
         child: FlatButton(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),      
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           color: color,
           onPressed: press,
           child: Text(
@@ -34,7 +34,7 @@ class LoginSignUpButtons extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
-          ),
+        ),
       ),
     );
   }

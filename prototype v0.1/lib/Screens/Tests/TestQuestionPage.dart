@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/components/mood_tracker/bottom_button.dart';
+import 'package:main_menu/constants.dart';
 
 class TestQuestionPage extends StatelessWidget {
   /// Represents the current question text
@@ -31,76 +33,60 @@ class TestQuestionPage extends StatelessWidget {
     return Material(
       child: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Expanded(
-              flex: 1,
+            Container(
+              margin: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.grey[400],
+                borderRadius: BorderRadius.circular(10.0),
+              ),
               child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text(
-                  header,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                padding: const EdgeInsets.all(12.0),
+                child: Text(header,
+                    textAlign: TextAlign.center,
+                    style: kThickFont.copyWith(fontSize: 40)),
               ),
             ),
-            Expanded(
-              flex: 3,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      questionPrefix,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.black,
-                      ),
-                    ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    questionPrefix,
+                    textAlign: TextAlign.left,
+                    style: kThickFont.copyWith(fontSize: 20),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      question,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    children: answerChoices,
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.all(10.0),
-                child: RaisedButton(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      'Next',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 22.0,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  onPressed: onAction,
                 ),
-              ),
+                Container(
+                  height: 85,
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Padding(
+                    padding: EdgeInsets.all(12.0),
+                    child: Text(question,
+                        textAlign: TextAlign.left,
+                        style: kThickFont.copyWith(
+                            fontSize: 16, color: Colors.indigo[900])),
+                  ),
+                ),
+                Column(
+                  children: answerChoices,
+                ),
+                BottomButton(
+                  buttonText: Text(
+                    'NEXT',
+                    style: kThickFont.copyWith(fontSize: 30),
+                  ),
+                  buttonAction: onAction,
+                  buttonColor: Colors.lightBlueAccent[100],
+                  rippleColor: Colors.grey,
+                )
+              ],
             ),
           ],
         ),
@@ -108,3 +94,24 @@ class TestQuestionPage extends StatelessWidget {
     );
   }
 }
+
+// Align(
+// alignment: Alignment.bottomCenter,
+// child: Padding(
+// padding: EdgeInsets.all(10.0),
+// child: RaisedButton(
+// child: SizedBox(
+// width: double.infinity,
+// child: Text(
+// 'Next',
+// textAlign: TextAlign.center,
+// style: TextStyle(
+// fontSize: 22.0,
+// color: Colors.black,
+// ),
+// ),
+// ),
+// onPressed: onAction,
+// ),
+// ),
+// ),

@@ -20,7 +20,7 @@ class SignUpBG extends StatelessWidget {
             top: 3,
             left: 0,
             child: Image.asset(
-              "Assets/Images/topleft.png",
+              "assets/Images/topleft.png",
               width: size.width * 0.35,
             ),
           ),
@@ -28,7 +28,7 @@ class SignUpBG extends StatelessWidget {
             bottom: 0,
             right: -10,
             child: Image.asset(
-              "Assets/Images/bottomright.png",
+              "assets/Images/bottomright.png",
               width: size.width * 0.36,
             ),
           ),

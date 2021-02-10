@@ -3,6 +3,10 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class HelpAudioPlayer extends StatefulWidget {
+  final String assetsAudioPath;
+
+  HelpAudioPlayer({Key key, @required this.assetsAudioPath})
+      : assert(assetsAudioPath != null);
   @override
   _HelpAudioPlayerState createState() => _HelpAudioPlayerState();
 }
@@ -35,16 +39,16 @@ class _HelpAudioPlayerState extends State<HelpAudioPlayer> {
 
   @override
   void deactivate() {
-    _player.stop();
+    if (_player != null) _player.stop();
     _cache.clearCache();
     super.deactivate();
   }
 
   void playHandler() async {
     if (_isPlaying) {
-      _player.stop();
+      if (_player != null) _player.stop();
     } else {
-      _player = await _cache.play('audios/song1.mp3');
+      _player = await _cache.play(widget.assetsAudioPath);
     }
 
     setState(() {

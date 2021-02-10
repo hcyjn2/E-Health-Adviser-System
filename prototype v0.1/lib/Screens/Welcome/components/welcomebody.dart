@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/Screens/Welcome/components/welcomebg.dart';
-import 'package:main_menu/constants.dart';
-import 'package:main_menu/components/buttons.dart';
 import 'package:main_menu/Screens/Login/loginscreen.dart';
 import 'package:main_menu/Screens/SignUp/signupscreen.dart';
+import 'package:main_menu/Screens/Welcome/components/welcomebg.dart';
+import 'package:main_menu/components/buttons.dart';
+import 'package:main_menu/constants.dart';
 
 class Body extends StatelessWidget {
   @override

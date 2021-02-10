@@ -7,10 +7,9 @@ class WelcomeBackground extends StatelessWidget {
     @required this.child,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
-        Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
       width: double.infinity,
@@ -20,19 +19,21 @@ class WelcomeBackground extends StatelessWidget {
           Positioned(
             top: 3,
             left: 0,
-            child: Image.asset("Assets/Images/topleft.png",
-        width:size.width * 0.35,
-         ),
-         ),
-         Positioned(
-           bottom: 0,
-           right: -10,
-           child: Image.asset("Assets/Images/bottomright.png",
-           width:size.width * 0.36,
-           ),
-           ),
-           child,
-         ],
+            child: Image.asset(
+              "assets/Images/topleft.png",
+              width: size.width * 0.35,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: -10,
+            child: Image.asset(
+              "assets/Images/bottomright.png",
+              width: size.width * 0.36,
+            ),
+          ),
+          child,
+        ],
       ),
     );
   }

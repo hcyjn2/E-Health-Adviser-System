@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/mood_tracker/bottom_button.dart';
-import 'package:main_menu/constants.dart';
 import 'package:main_menu/components/mood_tracker/custom_card.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
+import 'package:main_menu/constants.dart';
 
 class MoodTrackerDiary extends StatefulWidget {
   final int moodLevel;
@@ -13,7 +15,7 @@ class MoodTrackerDiary extends StatefulWidget {
   _MoodTrackerDiaryState createState() => _MoodTrackerDiaryState();
 }
 
-class _MoodTrackerDiaryState extends State<MoodTrackerDiary> {
+class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
 
@@ -23,7 +25,11 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return SwipeableWidget(
+      onSwipeCallback: () {
+        returnBack(context);
+      },
+      height: double.infinity,
       child: Scaffold(
         backgroundColor: Color(0xFFC7FFFB),
         body: Column(

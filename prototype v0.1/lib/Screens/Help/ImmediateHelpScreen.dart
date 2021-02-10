@@ -28,7 +28,6 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
         returnBack(context);
       },
       child: Scaffold(
-        appBar: AppBar(title: Text('Immediate Help')),
         body: Stack(
           children: <Widget>[
             ...slidesForAnimation,
@@ -42,7 +41,9 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
                 Row(
                   children: <Widget>[
                     Expanded(
-                      child: HelpAudioPlayer(),
+                      child: HelpAudioPlayer(
+                        assetsAudioPath: 'Audios/song1.mp3',
+                      ),
                     ),
                   ],
                 ),
@@ -73,7 +74,7 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
     super.initState();
     for (int i = amountOfSlides; i > 0; i--) {
       final Image image = Image.asset(
-        'assets/images/Slide$i.jpg',
+        'assets/Images/Slide$i.jpg',
         fit: BoxFit.cover,
         height: double.infinity,
         gaplessPlayback: true,
@@ -104,7 +105,6 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
         new Timer.periodic(const Duration(seconds: 10), changeBackgroundImage);
   }
 
-  /*
   @override
   void didChangeDependencies() {
     slidesForAnimation.forEach((image) {
@@ -112,7 +112,7 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
     });
     super.didChangeDependencies();
   }
-  */
+
   @override
   void deactivate() {
     _timer.cancel();

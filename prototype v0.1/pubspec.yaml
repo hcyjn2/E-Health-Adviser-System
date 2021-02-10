@@ -23,12 +23,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  audioplayers: ^0.15.1
   cupertino_icons: ^1.0.0
   font_awesome_flutter: 8.10.0
   flutter_calendar_carousel: ^1.5.1
   shared_preferences: ^0.5.12+4
-  audioplayers: ^0.15.1
+
 
 dev_dependencies:
   flutter_test:
@@ -47,8 +47,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - Assets/Images/
-    - Assets/Audios/
+    - assets/Images/
+    - assets/Audios/song1.mp3
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -66,26 +66,26 @@ flutter:
   fonts:
     - family: DejaVuSerif
       fonts:
-        - asset: Assets/Fonts/DejaVuSerif.ttf
-        - asset: Assets/Fonts/DejaVuSerif-Italic.ttf
+        - asset: assets/fonts/deja_vu_serif.ttf
+        - asset: assets/fonts/deja_vu_serif_Italic.ttf
           weight: 400
           style: italic
 
     - family: Gilroy
       fonts:
-        - asset: Assets/Fonts/Gilroy-Light.otf
-        - asset: Assets/Fonts/Gilroy-ExtraBold.otf
+        - asset: assets/fonts/gilroy_light.otf
+        - asset: assets/fonts/gilroy_extra_bold.otf
           weight: 400
 
     - family: Manrope
       fonts:
-        - asset: Assets/Fonts/Manrope-ExtraLight.otf
-        - asset: Assets/Fonts/Manrope-Light.otf
-        - asset: Assets/Fonts/Manrope-Medium.otf
-        - asset: Assets/Fonts/Manrope-Regular.otf
-        - asset: Assets/Fonts/Manrope-SemiBold.otf
-        - asset: Assets/Fonts/Manrope-Bold.otf
-        - asset: Assets/Fonts/Manrope-ExtraBold.otf
+        - asset: assets/fonts/manrope_extra_light.otf
+        - asset: assets/fonts/manrope_light.otf
+        - asset: assets/fonts/manrope_medium.otf
+        - asset: assets/fonts/manrope_regular.otf
+        - asset: assets/fonts/manrope_semi_bold.otf
+        - asset: assets/fonts/manrope_bold.otf
+        - asset: assets/fonts/manrope_extra_bold.otf
           weight: 400
 
   #   - family: Schyler

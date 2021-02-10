@@ -31,6 +31,7 @@ class MainMenuScreen extends StatelessWidget {
           handleSwipe(context);
         },
         height: double.infinity,
+        direction: SwipeDirection.toLeft,
         child: SafeArea(
           child: Center(
             child: Column(

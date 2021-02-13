@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
+import 'package:main_menu/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AnimatedButton.dart';
 import 'MainMenuDrawer.dart';
 import 'ReusableMainMenuCard.dart';
 
-class MainMenuScreen extends StatelessWidget {
+class MainMenuScreen extends StatefulWidget {
+  @override
+  _MainMenuScreenState createState() => _MainMenuScreenState();
+}
+
+class _MainMenuScreenState extends State<MainMenuScreen> {
   void testChosen(BuildContext context) {
     Navigator.pushNamed(context, '/mainmenu/test');
   }
@@ -17,6 +25,80 @@ class MainMenuScreen extends StatelessWidget {
 
   void moodTrackerChosen(BuildContext context) {
     Navigator.pushNamed(context, '/mainmenu/moodtracker');
+  }
+
+  Future loadData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    List<MoodRecordDetail> decodedData =
+        MoodRecordDetail.decode(prefs.get('key'));
+
+    if (decodedData == null) return null;
+
+    return decodedData;
+  }
+
+  Future<bool> isTodayRecorded() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int counter = prefs.getInt('counter');
+
+    if (counter == null) return false;
+
+    var moodRecordDetailList = await loadData();
+
+    final String curDate = DateTime.now().toString().substring(0, 10);
+
+    for (var moodRecordDetail in moodRecordDetailList) {
+      String recordDate = moodRecordDetail.dateTime.toString().substring(0, 10);
+
+      if (recordDate == curDate) return true;
+    }
+
+    return false;
+  }
+
+  Future<Widget> buildAlert() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'You have already check-in today.\n\nDo you want to Overwrite it?',
+              style: kThickFont.copyWith(fontSize: 19),
+              textAlign: TextAlign.center,
+            ),
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MaterialButton(
+                  elevation: 5.0,
+                  color: Colors.lightGreenAccent[100],
+                  child: Text('YES'),
+                  onPressed: () async {
+                    setState(() {
+                      //YES Action
+                      moodTrackerChosen(context);
+                    });
+                  },
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                MaterialButton(
+                  elevation: 5.0,
+                  color: Colors.redAccent[100],
+                  child: Text('NO'),
+                  onPressed: () async {
+                    setState(() {
+                      //NO Action
+                      Navigator.pop(context);
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   @override
@@ -52,8 +134,11 @@ class MainMenuScreen extends StatelessWidget {
                 AnimatedButton(
                   primaryColor: Colors.green[400],
                   textDisplayed: "MoodTracker",
-                  onTap: () {
-                    moodTrackerChosen(context);
+                  onTap: () async {
+                    if (await isTodayRecorded())
+                      buildAlert();
+                    else
+                      moodTrackerChosen(context);
                   },
                 ),
                 AnimatedButton(

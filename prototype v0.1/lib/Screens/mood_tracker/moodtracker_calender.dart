@@ -93,15 +93,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     } else
       moodRecordDetailList = await loadData();
 
-    // moodRecordDetailList = await loadData().timeout(
-    //   Duration(milliseconds: 100),
-    //   onTimeout: () async {
-    //     print('timeout');
-    //     await saveData(moodRecordDetailList, widget.moodRecordDetail);
-    //     moodRecordDetailList = await loadData();
-    //   },
-    // );
-
     MoodRecordDetail newRecord = widget.moodRecordDetail;
     DateTime recordDate = DateTime.parse(widget.moodRecordDetail.dateTime);
 
@@ -117,7 +108,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     );
 
     if (moodRecordDetailList.length > 1) {
-      print('loop');
       for (var data in moodRecordDetailList) {
         moodRecords.add(
           DateTime.parse(data.dateTime),
@@ -247,6 +237,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
                                         ),
                                         Container(
                                           height: 250,
+                                          width: 250,
                                           child: Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 15, vertical: 10),
@@ -267,7 +258,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
                                           ),
                                         ),
                                         SizedBox(
-                                          height: 30,
+                                          height: 18,
                                         ),
                                         MaterialButton(
                                           elevation: 5.0,
@@ -374,41 +365,3 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
 // await preferences.clear();
 // },
 // ),
-
-// createAlertDialog(BuildContext context) {
-//   return showDialog(
-//       context: context,
-//       builder: (context) {
-//         return AlertDialog(
-//           title: Text(
-//             'You have already check-in today.\n\nDo you want to Overwrite it?',
-//             style: kThickFont.copyWith(fontSize: 19),
-//             textAlign: TextAlign.center,
-//           ),
-//           content: Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: [
-//               MaterialButton(
-//                 elevation: 5.0,
-//                 color: Colors.lightGreenAccent[100],
-//                 child: Text('YES'),
-//                 onPressed: () async {
-//                   Navigator.pop(context);
-//                 },
-//               ),
-//               SizedBox(
-//                 width: 30,
-//               ),
-//               MaterialButton(
-//                 elevation: 5.0,
-//                 color: Colors.redAccent[100],
-//                 child: Text('NO'),
-//                 onPressed: () async {
-//                   Navigator.pop(context);
-//                 },
-//               ),
-//             ],
-//           ),
-//         );
-//       });
-// }

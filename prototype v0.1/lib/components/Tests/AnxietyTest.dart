@@ -1,29 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/Tests/ResultPage.dart';
 import 'package:main_menu/Screens/Tests/TestQuestionPage.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/Tests/AnxietyTestResult.dart';
 
-enum AnxietyTestAnswer {
-  NotAtAll,
-  SeveralDays,
-  OverHalfTheDays,
-  NearlyEveryday,
-  None,
-}
-
-extension AnxietyTestAnswerExtension on AnxietyTestAnswer {
-  int get points {
-    int points;
-    if (this == AnxietyTestAnswer.NotAtAll)
-      points = 0;
-    else if (this == AnxietyTestAnswer.SeveralDays)
-      points = 1;
-    else if (this == AnxietyTestAnswer.OverHalfTheDays)
-      points = 2;
-    else if (this == AnxietyTestAnswer.NearlyEveryday) points = 3;
-    return points;
-  }
-}
+import 'TestEnums.dart';
 
 class AnxietyTest extends StatefulWidget {
   final int questionCount = 7;
@@ -37,9 +19,6 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
   ///Set of anxiety questions
   List<String> anxietyQuestions = [];
 
-  ///Set of answers
-  Map<AnxietyTestAnswer, String> anxietyTestAnswerTexts;
-
   ///Set of anxiety answers
   List<AnxietyTestAnswer> answers = [];
 
@@ -52,12 +31,6 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
   @override
   initState() {
     super.initState();
-    anxietyTestAnswerTexts = Map();
-    anxietyTestAnswerTexts[AnxietyTestAnswer.NotAtAll] = "Never";
-    anxietyTestAnswerTexts[AnxietyTestAnswer.SeveralDays] = "Almost Never";
-    anxietyTestAnswerTexts[AnxietyTestAnswer.OverHalfTheDays] = "Sometimes";
-    anxietyTestAnswerTexts[AnxietyTestAnswer.NearlyEveryday] = "Fairly Often";
-
     anxietyQuestions.add('Feeling nervous, anxious, or on edge?');
     anxietyQuestions.add('Not being able to stop or control worrying?');
     anxietyQuestions.add('Worrying too much about different things?');
@@ -88,7 +61,17 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
         questionCounter++;
       });
     } else {
-      ///Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => StressResultTest()));
+      AnxietyTestResult results = AnxietyTestResult(resultScore: totalScore);
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => ResultPage(
+                    testType: Tests.Anxiety,
+                    resultScore: totalScore,
+                    resultPhrase: results.resultText,
+                    advices: 'Just breathe more',
+                  )));
     }
   }
 
@@ -99,12 +82,13 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
         returnBack(context);
       },
       child: TestQuestionPage(
+        questionNumber: questionCounter + 1,
         question: anxietyQuestions[questionCounter],
         answerChoices: <Widget>[
           RadioListTile(
             value: AnxietyTestAnswer.NotAtAll,
             groupValue: testAnswerChosen,
-            title: Text(anxietyTestAnswerTexts[AnxietyTestAnswer.NotAtAll]),
+            title: Text(AnxietyTestAnswer.NotAtAll.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
@@ -112,7 +96,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
           RadioListTile(
             value: AnxietyTestAnswer.SeveralDays,
             groupValue: testAnswerChosen,
-            title: Text(anxietyTestAnswerTexts[AnxietyTestAnswer.SeveralDays]),
+            title: Text(AnxietyTestAnswer.SeveralDays.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
@@ -120,8 +104,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
           RadioListTile(
             value: AnxietyTestAnswer.OverHalfTheDays,
             groupValue: testAnswerChosen,
-            title:
-                Text(anxietyTestAnswerTexts[AnxietyTestAnswer.OverHalfTheDays]),
+            title: Text(AnxietyTestAnswer.OverHalfTheDays.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
@@ -129,15 +112,11 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
           RadioListTile(
             value: AnxietyTestAnswer.NearlyEveryday,
             groupValue: testAnswerChosen,
-            title:
-                Text(anxietyTestAnswerTexts[AnxietyTestAnswer.NearlyEveryday]),
+            title: Text(AnxietyTestAnswer.NearlyEveryday.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
           ),
-          SizedBox(
-            height: 55,
-          )
         ],
         onAction: nextQuestion,
         header: 'Simply answer next ' +

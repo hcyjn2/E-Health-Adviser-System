@@ -17,16 +17,21 @@ class TestQuestionPage extends StatelessWidget {
   ///Function that executes when next button is pressed
   final Function onAction;
 
+  final int questionNumber;
+
   TestQuestionPage({
     Key key,
     @required this.question,
     @required this.answerChoices,
     @required this.onAction,
     @required this.header,
+    @required this.questionNumber,
     this.questionPrefix = 'In the LAST MONTH, how often have you:',
   })  : assert(question != null),
         assert(answerChoices != null),
         assert(onAction != null),
+        assert(questionNumber != null && questionNumber > 0),
+        assert(header != null),
         super(key: key);
 
   Widget build(BuildContext context) {
@@ -48,6 +53,12 @@ class TestQuestionPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: kThickFont.copyWith(fontSize: 40)),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text('Question ' + questionNumber.toString() + '.',
+                  textAlign: TextAlign.left,
+                  style: kThickFont.copyWith(fontSize: 20)),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

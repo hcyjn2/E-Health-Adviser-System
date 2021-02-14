@@ -1,35 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/Tests/ResultPage.dart';
 import 'package:main_menu/Screens/Tests/TestQuestionPage.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/Tests/StressAdvices.dart';
+import 'package:main_menu/components/Tests/StressTestResult.dart';
 
-enum StressTestAnswer {
-  Never,
-  AlmostNever,
-  Sometimes,
-  FairlyOften,
-  VeryOften,
-  None,
-}
-
-extension StressTestAnswerExtension on StressTestAnswer {
-  int get points {
-    int points;
-    if (this == StressTestAnswer.Never)
-      points = 0;
-    else if (this == StressTestAnswer.AlmostNever)
-      points = 1;
-    else if (this == StressTestAnswer.Sometimes)
-      points = 2;
-    else if (this == StressTestAnswer.FairlyOften)
-      points = 3;
-    else if (this == StressTestAnswer.VeryOften) points = 4;
-    return points;
-  }
-}
+import 'TestEnums.dart';
 
 class StressTest extends StatefulWidget {
-  final int questionCount = 2;
+  final int questionCount = 13;
   StressTestState createState() => StressTestState();
 }
 
@@ -39,9 +19,6 @@ class StressTestState extends State<StressTest> with MenuFunction {
 
   ///Set of stress questions
   List<String> stressQuestions = [];
-
-  ///Set of answers
-  Map<StressTestAnswer, String> stressTestAnswerTexts;
 
   ///Set of stress answers
   List<StressTestAnswer> answers = [];
@@ -55,16 +32,23 @@ class StressTestState extends State<StressTest> with MenuFunction {
   @override
   initState() {
     super.initState();
-    stressTestAnswerTexts = Map();
-    stressTestAnswerTexts[StressTestAnswer.Never] = "Never";
-    stressTestAnswerTexts[StressTestAnswer.AlmostNever] = "AlmostNever";
-    stressTestAnswerTexts[StressTestAnswer.Sometimes] = "Sometimes";
-    stressTestAnswerTexts[StressTestAnswer.FairlyOften] = "FairlyOften";
-    stressTestAnswerTexts[StressTestAnswer.VeryOften] = "VeryOften";
-
-    stressQuestions.add('You okay?');
-    stressQuestions.add('Are you sure??');
-
+    stressQuestions
+        .add('Found yourself getting upset by quite trivial things?');
+    stressQuestions.add('Tended to over-react to situations?');
+    stressQuestions.add('Found it difficult to relax?');
+    stressQuestions.add('Felt that you were using a lot of nervous energy?');
+    stressQuestions.add(
+        'Found yourself getting impatient when you were delayed in any way (eg, lifts, traffic lights, being kept waiting)?');
+    stressQuestions.add('Felt that you were rather touchy?');
+    stressQuestions.add('Found it hard to wind down?');
+    stressQuestions.add('Found yourself being very irritable?');
+    stressQuestions.add('Found it hard to calm down after something upset you');
+    stressQuestions.add(
+        'Found it difficult to tolerate interruptions to what you were doing?');
+    stressQuestions.add('Were in a state of nervous tension?');
+    stressQuestions.add(
+        'Were intolerant of anything that kept you from getting on with what you were doing?');
+    stressQuestions.add('Found yourself getting agitated?');
     testAnswerChosen = StressTestAnswer.None;
 
     questionCounter = 0;
@@ -87,7 +71,19 @@ class StressTestState extends State<StressTest> with MenuFunction {
         questionCounter++;
       });
     } else {
-      ///Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => StressResultTest()));
+      StressTestResult results = StressTestResult(
+        resultScore: totalScore,
+      );
+      StressAdvices stressAdvices = StressAdvices();
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => ResultPage(
+                    testType: Tests.Stress,
+                    resultScore: totalScore,
+                    resultPhrase: results.resultText,
+                    advices: stressAdvices.getAdvices(2),
+                  )));
     }
   }
 
@@ -98,20 +94,13 @@ class StressTestState extends State<StressTest> with MenuFunction {
         returnBack(context);
       },
       child: TestQuestionPage(
+        questionNumber: questionCounter + 1,
         question: stressQuestions[questionCounter],
         answerChoices: <Widget>[
           RadioListTile(
             value: StressTestAnswer.Never,
             groupValue: testAnswerChosen,
-            title: Text(stressTestAnswerTexts[StressTestAnswer.Never]),
-            onChanged: (value) {
-              setSelectedStressAnswer(value);
-            },
-          ),
-          RadioListTile(
-            value: StressTestAnswer.AlmostNever,
-            groupValue: testAnswerChosen,
-            title: Text(stressTestAnswerTexts[StressTestAnswer.AlmostNever]),
+            title: Text(StressTestAnswer.Never.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
@@ -119,7 +108,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
           RadioListTile(
             value: StressTestAnswer.Sometimes,
             groupValue: testAnswerChosen,
-            title: Text(stressTestAnswerTexts[StressTestAnswer.Sometimes]),
+            title: Text(StressTestAnswer.Sometimes.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
@@ -127,7 +116,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
           RadioListTile(
             value: StressTestAnswer.FairlyOften,
             groupValue: testAnswerChosen,
-            title: Text(stressTestAnswerTexts[StressTestAnswer.FairlyOften]),
+            title: Text(StressTestAnswer.FairlyOften.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
@@ -135,7 +124,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
           RadioListTile(
             value: StressTestAnswer.VeryOften,
             groupValue: testAnswerChosen,
-            title: Text(stressTestAnswerTexts[StressTestAnswer.VeryOften]),
+            title: Text(StressTestAnswer.VeryOften.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },

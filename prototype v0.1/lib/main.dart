@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/mood_tracker/moodtracker_calendar_view.dart';
 
 import 'Screens/Help/ImmediateHelpScreen.dart';
 import 'Screens/MainMenu/MainMenuScreen.dart';
@@ -33,6 +34,8 @@ class _MyAppState extends State<MyApp> {
         home: WelcomeScreen(),
         routes: {
           '/mainmenu/moodtracker': (context) => MoodTrackerMain(),
+          '/mainmenu/moodtrackercalendarview': (context) =>
+              MoodTrackerCalenderView(),
           '/mainmenu': (context) => MainMenuScreen(),
           '/mainmenu/test': (context) => TestMenu(),
           '/mainmenu/helpScreen': (context) => ImmediateHelpScreen(),

@@ -11,16 +11,12 @@ import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MoodTrackerCalender extends StatefulWidget {
+class MoodTrackerCalenderView extends StatefulWidget {
   @override
   _MoodTrackerCalenderState createState() => _MoodTrackerCalenderState();
-
-  MoodRecordDetail moodRecordDetail;
-
-  MoodTrackerCalender({this.moodRecordDetail});
 }
 
-class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
+class _MoodTrackerCalenderState extends State<MoodTrackerCalenderView>
     with MenuFunction {
   //initialize properties
   DateTime _currentDate =
@@ -57,21 +53,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     }
   }
 
-  void saveData(List<MoodRecordDetail> moodRecordDetailList,
-      MoodRecordDetail newMoodRecordDetail) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int counter = prefs.getInt('counter') ?? 0;
-
-    if (moodRecordDetailList == null)
-      moodRecordDetailList = [newMoodRecordDetail];
-    else
-      moodRecordDetailList.add(newMoodRecordDetail);
-
-    counter++;
-    prefs.setString('key', MoodRecordDetail.encode(moodRecordDetailList));
-    prefs.setInt('counter', counter);
-  }
-
   Future loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -84,25 +65,19 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   }
 
   Future updateUI() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int counter = prefs.getInt('counter');
+    moodRecordDetailList = await loadData();
 
-    if (counter == null) {
-      await saveData(moodRecordDetailList, widget.moodRecordDetail);
-      moodRecordDetailList = await loadData();
-    } else
-      moodRecordDetailList = await loadData();
-
-    MoodRecordDetail newRecord = widget.moodRecordDetail;
-    DateTime recordDate = DateTime.parse(widget.moodRecordDetail.dateTime);
+    MoodRecordDetail firstRecord = moodRecordDetailList.first;
+    DateTime firstRecordDate =
+        DateTime.parse(moodRecordDetailList.first.dateTime);
 
     moodRecords = new EventList<Event>(
       events: {
-        recordDate: [
+        firstRecordDate: [
           new Event(
-              date: recordDate,
-              title: newRecord.title,
-              icon: readMoodLevel(newRecord.moodLevel))
+              date: firstRecordDate,
+              title: firstRecord.title,
+              icon: readMoodLevel(firstRecord.moodLevel))
         ]
       },
     );
@@ -119,19 +94,12 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
         );
       }
     }
-    await saveData(moodRecordDetailList, widget.moodRecordDetail);
   }
 
   @override
   void initState() {
     super.initState();
     calendarFuture = _getCalendarFuture();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    saveData(moodRecordDetailList, widget.moodRecordDetail);
   }
 
   @override
@@ -323,22 +291,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
                 ),
                 height: 310,
               ),
-              FlatButton(
-                color: Colors.purpleAccent[100],
-                child: Text('CLEAR'),
-                onPressed: () async {
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  await preferences.clear();
-                },
-              ),
-              FlatButton(
-                color: Colors.grey[400],
-                child: Text('BACK'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/mainmenu');
-                },
-              ),
             ],
           ),
         ),
@@ -346,29 +298,3 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     );
   }
 }
-
-// FlatButton(
-// color: Colors.blueAccent[100],
-// child: Text('SAVE'),
-// onPressed: () async {
-// await saveData(moodRecordDetailList, widget.moodRecordDetail);
-// setState(() {});
-// },
-// ),
-// FlatButton(
-// color: Colors.amberAccent[100],
-// child: Text('LOAD'),
-// onPressed: () async {
-// await updateUI();
-// setState(() {});
-// },
-// )
-// FlatButton(
-// color: Colors.purpleAccent[100],
-// child: Text('CLEAR'),
-// onPressed: () async {
-// SharedPreferences preferences =
-//     await SharedPreferences.getInstance();
-// await preferences.clear();
-// },
-// ),

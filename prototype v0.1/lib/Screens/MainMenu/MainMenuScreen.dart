@@ -27,6 +27,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     Navigator.pushNamed(context, '/mainmenu/moodtracker');
   }
 
+  void moodTrackerCalendarViewChosen(BuildContext context) {
+    Navigator.pushNamed(context, '/mainmenu/moodtrackercalendarview');
+  }
+
   Future loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -57,13 +61,23 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     return false;
   }
 
-  Future<Widget> buildAlert() {
+  Future<bool> isMoodCalendarEmpty() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int counter = prefs.getInt('counter');
+
+    if (counter == null)
+      return true;
+    else
+      return false;
+  }
+
+  Future<Widget> buildOverwriteAlert() {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text(
-              'You have already check-in today.\n\nDo you want to Overwrite it?',
+              'You have already checked-in today.\n\nDo you want to Overwrite it?',
               style: kThickFont.copyWith(fontSize: 19),
               textAlign: TextAlign.center,
             ),
@@ -101,6 +115,31 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
         });
   }
 
+  Future<Widget> buildEmptyCalendarAlert() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'The calendar is Empty. \n\nTry to record something...\n',
+              style: kThickFont.copyWith(fontSize: 19),
+              textAlign: TextAlign.center,
+            ),
+            content: MaterialButton(
+              elevation: 5.0,
+              color: Colors.grey[400],
+              child: Text('OKAY'),
+              onPressed: () async {
+                setState(() {
+                  //NO Action
+                  Navigator.pop(context);
+                });
+              },
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,18 +172,23 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 ),
                 AnimatedButton(
                   primaryColor: Colors.green[400],
-                  textDisplayed: "MoodTracker",
+                  textDisplayed: "Record Mood",
                   onTap: () async {
                     if (await isTodayRecorded())
-                      buildAlert();
+                      buildOverwriteAlert();
                     else
                       moodTrackerChosen(context);
                   },
                 ),
                 AnimatedButton(
                   primaryColor: Colors.red[700],
-                  textDisplayed: "Diary",
-                  onTap: () {},
+                  textDisplayed: "Mood Journal",
+                  onTap: () async {
+                    if (await isMoodCalendarEmpty())
+                      buildEmptyCalendarAlert();
+                    else
+                      moodTrackerCalendarViewChosen(context);
+                  },
                 ),
                 //Mood Select
                 Container(

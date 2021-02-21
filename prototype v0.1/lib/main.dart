@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/Screens/mood_tracker/moodtracker_calendar_view.dart';
+import 'package:main_menu/Screens/LocateMentalSpecialist/MentalSpecialistScreen.dart';
+import 'package:main_menu/Screens/MoodTracker/moodtracker_calendar_view.dart';
 
 import 'Screens/Help/ImmediateHelpScreen.dart';
 import 'Screens/MainMenu/MainMenuScreen.dart';
 import 'Screens/MainMenu/TestMenu.dart';
 import 'Screens/Welcome/welcomescreen.dart';
-import 'Screens/mood_tracker/moodtracker_calender.dart';
-import 'Screens/mood_tracker/moodtracker_diary.dart';
-import 'Screens/mood_tracker/moodtracker_main.dart';
+import 'Screens/MoodTracker/moodtracker_calender.dart';
+import 'Screens/MoodTracker/moodtracker_diary.dart';
+import 'Screens/MoodTracker/moodtracker_main.dart';
 import 'components/mood_tracker/mood_record_detail.dart';
 import 'constants.dart';
 
@@ -39,6 +40,7 @@ class _MyAppState extends State<MyApp> {
           '/mainmenu': (context) => MainMenuScreen(),
           '/mainmenu/test': (context) => TestMenu(),
           '/mainmenu/helpScreen': (context) => ImmediateHelpScreen(),
+          '/mainmenu/mentalspecialistmap': (context) => MentalSpecialistMap(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/diary') {

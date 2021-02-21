@@ -31,6 +31,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     Navigator.pushNamed(context, '/mainmenu/moodtrackercalendarview');
   }
 
+  void mentalSpecialistMapChosen(BuildContext context) {
+    Navigator.pushNamed(context, '/mainmenu/mentalspecialistmap');
+  }
+
   Future loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -161,7 +165,9 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                 AnimatedButton(
                   primaryColor: Color.fromRGBO(57, 92, 249, 1),
                   textDisplayed: "Local Clinic",
-                  onTap: () {},
+                  onTap: () {
+                    mentalSpecialistMapChosen(context);
+                  },
                 ),
                 AnimatedButton(
                   primaryColor: Colors.yellow[700],

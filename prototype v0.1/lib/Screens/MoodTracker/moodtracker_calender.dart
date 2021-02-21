@@ -139,7 +139,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     return SwipeableWidget(
       height: double.infinity,
       onSwipeCallback: () {
-        returnBack(context);
+        Navigator.pushNamed(context, '/mainmenu');
       },
       child: SafeArea(
         child: Scaffold(

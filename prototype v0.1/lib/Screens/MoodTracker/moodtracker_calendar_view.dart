@@ -282,9 +282,21 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalenderView>
                         isScrollable: false,
                       );
                     } else {
-                      return Text(
-                        'Loading...',
-                        style: kThickFont.copyWith(fontSize: 15),
+                      return Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20),
+                            child: Text(
+                              'Loading...',
+                              style: kThickFont.copyWith(fontSize: 15),
+                            ),
+                          ),
+                          Container(
+                            child: LinearProgressIndicator(),
+                            width: 90,
+                            height: 8,
+                          ),
+                        ],
                       );
                     }
                   },

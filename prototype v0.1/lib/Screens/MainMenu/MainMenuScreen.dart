@@ -149,8 +149,10 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Healthier"),
+        backgroundColor: Color.fromRGBO(97, 145, 150, 1),
       ),
       drawer: MainMenuDrawer(),
+      backgroundColor: Colors.white,
       body: SwipeableWidget(
         onSwipeCallback: () {
           handleSwipe(context);
@@ -163,21 +165,21 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 AnimatedButton(
-                  primaryColor: Color.fromRGBO(57, 92, 249, 1),
+                  primaryColor: Color.fromRGBO(132, 180, 200, 1),
                   textDisplayed: "Local Clinic",
                   onTap: () {
                     mentalSpecialistMapChosen(context);
                   },
                 ),
                 AnimatedButton(
-                  primaryColor: Colors.yellow[700],
+                  primaryColor: Color.fromRGBO(178, 220, 214, 1),
                   textDisplayed: "Test",
                   onTap: () {
                     testChosen(context);
                   },
                 ),
                 AnimatedButton(
-                  primaryColor: Colors.green[400],
+                  primaryColor: Color.fromRGBO(244, 220, 214, 1),
                   textDisplayed: "Record Mood",
                   onTap: () async {
                     if (await isTodayRecorded())
@@ -187,7 +189,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   },
                 ),
                 AnimatedButton(
-                  primaryColor: Colors.red[700],
+                  primaryColor: Color.fromRGBO(223, 199, 193, 1),
                   textDisplayed: "Mood Journal",
                   onTap: () async {
                     if (await isMoodCalendarEmpty())
@@ -197,66 +199,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                   },
                 ),
                 //Mood Select
-                Container(
-                    //MoodTracker Test
-                    child: ReusableMainMenuCard(
-                  mainMenuCard: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Container(
-                          child: InkWell(
-                              onTap: () {
-                                print("one");
-                              },
-                              child: FaIcon(
-                                FontAwesomeIcons.laughBeam,
-                              )),
-                        ),
-                        Container(
-                          child: InkWell(
-                            onTap: () {
-                              print("two");
-                            },
-                            child: FaIcon(
-                              FontAwesomeIcons.smile,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: InkWell(
-                            onTap: () {
-                              print("three");
-                            },
-                            child: FaIcon(
-                              FontAwesomeIcons.meh,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: InkWell(
-                            onTap: () {
-                              print("four");
-                            },
-                            child: FaIcon(
-                              FontAwesomeIcons.frown,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          child: InkWell(
-                            onTap: () {
-                              print("five");
-                            },
-                            child: FaIcon(
-                              FontAwesomeIcons.angry,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ))
+
               ],
             ),
           ),

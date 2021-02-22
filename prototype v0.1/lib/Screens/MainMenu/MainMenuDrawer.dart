@@ -9,7 +9,7 @@ class MainMenuDrawer extends StatelessWidget {
         children: <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.blue
+                color: Color.fromRGBO(97, 145, 150, 1)
             ),
             child: Column(
               children: <Widget>[

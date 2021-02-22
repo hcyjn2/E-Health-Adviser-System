@@ -80,9 +80,12 @@ class StressTestState extends State<StressTest> with MenuFunction {
           MaterialPageRoute(
               builder: (BuildContext context) => ResultPage(
                     testType: Tests.Stress,
-                    resultScore: totalScore,
-                    resultPhrase: results.resultText,
-                    advices: stressAdvices.getAdvices(2),
+                    resultScore: totalScore /
+                        (widget.questionCount *
+                            StressTestAnswerExtension.maxScore()),
+                    resultPhrase: results.result.name,
+                    resultColor: results.result.color,
+                    advices: stressAdvices.getAdvices(5),
                   )));
     }
   }
@@ -98,33 +101,33 @@ class StressTestState extends State<StressTest> with MenuFunction {
         question: stressQuestions[questionCounter],
         answerChoices: <Widget>[
           RadioListTile(
-            value: StressTestAnswer.Never,
+            value: StressTestAnswer.NotAtAll,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.Never.name),
+            title: Text(StressTestAnswer.NotAtAll.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
           ),
           RadioListTile(
-            value: StressTestAnswer.Sometimes,
+            value: StressTestAnswer.SeveralDays,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.Sometimes.name),
+            title: Text(StressTestAnswer.SeveralDays.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
           ),
           RadioListTile(
-            value: StressTestAnswer.FairlyOften,
+            value: StressTestAnswer.OverHalfTheDays,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.FairlyOften.name),
+            title: Text(StressTestAnswer.OverHalfTheDays.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
           ),
           RadioListTile(
-            value: StressTestAnswer.VeryOften,
+            value: StressTestAnswer.NearlyEveryday,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.VeryOften.name),
+            title: Text(StressTestAnswer.NearlyEveryday.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },

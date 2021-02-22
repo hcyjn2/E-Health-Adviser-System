@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/components/Tests/TestEnums.dart';
 
 class AnxietyTestResult {
   final int resultScore;
 
   AnxietyTestResult({@required this.resultScore}) : assert(resultScore != null);
 
-  String get resultText {
-    String resultText;
+  ResultSet get result {
+    ResultSet result;
     if (resultScore <= 5 && resultScore >= 0) {
-      resultText = 'Your result is indicative of little or no anxiety levels.';
+      result = ResultSet.Normal;
     } else if (resultScore <= 10 && resultScore >= 6) {
-      resultText = 'Your result is indicative of mild anxiety levels.';
+      result = ResultSet.Normal;
     } else if (resultScore <= 15 && resultScore >= 11) {
-      resultText = 'Your result is indicative of moderate anxiety levels.';
+      result = ResultSet.Moderate;
     } else if (resultScore <= 21 && resultScore >= 16) {
-      resultText = 'Your result is indicative of high anxiety levels.';
+      result = ResultSet.High;
     }
-    return resultText;
+    return result;
   }
 }

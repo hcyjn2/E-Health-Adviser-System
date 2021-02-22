@@ -68,9 +68,13 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
           MaterialPageRoute(
               builder: (BuildContext context) => ResultPage(
                     testType: Tests.Anxiety,
-                    resultScore: totalScore,
-                    resultPhrase: results.resultText,
-                    advices: 'Just breathe more',
+                    resultScore: totalScore /
+                        (widget.questionCount *
+                            StressTestAnswerExtension.maxScore()),
+                    resultPhrase: results.result.name,
+                    resultColor: results.result.color,
+
+                    ///advices: 'Just breathe more',
                   )));
     }
   }

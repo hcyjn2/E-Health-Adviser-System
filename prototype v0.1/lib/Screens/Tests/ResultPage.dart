@@ -153,6 +153,9 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                       }),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
             ],
           ),
         ),

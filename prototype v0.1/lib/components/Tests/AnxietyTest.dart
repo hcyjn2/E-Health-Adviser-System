@@ -5,6 +5,7 @@ import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/Tests/AnxietyTestResult.dart';
 
+import 'AnxietyAdvices.dart';
 import 'TestEnums.dart';
 
 class AnxietyTest extends StatefulWidget {
@@ -62,7 +63,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
       });
     } else {
       AnxietyTestResult results = AnxietyTestResult(resultScore: totalScore);
-
+      AnxietyAdvices anxietyAdvices = AnxietyAdvices();
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -73,8 +74,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
                             StressTestAnswerExtension.maxScore()),
                     resultPhrase: results.result.name,
                     resultColor: results.result.color,
-
-                    ///advices: 'Just breathe more',
+                    advices: anxietyAdvices.getAdvices(5),
                   )));
     }
   }

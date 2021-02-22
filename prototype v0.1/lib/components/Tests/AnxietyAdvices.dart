@@ -6,9 +6,9 @@ class AnxietyAdvices {
   factory AnxietyAdvices() {
     return _instance;
   }
-  String getAdvices(int amount) {
+  Map<String, String> getAdvices(int amount) {
     List<int> advicesChosen = [];
-    String advices = "";
+    Map<String, String> advices = <String, String>{};
     for (int i = 0; i < amount; i++) {
       int randomIndex = Random().nextInt(_advices.length);
       if (advicesChosen.contains(randomIndex)) {
@@ -16,7 +16,8 @@ class AnxietyAdvices {
         continue;
       }
       advicesChosen.add(randomIndex);
-      advices += _advices[randomIndex] + '\n';
+      final String key = _advices.keys.elementAt(randomIndex);
+      advices[key] = _advices[key];
     }
     return advices;
   }

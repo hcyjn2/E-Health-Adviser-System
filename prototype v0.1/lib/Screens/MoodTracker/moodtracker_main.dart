@@ -45,10 +45,10 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
   @override
   Widget build(BuildContext context) {
     return SwipeableWidget(
+      height: double.infinity,
       onSwipeCallback: () {
         returnBack(context);
       },
-      height: double.infinity,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: SafeArea(

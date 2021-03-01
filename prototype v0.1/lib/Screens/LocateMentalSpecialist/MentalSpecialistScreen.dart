@@ -81,7 +81,7 @@ class _MentalSpecialistMapState extends State<MentalSpecialistMap> {
                     style: kThickFont.copyWith(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Colors.greenAccent)),
+                        color: Colors.blueAccent)),
               ),
             ),
             FutureBuilder(
@@ -107,7 +107,7 @@ class _MentalSpecialistMapState extends State<MentalSpecialistMap> {
                               onMapCreated: _onMapCreated,
                               initialCameraPosition: CameraPosition(
                                 target: LatLng(latitude, longitude),
-                                zoom: 10.0,
+                                zoom: 10,
                               ),
                             ),
                           ),

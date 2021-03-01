@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class AnimatedButton extends StatefulWidget {
   final Color primaryColor;
-  final String textDisplayed;
+  final Image assetImage;
+  final Text buttonText;
   final Function onTap;
+  final double topMargin;
 
   AnimatedButton(
       {this.primaryColor = Colors.grey,
-      @required this.textDisplayed,
+      this.topMargin = 8,
+      @required this.assetImage,
+      @required this.buttonText,
       @required this.onTap});
 
   @override
@@ -27,6 +30,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
 
   double buttonWidth = 200.0;
   double scale = 1.0;
+  double colorOpacity = 0.6;
 
   @override
   void initState() {
@@ -39,10 +43,10 @@ class _AnimatedButtonState extends State<AnimatedButton>
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
 
     _fadeAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500));
+        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
 
     _fadeAnimation = Tween<double>(
-      begin: 1.0,
+      begin: 50.0,
       end: 0.0,
     ).animate(_fadeAnimationController);
 
@@ -53,7 +57,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _scaleAnimationController.reverse();
-          _fadeAnimationController.reverse();
+          _fadeAnimationController.forward();
           _animationController.forward();
         }
       });
@@ -79,24 +83,34 @@ class _AnimatedButtonState extends State<AnimatedButton>
         animation: _scaleAnimationController,
         builder: (context, child) => Transform.scale(
           scale: _scaleAnimation.value,
-          child: FadeTransition(
-            opacity: _fadeAnimation,
-            child: InkWell(
-              onTap: () {
-                _scaleAnimationController.forward();
-                _fadeAnimationController.forward();
-                widget.onTap();
-              },
-              child: Container(
-                width: 350.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                    color: widget.primaryColor,
-                    borderRadius: BorderRadius.circular(10)),
-                child: Text(
-                  '${widget.textDisplayed}',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(height: 4, fontSize: 20),
+          child: InkWell(
+            onTap: () {
+              _scaleAnimationController.forward();
+              widget.onTap();
+            },
+            child: Container(
+              width: 350.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 3), // changes position of shadow
+                    ),
+                  ],
+                  color: widget.primaryColor,
+                  borderRadius: BorderRadius.circular(15)),
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: widget.topMargin,
+                    ),
+                    widget.assetImage,
+                    widget.buttonText
+                  ],
                 ),
               ),
             ),
@@ -104,25 +118,5 @@ class _AnimatedButtonState extends State<AnimatedButton>
         ),
       )
     ]);
-  }
-}
-
-//This class is just for testing purposes/placeholder page
-class TestPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Healthier"),
-        ),
-        body: Center(
-          child: RaisedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text("Back"),
-          ),
-        )
-    );
   }
 }

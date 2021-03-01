@@ -3,6 +3,7 @@ import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/Tests/AnxietyTest.dart';
 import 'package:main_menu/components/Tests/StressTest.dart';
+import 'package:main_menu/constants.dart';
 
 import 'AnimatedButton.dart';
 
@@ -32,7 +33,10 @@ class TestMenu extends StatelessWidget with MenuFunction {
               Padding(
                 padding: EdgeInsets.all(10.0),
                 child: AnimatedButton(
-                  textDisplayed: 'Stress Test',
+                  topMargin: 25,
+                  assetImage: Image.asset('null'),
+                  buttonText: Text('Stress Diagnose',
+                      style: kThickFont.copyWith(fontSize: 32)),
                   onTap: () {
                     stressTest(context);
                   },
@@ -41,7 +45,10 @@ class TestMenu extends StatelessWidget with MenuFunction {
               Padding(
                 padding: EdgeInsets.all(10.0),
                 child: AnimatedButton(
-                  textDisplayed: 'Anxiety Test',
+                  topMargin: 25,
+                  assetImage: Image.asset('null'),
+                  buttonText: Text('Anxiety Diagnose',
+                      style: kThickFont.copyWith(fontSize: 32)),
                   onTap: () {
                     anxietyTest(context);
                   },

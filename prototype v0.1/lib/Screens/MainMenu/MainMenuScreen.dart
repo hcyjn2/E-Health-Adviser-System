@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
@@ -7,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'AnimatedButton.dart';
 import 'MainMenuDrawer.dart';
-import 'ReusableMainMenuCard.dart';
 
 class MainMenuScreen extends StatefulWidget {
   @override
@@ -146,61 +144,89 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Healthier"),
-        backgroundColor: Color.fromRGBO(97, 145, 150, 1),
-      ),
-      drawer: MainMenuDrawer(),
-      backgroundColor: Colors.white,
-      body: SwipeableWidget(
-        onSwipeCallback: () {
-          handleSwipe(context);
-        },
-        height: double.infinity,
-        direction: SwipeDirection.toLeft,
-        child: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                AnimatedButton(
-                  primaryColor: Color.fromRGBO(132, 180, 200, 1),
-                  textDisplayed: "Local Clinic",
-                  onTap: () {
-                    mentalSpecialistMapChosen(context);
-                  },
-                ),
-                AnimatedButton(
-                  primaryColor: Color.fromRGBO(178, 220, 214, 1),
-                  textDisplayed: "Test",
-                  onTap: () {
-                    testChosen(context);
-                  },
-                ),
-                AnimatedButton(
-                  primaryColor: Color.fromRGBO(244, 220, 214, 1),
-                  textDisplayed: "Record Mood",
-                  onTap: () async {
-                    if (await isTodayRecorded())
-                      buildOverwriteAlert();
-                    else
-                      moodTrackerChosen(context);
-                  },
-                ),
-                AnimatedButton(
-                  primaryColor: Color.fromRGBO(223, 199, 193, 1),
-                  textDisplayed: "Mood Journal",
-                  onTap: () async {
-                    if (await isMoodCalendarEmpty())
-                      buildEmptyCalendarAlert();
-                    else
-                      moodTrackerCalendarViewChosen(context);
-                  },
-                ),
-                //Mood Select
-
-              ],
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/Images/menubackground.jpg'),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "E-Health Adviser App",
+            style: kThickFont.copyWith(fontSize: 18, color: Colors.black),
+          ),
+          backgroundColor: Color.fromRGBO(97, 145, 150, 1),
+        ),
+        drawer: MainMenuDrawer(),
+        body: SwipeableWidget(
+          onSwipeCallback: () {
+            handleSwipe(context);
+          },
+          height: double.infinity,
+          direction: SwipeDirection.toLeft,
+          child: SafeArea(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  AnimatedButton(
+                    primaryColor: Color.fromRGBO(132, 180, 200, 1),
+                    assetImage: Image.asset(
+                      'assets/Images/clinics.png',
+                      width: 64,
+                    ),
+                    buttonText: Text('Local Clinics',
+                        style: kThickFont.copyWith(fontSize: 20)),
+                    onTap: () {
+                      mentalSpecialistMapChosen(context);
+                    },
+                  ),
+                  AnimatedButton(
+                    primaryColor: Color.fromRGBO(178, 220, 214, 1),
+                    assetImage: Image.asset(
+                      'assets/Images/test.png',
+                      width: 62,
+                    ),
+                    buttonText:
+                        Text('Test', style: kThickFont.copyWith(fontSize: 20)),
+                    onTap: () {
+                      testChosen(context);
+                    },
+                  ),
+                  AnimatedButton(
+                    primaryColor: Color.fromRGBO(244, 220, 214, 1),
+                    assetImage: Image.asset(
+                      'assets/Images/moodrecord.png',
+                      width: 62,
+                    ),
+                    buttonText: Text('Record Mood',
+                        style: kThickFont.copyWith(fontSize: 20)),
+                    onTap: () async {
+                      if (await isTodayRecorded())
+                        buildOverwriteAlert();
+                      else
+                        moodTrackerChosen(context);
+                    },
+                  ),
+                  AnimatedButton(
+                    primaryColor: Color.fromRGBO(223, 199, 193, 1),
+                    assetImage: Image.asset(
+                      'assets/Images/calendar.png',
+                      width: 62,
+                    ),
+                    buttonText: Text('Mood Journal',
+                        style: kThickFont.copyWith(fontSize: 20)),
+                    onTap: () async {
+                      if (await isMoodCalendarEmpty())
+                        buildEmptyCalendarAlert();
+                      else
+                        moodTrackerCalendarViewChosen(context);
+                    },
+                  ), //Mood Select
+                ],
+              ),
             ),
           ),
         ),

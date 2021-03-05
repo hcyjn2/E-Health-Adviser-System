@@ -22,39 +22,48 @@ class TestMenu extends StatelessWidget with MenuFunction {
   Widget build(BuildContext context) {
     return Material(
       child: SafeArea(
-        child: SwipeableWidget(
-          height: double.infinity,
-          onSwipeCallback: () {
-            returnBack(context);
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: AnimatedButton(
-                  topMargin: 25,
-                  assetImage: Image.asset('null'),
-                  buttonText: Text('Stress Diagnose',
-                      style: kThickFont.copyWith(fontSize: 32)),
-                  onTap: () {
-                    stressTest(context);
-                  },
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/Images/testmenubackground.png'),
+                  fit: BoxFit.cover)),
+          child: SwipeableWidget(
+            height: double.infinity,
+            onSwipeCallback: () {
+              returnBack(context);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: AnimatedButton(
+                    topMargin: 27,
+                    assetImage: Image.asset('null'),
+                    buttonText: Text('Stress Diagnose',
+                        style: kThickFont.copyWith(fontSize: 32)),
+                    onTap: () {
+                      stressTest(context);
+                    },
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: AnimatedButton(
-                  topMargin: 25,
-                  assetImage: Image.asset('null'),
-                  buttonText: Text('Anxiety Diagnose',
-                      style: kThickFont.copyWith(fontSize: 32)),
-                  onTap: () {
-                    anxietyTest(context);
-                  },
+                SizedBox(
+                  height: 50,
                 ),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: AnimatedButton(
+                    topMargin: 27,
+                    assetImage: Image.asset('null'),
+                    buttonText: Text('Anxiety Diagnose',
+                        style: kThickFont.copyWith(fontSize: 32)),
+                    onTap: () {
+                      anxietyTest(context);
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

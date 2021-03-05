@@ -54,6 +54,9 @@ class TestQuestionPage extends StatelessWidget {
                     style: kThickFont.copyWith(fontSize: 40)),
               ),
             ),
+            SizedBox(
+              height: 70,
+            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text('Question ' + questionNumber.toString() + '.',

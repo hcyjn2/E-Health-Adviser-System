@@ -189,8 +189,8 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                       'assets/Images/test.png',
                       width: 62,
                     ),
-                    buttonText:
-                        Text('Test', style: kThickFont.copyWith(fontSize: 20)),
+                    buttonText: Text('Diagnosis',
+                        style: kThickFont.copyWith(fontSize: 20)),
                     onTap: () {
                       testChosen(context);
                     },

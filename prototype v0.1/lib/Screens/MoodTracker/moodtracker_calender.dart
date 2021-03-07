@@ -28,7 +28,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
   List<MoodRecordDetail> moodRecordDetailList;
   EventList<Event> moodRecords;
   Future calendarFuture;
@@ -109,14 +108,21 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
 
     if (moodRecordDetailList.length > 1) {
       for (var data in moodRecordDetailList) {
-        moodRecords.add(
-          DateTime.parse(data.dateTime),
-          new Event(
-            date: DateTime.parse(data.dateTime),
-            title: data.title,
-            icon: readMoodLevel(data.moodLevel),
-          ),
-        );
+        if (data.dateTime == recordDate.toString()) {
+          print("number of record: " + moodRecordDetailList.length.toString());
+          moodRecordDetailList.remove(data);
+          print("deleted existing record");
+          print("number of record: " + moodRecordDetailList.length.toString());
+        } else {
+          moodRecords.add(
+            DateTime.parse(data.dateTime),
+            new Event(
+              date: DateTime.parse(data.dateTime),
+              title: data.title,
+              icon: readMoodLevel(data.moodLevel),
+            ),
+          );
+        }
       }
     }
     await saveData(moodRecordDetailList, widget.moodRecordDetail);
@@ -138,8 +144,9 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   Widget build(BuildContext context) {
     return SwipeableWidget(
       height: double.infinity,
-      onSwipeCallback: () {
+      onSwipeCallback: () async {
         Navigator.pushNamed(context, '/mainmenu');
+        await saveData(moodRecordDetailList, widget.moodRecordDetail);
       },
       child: SafeArea(
         child: Scaffold(

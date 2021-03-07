@@ -54,9 +54,6 @@ class TestQuestionPage extends StatelessWidget {
                     style: kThickFont.copyWith(fontSize: 40)),
               ),
             ),
-            SizedBox(
-              height: 70,
-            ),
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text('Question ' + questionNumber.toString() + '.',
@@ -108,24 +105,3 @@ class TestQuestionPage extends StatelessWidget {
     );
   }
 }
-
-// Align(
-// alignment: Alignment.bottomCenter,
-// child: Padding(
-// padding: EdgeInsets.all(10.0),
-// child: RaisedButton(
-// child: SizedBox(
-// width: double.infinity,
-// child: Text(
-// 'Next',
-// textAlign: TextAlign.center,
-// style: TextStyle(
-// fontSize: 22.0,
-// color: Colors.black,
-// ),
-// ),
-// ),
-// onPressed: onAction,
-// ),
-// ),
-// ),

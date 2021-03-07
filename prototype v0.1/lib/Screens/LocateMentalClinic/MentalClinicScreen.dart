@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/constants.dart';
 import 'package:main_menu/models/place.dart';
 import 'package:main_menu/services/marker_service.dart';
@@ -63,12 +65,12 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: SwipeableWidget(
+      child: SwipeableWidget(
         height: double.infinity,
         onSwipeCallback: () {
           returnBack(context);
         },
-      child: Scaffold(
+        child: Scaffold(
           body: Column(
             children: [
               Container(
@@ -130,82 +132,86 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                                     places[index].geometry.location.lat,
                                     places[index].geometry.location.lng);
 
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 8.0),
-                              child: Card(
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: ListTile(
-                                  title: Text(
-                                    places[index].name,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  subtitle: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 11),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                              text:
-                                                  '${places[index].vicinity} \u00b7  '),
-                                          TextSpan(
-                                              style: kThickFont.copyWith(
-                                                  fontSize: 9),
-                                              text:
-                                                  '${(distance / 1000).toStringAsFixed(2)}km')
-                                        ]),
-                                  ),
-                                  trailing: IconButton(
-                                    onPressed: () {
-                                      _launchMapsUrl(
-                                          places[index].geometry.location.lat,
-                                          places[index].geometry.location.lng);
-                                    },
-                                    alignment: Alignment.centerRight,
-                                    icon: Icon(
-                                      Icons.assistant_navigation,
-                                      color: Colors.blueAccent,
-                                      size: 30,
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 8.0),
+                                child: Card(
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ListTile(
+                                    title: Text(
+                                      places[index].name,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    subtitle: RichText(
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                              color: Colors.grey, fontSize: 11),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text:
+                                                    '${places[index].vicinity} \u00b7  '),
+                                            TextSpan(
+                                                style: kThickFont.copyWith(
+                                                    fontSize: 9),
+                                                text:
+                                                    '${(distance / 1000).toStringAsFixed(2)}km')
+                                          ]),
+                                    ),
+                                    trailing: IconButton(
+                                      onPressed: () {
+                                        _launchMapsUrl(
+                                            places[index].geometry.location.lat,
+                                            places[index]
+                                                .geometry
+                                                .location
+                                                .lng);
+                                      },
+                                      alignment: Alignment.centerRight,
+                                      icon: Icon(
+                                        Icons.assistant_navigation,
+                                        color: Colors.blueAccent,
+                                        size: 30,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
+                          height: MediaQuery.of(context).size.height * 0.26,
+                          width: double.infinity,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.26,
-                        width: double.infinity,
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[400],
-                          borderRadius: BorderRadius.circular(10.0),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            'Loading...',
+                            style: kThickFont.copyWith(fontSize: 15),
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          'Loading...',
-                          style: kThickFont.copyWith(fontSize: 15),
+                        Container(
+                          child: LinearProgressIndicator(),
+                          width: 90,
+                          height: 8,
                         ),
-                      ),
-                      Container(
-                        child: LinearProgressIndicator(),
-                        width: 90,
-                        height: 8,
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

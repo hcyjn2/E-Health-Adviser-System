@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/Screens/LocateMentalSpecialist/MentalSpecialistScreen.dart';
+import 'package:main_menu/Screens/LocateMentalClinic/MentalClinicScreen.dart';
 import 'package:main_menu/Screens/Tests/ResultPage.dart';
 import 'package:main_menu/Screens/Tests/TestQuestionPage.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
@@ -75,7 +75,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (BuildContext context) => MentalSpecialistMap()));
+                  builder: (BuildContext context) => MentalClinicMap()));
         },
         rippleColor: Colors.grey,
       );

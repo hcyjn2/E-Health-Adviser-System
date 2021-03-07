@@ -55,6 +55,7 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
   void initState() {
     super.initState();
     final int randomNumber = Random().nextInt(videoAmount) + 1;
+    print(randomNumber);
     _videoName = 'Video' + randomNumber.toString() + '.mp4';
   }
 }

@@ -35,10 +35,10 @@ class _HelpAudioPlayerState extends State<HelpAudioPlayer> {
   }
 
   @override
-  void deactivate() {
+  void dispose() {
     if (_player != null) _player.stop();
     _cache.clearCache();
-    super.deactivate();
+    super.dispose();
   }
 
   void playHandler() async {

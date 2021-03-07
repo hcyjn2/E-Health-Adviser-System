@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/constants.dart';
 import 'package:main_menu/models/place.dart';
 import 'package:main_menu/services/marker_service.dart';
@@ -14,7 +16,8 @@ class MentalSpecialistMap extends StatefulWidget {
   _MentalSpecialistMapState createState() => _MentalSpecialistMapState();
 }
 
-class _MentalSpecialistMapState extends State<MentalSpecialistMap> {
+class _MentalSpecialistMapState extends State<MentalSpecialistMap>
+    with MenuFunction {
   double latitude;
   double longitude;
   GoogleMapController mapController;
@@ -63,144 +66,153 @@ class _MentalSpecialistMapState extends State<MentalSpecialistMap> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            Container(
-              height: MediaQuery.of(context).size.height * 0.09,
-              width: double.infinity,
-              margin: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.grey[400],
-                borderRadius: BorderRadius.circular(10.0),
+      child: SwipeableWidget(
+        height: double.infinity,
+        onSwipeCallback: () {
+          returnBack(context);
+        },
+        child: Scaffold(
+          body: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height * 0.09,
+                width: double.infinity,
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text('Nearby Mental Clinics',
+                      textAlign: TextAlign.center,
+                      style: kThickFont.copyWith(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.greenAccent)),
+                ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text('Nearby Mental Clinics',
-                    textAlign: TextAlign.center,
-                    style: kThickFont.copyWith(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.greenAccent)),
-              ),
-            ),
-            FutureBuilder(
-              future: mapFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    places != null) {
-                  return Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.55,
-                        width: double.infinity,
-                        margin: EdgeInsets.fromLTRB(10, 5, 10, 15),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[400],
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: GoogleMap(
-                              markers: Set<Marker>.of(markers),
-                              onMapCreated: _onMapCreated,
-                              initialCameraPosition: CameraPosition(
-                                target: LatLng(latitude, longitude),
-                                zoom: 10.0,
+              FutureBuilder(
+                future: mapFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      places != null) {
+                    return Column(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.55,
+                          width: double.infinity,
+                          margin: EdgeInsets.fromLTRB(10, 5, 10, 15),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: GoogleMap(
+                                markers: Set<Marker>.of(markers),
+                                onMapCreated: _onMapCreated,
+                                initialCameraPosition: CameraPosition(
+                                  target: LatLng(latitude, longitude),
+                                  zoom: 10.0,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      Container(
-                        child: ListView.builder(
-                          itemCount: places.length,
-                          itemBuilder: (context, index) {
-                            double distance;
-                            if (places[index].geometry.location.lat != null)
-                              distance = Geolocator.distanceBetween(
-                                  latitude,
-                                  longitude,
-                                  places[index].geometry.location.lat,
-                                  places[index].geometry.location.lng);
+                        Container(
+                          child: ListView.builder(
+                            itemCount: places.length,
+                            itemBuilder: (context, index) {
+                              double distance;
+                              if (places[index].geometry.location.lat != null)
+                                distance = Geolocator.distanceBetween(
+                                    latitude,
+                                    longitude,
+                                    places[index].geometry.location.lat,
+                                    places[index].geometry.location.lng);
 
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 0, horizontal: 8.0),
-                              child: Card(
-                                elevation: 2,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: ListTile(
-                                  title: Text(
-                                    places[index].name,
-                                    style: TextStyle(fontSize: 15),
-                                  ),
-                                  subtitle: RichText(
-                                    text: TextSpan(
-                                        style: TextStyle(
-                                            color: Colors.grey, fontSize: 11),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                              text:
-                                                  '${places[index].vicinity} \u00b7  '),
-                                          TextSpan(
-                                              style: kThickFont.copyWith(
-                                                  fontSize: 9),
-                                              text:
-                                                  '${(distance / 1000).toStringAsFixed(2)}km')
-                                        ]),
-                                  ),
-                                  trailing: IconButton(
-                                    onPressed: () {
-                                      _launchMapsUrl(
-                                          places[index].geometry.location.lat,
-                                          places[index].geometry.location.lng);
-                                    },
-                                    alignment: Alignment.centerRight,
-                                    icon: Icon(
-                                      Icons.assistant_navigation,
-                                      color: Colors.blueAccent,
-                                      size: 30,
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 8.0),
+                                child: Card(
+                                  elevation: 2,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: ListTile(
+                                    title: Text(
+                                      places[index].name,
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                    subtitle: RichText(
+                                      text: TextSpan(
+                                          style: TextStyle(
+                                              color: Colors.grey, fontSize: 11),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text:
+                                                    '${places[index].vicinity} \u00b7  '),
+                                            TextSpan(
+                                                style: kThickFont.copyWith(
+                                                    fontSize: 9),
+                                                text:
+                                                    '${(distance / 1000).toStringAsFixed(2)}km')
+                                          ]),
+                                    ),
+                                    trailing: IconButton(
+                                      onPressed: () {
+                                        _launchMapsUrl(
+                                            places[index].geometry.location.lat,
+                                            places[index]
+                                                .geometry
+                                                .location
+                                                .lng);
+                                      },
+                                      alignment: Alignment.centerRight,
+                                      icon: Icon(
+                                        Icons.assistant_navigation,
+                                        color: Colors.blueAccent,
+                                        size: 30,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
+                          height: MediaQuery.of(context).size.height * 0.26,
+                          width: double.infinity,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[400],
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
                         ),
-                        height: MediaQuery.of(context).size.height * 0.26,
-                        width: double.infinity,
-                        margin: EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[400],
-                          borderRadius: BorderRadius.circular(10.0),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Text(
+                            'Loading...',
+                            style: kThickFont.copyWith(fontSize: 15),
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                } else {
-                  return Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20),
-                        child: Text(
-                          'Loading...',
-                          style: kThickFont.copyWith(fontSize: 15),
+                        Container(
+                          child: LinearProgressIndicator(),
+                          width: 90,
+                          height: 8,
                         ),
-                      ),
-                      Container(
-                        child: LinearProgressIndicator(),
-                        width: 90,
-                        height: 8,
-                      ),
-                    ],
-                  );
-                }
-              },
-            ),
-          ],
+                      ],
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

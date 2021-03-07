@@ -5,6 +5,7 @@ import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/Tests/TestEnums.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
+import '../../components/Tests/Advice.dart';
 import '../../constants.dart';
 
 class ResultPage extends StatefulWidget {
@@ -12,8 +13,9 @@ class ResultPage extends StatefulWidget {
   final double resultScore;
   final Tests testType;
   final List<Widget> body;
-  final Map<String, String> advices;
+  final List<Advice> advices;
   final Color resultColor;
+  final Text resultExplanation;
 
   ResultPage({
     Key key,
@@ -21,12 +23,14 @@ class ResultPage extends StatefulWidget {
     @required this.resultScore,
     @required this.testType,
     @required this.resultColor,
+    @required this.resultExplanation,
     this.advices = null,
     this.body = null,
   })  : assert(resultPhrase != null),
         assert(resultScore != null && resultScore >= 0),
         assert(testType != null),
         assert(resultColor != null),
+        assert(resultPhrase != null),
         super(key: key);
 
   @override
@@ -34,38 +38,6 @@ class ResultPage extends StatefulWidget {
 }
 
 class ResultPageState extends State<ResultPage> with MenuFunction {
-  final List<Widget> _advicesScreen = [];
-
-  @override
-  void initState() {
-    super.initState();
-    widget.advices.forEach((String key, String value) {
-      final Widget header = Padding(
-        padding: EdgeInsets.symmetric(vertical: 5),
-        child: Text(
-          key,
-          textAlign: TextAlign.left,
-          style: kThickFont.copyWith(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      );
-      final Widget body = Text(
-        value,
-        textAlign: TextAlign.left,
-        style: kThickFont.copyWith(
-          fontSize: 22,
-          color: Colors.green,
-        ),
-      );
-
-      _advicesScreen.add(header);
-      _advicesScreen.add(body);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SwipeableWidget(
@@ -113,7 +85,9 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(left: 20.0, bottom: 15),
+                padding: EdgeInsets.only(
+                  left: 20.0,
+                ),
                 child: Text(
                   widget.testType.testType + " level: " + widget.resultPhrase,
                   textAlign: TextAlign.left,
@@ -126,7 +100,36 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
               Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: 10.0,
-                  horizontal: 0.0,
+                  horizontal: 20.0,
+                ),
+                child: Text(
+                  'Test results explanation',
+                  style: kThickFont.copyWith(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: ListView(
+                    padding: const EdgeInsets.all(8),
+                    shrinkWrap: true,
+                    children: <Widget>[widget.resultExplanation],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 10.0,
+                  horizontal: 20.0,
                 ),
                 child: Text(
                   'General tips on ' + widget.testType.testType + ' issues:',
@@ -134,11 +137,12 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                 ),
               ),
               Flexible(
-                flex: 1,
+                flex: 2,
+                fit: FlexFit.tight,
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
@@ -147,15 +151,20 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                   child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       shrinkWrap: true,
-                      itemCount: _advicesScreen.length,
+                      itemCount: widget.advices.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return _advicesScreen[index];
+                        return widget.advices[index];
                       }),
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
+              widget.body != null
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: widget.body,
+                    )
+                  : SizedBox(
+                      height: 10,
+                    ),
             ],
           ),
         ),

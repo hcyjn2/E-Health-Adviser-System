@@ -14,6 +14,8 @@ const kThickFont = TextStyle(
   letterSpacing: 0.2,
 );
 
+const int videoAmount = 4;
+
 const kLabelTextStyle = TextStyle(
   fontSize: 24,
   fontWeight: FontWeight.w600,

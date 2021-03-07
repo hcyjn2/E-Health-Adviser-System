@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/LocateMentalSpecialist/MentalSpecialistScreen.dart';
 import 'package:main_menu/Screens/Tests/ResultPage.dart';
 import 'package:main_menu/Screens/Tests/TestQuestionPage.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/Tests/AnxietyTestResult.dart';
+import 'package:main_menu/components/mood_tracker/bottom_button.dart';
 
+import '../../constants.dart';
 import 'AnxietyAdvices.dart';
 import 'TestEnums.dart';
 
@@ -15,13 +18,13 @@ class AnxietyTest extends StatefulWidget {
 
 class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
   ///Represents current answer for the question selected through radio button (by default selected none)
-  AnxietyTestAnswer testAnswerChosen;
+  AnswerSet testAnswerChosen;
 
   ///Set of anxiety questions
   List<String> anxietyQuestions = [];
 
   ///Set of anxiety answers
-  List<AnxietyTestAnswer> answers = [];
+  List<AnswerSet> answers = [];
 
   ///Question counter
   int questionCounter = 0;
@@ -40,12 +43,12 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
     anxietyQuestions.add('Becoming easily annoyed or irritable?');
     anxietyQuestions.add('Feeling afraid as if something awful might happen?');
 
-    testAnswerChosen = AnxietyTestAnswer.None;
+    testAnswerChosen = AnswerSet.None;
 
     questionCounter = 0;
   }
 
-  setSelectedAnxietyAnswer(AnxietyTestAnswer value) {
+  setSelectedAnxietyAnswer(AnswerSet value) {
     print("Anxiety Test answer $value is chosen");
     setState(() {
       testAnswerChosen = value;
@@ -58,23 +61,42 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
     totalScore += testAnswerChosen.points;
     if (questionCounter + 1 < widget.questionCount) {
       setState(() {
-        testAnswerChosen = AnxietyTestAnswer.None;
+        testAnswerChosen = AnswerSet.None;
         questionCounter++;
       });
     } else {
-      AnxietyTestResult results = AnxietyTestResult(resultScore: totalScore);
-      AnxietyAdvices anxietyAdvices = AnxietyAdvices();
+      final Widget locateButton = BottomButton(
+        buttonColor: Color.fromRGBO(178, 220, 214, 1),
+        buttonText: Text(
+          'Local Clinic',
+          style: kThickFont.copyWith(fontSize: 30),
+        ),
+        buttonAction: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => MentalSpecialistMap()));
+        },
+        rippleColor: Colors.grey,
+      );
+      final AnxietyTestResult results =
+          AnxietyTestResult(resultScore: totalScore);
+      final AnxietyAdvices anxietyAdvices = AnxietyAdvices();
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (BuildContext context) => ResultPage(
                     testType: Tests.Anxiety,
                     resultScore: totalScore /
-                        (widget.questionCount *
-                            StressTestAnswerExtension.maxScore()),
+                        (widget.questionCount * AnswerSetExtension.maxScore()),
                     resultPhrase: results.result.name,
                     resultColor: results.result.color,
+                    resultExplanation:
+                        AnxietyTestExtension(results.result).resultExplanation,
                     advices: anxietyAdvices.getAdvices(5),
+                    body: results.result.isProfessionalHelpNeeded
+                        ? <Widget>[locateButton]
+                        : null,
                   )));
     }
   }
@@ -90,33 +112,33 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
         question: anxietyQuestions[questionCounter],
         answerChoices: <Widget>[
           RadioListTile(
-            value: AnxietyTestAnswer.NotAtAll,
+            value: AnswerSet.NotAtAll,
             groupValue: testAnswerChosen,
-            title: Text(AnxietyTestAnswer.NotAtAll.name),
+            title: Text(AnswerSet.NotAtAll.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
           ),
           RadioListTile(
-            value: AnxietyTestAnswer.SeveralDays,
+            value: AnswerSet.SeveralDays,
             groupValue: testAnswerChosen,
-            title: Text(AnxietyTestAnswer.SeveralDays.name),
+            title: Text(AnswerSet.SeveralDays.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
           ),
           RadioListTile(
-            value: AnxietyTestAnswer.OverHalfTheDays,
+            value: AnswerSet.OverHalfTheDays,
             groupValue: testAnswerChosen,
-            title: Text(AnxietyTestAnswer.OverHalfTheDays.name),
+            title: Text(AnswerSet.OverHalfTheDays.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },
           ),
           RadioListTile(
-            value: AnxietyTestAnswer.NearlyEveryday,
+            value: AnswerSet.NearlyEveryday,
             groupValue: testAnswerChosen,
-            title: Text(AnxietyTestAnswer.NearlyEveryday.name),
+            title: Text(AnswerSet.NearlyEveryday.name),
             onChanged: (value) {
               setSelectedAnxietyAnswer(value);
             },

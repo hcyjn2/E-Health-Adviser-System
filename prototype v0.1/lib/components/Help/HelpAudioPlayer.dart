@@ -21,19 +21,16 @@ class _HelpAudioPlayerState extends State<HelpAudioPlayer> {
   @override
   void initState() {
     super.initState();
-    playHandler();
+    precache();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(10),
-      child: RaisedButton(
-        elevation: 10,
-        onPressed: playHandler,
-        child: Text(_isPlaying ? "Pause" : "Continue",
-            style: TextStyle(fontSize: 20)),
-      ),
+    return RaisedButton(
+      elevation: 10,
+      onPressed: playHandler,
+      child: Text(_isPlaying ? "Pause" : "Continue",
+          style: TextStyle(fontSize: 20)),
     );
   }
 
@@ -54,5 +51,10 @@ class _HelpAudioPlayerState extends State<HelpAudioPlayer> {
     setState(() {
       _isPlaying = !_isPlaying;
     });
+  }
+
+  void precache() async {
+    await _cache.load(widget.assetsAudioPath);
+    playHandler();
   }
 }

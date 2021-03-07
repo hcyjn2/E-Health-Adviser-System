@@ -15,13 +15,13 @@ class StressTest extends StatefulWidget {
 
 class StressTestState extends State<StressTest> with MenuFunction {
   ///Represents current answer for the question selected through radio button (by default selected none)
-  StressTestAnswer testAnswerChosen;
+  AnswerSet testAnswerChosen;
 
   ///Set of stress questions
   List<String> stressQuestions = [];
 
   ///Set of stress answers
-  List<StressTestAnswer> answers = [];
+  List<AnswerSet> answers = [];
 
   ///Question counter
   int questionCounter = 0;
@@ -49,12 +49,12 @@ class StressTestState extends State<StressTest> with MenuFunction {
     stressQuestions.add(
         'Were intolerant of anything that kept you from getting on with what you were doing?');
     stressQuestions.add('Found yourself getting agitated?');
-    testAnswerChosen = StressTestAnswer.None;
+    testAnswerChosen = AnswerSet.None;
 
     questionCounter = 0;
   }
 
-  setSelectedStressAnswer(StressTestAnswer value) {
+  setSelectedStressAnswer(AnswerSet value) {
     print("Stress Test answer $value is chosen");
     setState(() {
       testAnswerChosen = value;
@@ -67,7 +67,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
     totalScore += testAnswerChosen.points;
     if (questionCounter + 1 < widget.questionCount) {
       setState(() {
-        testAnswerChosen = StressTestAnswer.None;
+        testAnswerChosen = AnswerSet.None;
         questionCounter++;
       });
     } else {
@@ -81,10 +81,11 @@ class StressTestState extends State<StressTest> with MenuFunction {
               builder: (BuildContext context) => ResultPage(
                     testType: Tests.Stress,
                     resultScore: totalScore /
-                        (widget.questionCount *
-                            StressTestAnswerExtension.maxScore()),
+                        (widget.questionCount * AnswerSetExtension.maxScore()),
                     resultPhrase: results.result.name,
                     resultColor: results.result.color,
+                    resultExplanation:
+                        StressTestExtension(results.result).resultExplanation,
                     advices: stressAdvices.getAdvices(5),
                   )));
     }
@@ -101,33 +102,33 @@ class StressTestState extends State<StressTest> with MenuFunction {
         question: stressQuestions[questionCounter],
         answerChoices: <Widget>[
           RadioListTile(
-            value: StressTestAnswer.NotAtAll,
+            value: AnswerSet.NotAtAll,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.NotAtAll.name),
+            title: Text(AnswerSet.NotAtAll.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
           ),
           RadioListTile(
-            value: StressTestAnswer.SeveralDays,
+            value: AnswerSet.SeveralDays,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.SeveralDays.name),
+            title: Text(AnswerSet.SeveralDays.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
           ),
           RadioListTile(
-            value: StressTestAnswer.OverHalfTheDays,
+            value: AnswerSet.OverHalfTheDays,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.OverHalfTheDays.name),
+            title: Text(AnswerSet.OverHalfTheDays.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },
           ),
           RadioListTile(
-            value: StressTestAnswer.NearlyEveryday,
+            value: AnswerSet.NearlyEveryday,
             groupValue: testAnswerChosen,
-            title: Text(StressTestAnswer.NearlyEveryday.name),
+            title: Text(AnswerSet.NearlyEveryday.name),
             onChanged: (value) {
               setSelectedStressAnswer(value);
             },

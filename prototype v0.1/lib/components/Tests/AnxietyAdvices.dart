@@ -1,14 +1,16 @@
 import 'dart:math';
 
+import 'Advice.dart';
+
 class AnxietyAdvices {
   static final AnxietyAdvices _instance = AnxietyAdvices._internal();
-  static Map<String, String> _advices = Map();
+  static List<Advice> _advices = List();
   factory AnxietyAdvices() {
     return _instance;
   }
-  Map<String, String> getAdvices(int amount) {
+  List<Advice> getAdvices(int amount) {
     List<int> advicesChosen = [];
-    Map<String, String> advices = <String, String>{};
+    List<Advice> advices = List();
     for (int i = 0; i < amount; i++) {
       int randomIndex = Random().nextInt(_advices.length);
       if (advicesChosen.contains(randomIndex)) {
@@ -16,33 +18,73 @@ class AnxietyAdvices {
         continue;
       }
       advicesChosen.add(randomIndex);
-      final String key = _advices.keys.elementAt(randomIndex);
-      advices[key] = _advices[key];
+      advices.add(_advices[randomIndex]);
     }
     return advices;
   }
 
   AnxietyAdvices._internal() {
-    _advices['Follow the 3-3-3 rule'] =
-        "Try and follow the 3-3-3 rule, name three things you see, three things you hear, and three parts of your body.";
-    _advices['Breathing exercise'] = "Take some deep breaths.";
-    _advices['Reduce sugar intake'] =
-        "Do not consume any sugar as it increases the severity of the symptoms.";
-    _advices['Focus on the present.'] =
-        "Dwelling on the future and the past are impractical and will only cause the feelings of anxiety to worsen.";
-    _advices['Have a balanced diet'] =
-        "The body needs valuable nutrients so do not skip any meals. Try to keep energy-boosting healthy snacks.";
-    _advices['Reduce Alcohol and Caffeine Consumption'] =
-        "Both alcohol and caffeine aggravate and worsen the symptoms as well as trigger panic attacks.";
-    _advices['Discover what triggers your anxiety'] =
-        "Keeping a journal for when you are stressed and anxious will help in getting to know what causes your anxiety in order for you to avoid it.";
-    _advices['Let go'] =
-        "Accepting the fact that you cannot control everything will give you a sense of more control over your life.";
-    _advices['Exercise'] =
-        "It is proven that exercise help calm down and lessen the symptoms of anxiety. Set small daily goals and go for a jog or walk.";
-    _advices['Talk with someone'] =
-        "Talk about what is on your mind with someone you trust such as a friend or family member.";
-    _advices['Meditate'] =
-        "Guided meditation is proven to help you cope with anxiety.";
+    _advices.add(
+      Advice(
+          header: 'Follow the 3-3-3 rule.',
+          text:
+              "Try and follow the 3-3-3 rule, name three things you see, three things you hear, and three parts of your body."),
+    );
+    _advices.add(
+      Advice(header: 'Breathing exercise', text: "Take some deep breaths."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Reduce sugar intake',
+          text:
+              "Do not consume any sugar as it increases the severity of the symptoms."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Focus on the present.',
+          text:
+              "Dwelling on the future and the past are impractical and will only cause the feelings of anxiety to worsen."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Have a balanced diet',
+          text:
+              "The body needs valuable nutrients so do not skip any meals. Try to keep energy-boosting healthy snacks."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Reduce Alcohol and Caffeine Consumption',
+          text:
+              "Both alcohol and caffeine aggravate and worsen the symptoms as well as trigger panic attacks."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Discover what triggers your anxiety',
+          text:
+              "Keeping a journal for when you are stressed and anxious will help in getting to know what causes your anxiety in order for you to avoid it."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Let go',
+          text:
+              "Accepting the fact that you cannot control everything will give you a sense of more control over your life."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Exercise',
+          text:
+              "It is proven that exercise help calm down and lessen the symptoms of anxiety. Set small daily goals and go for a jog or walk."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Talk with someone',
+          text:
+              "Talk about what is on your mind with someone you trust such as a friend or family member."),
+    );
+    _advices.add(
+      Advice(
+          header: 'Meditate',
+          text: "Guided meditation is proven to help you cope with anxiety."),
+    );
   }
 }

@@ -18,9 +18,7 @@ class MoodTrackerDiary extends StatefulWidget {
 class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
   String _diaryContent = '';
-
   final textEditingController = new TextEditingController();
 
   @override
@@ -121,22 +119,3 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
     );
   }
 }
-
-// buttonAction: () {
-// return showDialog(
-// context: context,
-// builder: (context) {
-// //save textfield data to _diaryContent
-// _diaryContent = textEditingController.text;
-// return AlertDialog(
-// content: Text(
-// 'Checked-in. \n' +
-// "Mood = " +
-// readMood(argument) +
-// "\n Diary = " +
-// _diaryContent,
-// textAlign: TextAlign.center,
-// ),
-// );
-// },
-// );

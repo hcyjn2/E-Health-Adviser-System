@@ -175,7 +175,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
                     primaryColor: Color.fromRGBO(132, 180, 200, 1),
                     assetImage: Image.asset(
                       'assets/Images/clinics.png',
-                      width: 64,
+                      width: 62,
                     ),
                     buttonText: Text('Local Clinics',
                         style: kThickFont.copyWith(fontSize: 20)),

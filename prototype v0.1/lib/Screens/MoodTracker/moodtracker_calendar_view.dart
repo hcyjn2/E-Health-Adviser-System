@@ -250,14 +250,12 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalenderView>
                           color: Colors.red,
                         ),
                         thisMonthDayBorderColor: Colors.grey,
-//          weekDays: null, /// for pass null when you do not want to render weekDays
                         showHeader: false,
                         weekFormat: false,
                         markedDatesMap: moodRecords,
                         height: 270.0,
                         selectedDateTime: _currentDate,
                         showIconBehindDayText: true,
-//          daysHaveCircularBorder: false, /// null for not rendering any border, true for circular border, false for rectangular border
                         customGridViewPhysics: NeverScrollableScrollPhysics(),
                         markedDateShowIcon: true,
                         markedDateIconMaxShown: 1,

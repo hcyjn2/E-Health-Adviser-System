@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/Screens/LocateMentalSpecialist/MentalSpecialistScreen.dart';
+import 'package:main_menu/Screens/LocateMentalClinic/MentalClinicScreen.dart';
 import 'package:main_menu/Screens/MoodTracker/moodtracker_calendar_view.dart';
-
 import 'Screens/Help/ImmediateHelpScreen.dart';
 import 'Screens/MainMenu/MainMenuScreen.dart';
 import 'Screens/MainMenu/TestMenu.dart';
@@ -40,7 +39,7 @@ class _MyAppState extends State<MyApp> {
           '/mainmenu': (context) => MainMenuScreen(),
           '/mainmenu/test': (context) => TestMenu(),
           '/mainmenu/helpScreen': (context) => ImmediateHelpScreen(),
-          '/mainmenu/mentalspecialistmap': (context) => MentalSpecialistMap(),
+          '/mainmenu/mentalspecialistmap': (context) => MentalClinicMap(),
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/diary') {

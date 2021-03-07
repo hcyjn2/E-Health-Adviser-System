@@ -9,12 +9,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 const MAP_API_KEY = 'AIzaSyAVN-cKkBDRSc2NKC5WdtIPmaMs3HR5reQ';
 
-class MentalSpecialistMap extends StatefulWidget {
+class MentalClinicMap extends StatefulWidget {
   @override
-  _MentalSpecialistMapState createState() => _MentalSpecialistMapState();
+  _MentalClinicMapState createState() => _MentalClinicMapState();
 }
 
-class _MentalSpecialistMapState extends State<MentalSpecialistMap> {
+class _MentalClinicMapState extends State<MentalClinicMap> {
   double latitude;
   double longitude;
   GoogleMapController mapController;

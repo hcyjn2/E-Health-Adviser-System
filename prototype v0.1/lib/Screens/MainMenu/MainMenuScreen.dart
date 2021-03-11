@@ -3,16 +3,39 @@ import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:showcaseview/showcaseview.dart';
+
 
 import 'AnimatedButton.dart';
 import 'MainMenuDrawer.dart';
 
-class MainMenuScreen extends StatefulWidget {
+class MainMenuScreen extends StatelessWidget {
   @override
-  _MainMenuScreenState createState() => _MainMenuScreenState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ShowCaseWidget(
+        builder: Builder(builder: (context) => MenuBody()),
+        autoPlay: false,
+        autoPlayDelay: Duration(seconds: 3),
+        autoPlayLockEnable: false,
+      ),
+    );
+  }
 }
 
-class _MainMenuScreenState extends State<MainMenuScreen> {
+class MenuBody extends StatefulWidget {
+  @override
+  _MenuBodyState createState() => _MenuBodyState();
+}
+
+class _MenuBodyState extends State<MenuBody> {
+  GlobalKey _sideBarKey = GlobalKey();
+  GlobalKey _localClinicKey = GlobalKey();
+  GlobalKey _diagnosisKey = GlobalKey();
+  GlobalKey _moodKey = GlobalKey();
+  GlobalKey _journalKey = GlobalKey();
+  GlobalKey _swipeKey = GlobalKey();
+
   void testChosen(BuildContext context) {
     Navigator.pushNamed(context, '/mainmenu/test');
   }
@@ -131,11 +154,41 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               elevation: 5.0,
               color: Colors.grey[400],
               child: Text('OKAY'),
-              onPressed: () async {
-                setState(() {
-                  //NO Action
+              onPressed: () {
+                  Navigator.of(context).pop();
+              },
+            ),
+          );
+        });
+  }
+
+  Future<bool> isFirstGuide() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool showCaseVisibilityStatus = preferences.getBool("isFirstShowcase");
+
+    if(showCaseVisibilityStatus == null){
+      preferences.setBool("isFirstShowcase", false);
+      return true;
+    }
+    return false;
+  }
+
+  Future<Widget> buildUserGuideWelcome() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              'Welcome! \n\nThis is a brief tutorial to show you around.\n',
+              style: kThickFont.copyWith(fontSize: 19),
+              textAlign: TextAlign.center,
+            ),
+            content: MaterialButton(
+              elevation: 5.0,
+              color: Colors.grey[400],
+              child: Text('Get Started'),
+              onPressed: ()  {
                   Navigator.pop(context);
-                });
               },
             ),
           );
@@ -144,6 +197,22 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    isFirstGuide().then((status) {
+      if(status){
+        buildUserGuideWelcome().then((status) {
+          ShowCaseWidget.of(context).startShowCase([
+            _sideBarKey,
+            _localClinicKey,
+            _diagnosisKey,
+            _moodKey,
+            _journalKey,
+            _swipeKey
+          ]);
+        });
+      }
+    });
+
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
@@ -152,10 +221,26 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          leading: Builder(
+            builder: (context) => IconButton(
+              icon: Showcase(
+                  key: _sideBarKey,
+                  description: 'Tap here to access setting,logout and etc.',
+                  child: Icon(Icons.menu)
+              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            ),
+          ),
           centerTitle: true,
-          title: Text(
-            "E-Health Adviser App",
-            style: kThickFont.copyWith(fontSize: 18, color: Colors.black),
+          title: Showcase(
+            key: _swipeKey,
+            //TODO: need to add appropriate text for the emergency swipe feature
+            description: 'And lastly, (placeholder text)',
+            showArrow: false,
+            child: Text(
+                "E-Health Adviser App",
+                style: kThickFont.copyWith(fontSize: 18, color: Colors.black),
+              ),
           ),
           backgroundColor: Color.fromRGBO(97, 145, 150, 1),
         ),
@@ -171,59 +256,75 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  AnimatedButton(
-                    primaryColor: Color.fromRGBO(132, 180, 200, 1),
-                    assetImage: Image.asset(
-                      'assets/Images/clinics.png',
-                      width: 62,
+                  Showcase(
+                    key: _localClinicKey,
+                    description: 'Tap to see nearby clinics',
+                    child: AnimatedButton(
+                      primaryColor: Color.fromRGBO(132, 180, 200, 1),
+                      assetImage: Image.asset(
+                        'assets/Images/clinics.png',
+                        width: 62,
+                      ),
+                      buttonText: Text('Local Clinics',
+                          style: kThickFont.copyWith(fontSize: 20)),
+                      onTap: () {
+                        mentalSpecialistMapChosen(context);
+                      },
                     ),
-                    buttonText: Text('Local Clinics',
-                        style: kThickFont.copyWith(fontSize: 20)),
-                    onTap: () {
-                      mentalSpecialistMapChosen(context);
-                    },
                   ),
-                  AnimatedButton(
-                    primaryColor: Color.fromRGBO(178, 220, 214, 1),
-                    assetImage: Image.asset(
-                      'assets/Images/test.png',
-                      width: 62,
+                  Showcase(
+                    key: _diagnosisKey,
+                    description: 'Tap here to take a diagnosis',
+                    child: AnimatedButton(
+                      primaryColor: Color.fromRGBO(178, 220, 214, 1),
+                      assetImage: Image.asset(
+                        'assets/Images/test.png',
+                        width: 62,
+                      ),
+                      buttonText: Text('Diagnosis',
+                          style: kThickFont.copyWith(fontSize: 20)),
+                      onTap: () {
+                        testChosen(context);
+                      },
                     ),
-                    buttonText: Text('Diagnosis',
-                        style: kThickFont.copyWith(fontSize: 20)),
-                    onTap: () {
-                      testChosen(context);
-                    },
                   ),
-                  AnimatedButton(
-                    primaryColor: Color.fromRGBO(244, 220, 214, 1),
-                    assetImage: Image.asset(
-                      'assets/Images/moodrecord.png',
-                      width: 62,
+                  Showcase(
+                    key: _moodKey,
+                    description: 'Tap here to fill in how you are feeling today',
+                    child: AnimatedButton(
+                      primaryColor: Color.fromRGBO(244, 220, 214, 1),
+                      assetImage: Image.asset(
+                        'assets/Images/moodrecord.png',
+                        width: 62,
+                      ),
+                      buttonText: Text('Record Mood',
+                          style: kThickFont.copyWith(fontSize: 20)),
+                      onTap: () async {
+                        if (await isTodayRecorded())
+                          buildOverwriteAlert();
+                        else
+                          moodTrackerChosen(context);
+                      },
                     ),
-                    buttonText: Text('Record Mood',
-                        style: kThickFont.copyWith(fontSize: 20)),
-                    onTap: () async {
-                      if (await isTodayRecorded())
-                        buildOverwriteAlert();
-                      else
-                        moodTrackerChosen(context);
-                    },
                   ),
-                  AnimatedButton(
-                    primaryColor: Color.fromRGBO(223, 199, 193, 1),
-                    assetImage: Image.asset(
-                      'assets/Images/calendar.png',
-                      width: 62,
+                  Showcase(
+                    key: _journalKey,
+                    description: 'Tap here to see your journal entry',
+                    child: AnimatedButton(
+                      primaryColor: Color.fromRGBO(223, 199, 193, 1),
+                      assetImage: Image.asset(
+                        'assets/Images/calendar.png',
+                        width: 62,
+                      ),
+                      buttonText: Text('Mood Journal',
+                          style: kThickFont.copyWith(fontSize: 20)),
+                      onTap: () async {
+                        if (await isMoodCalendarEmpty())
+                          buildEmptyCalendarAlert();
+                        else
+                          moodTrackerCalendarViewChosen(context);
+                      },
                     ),
-                    buttonText: Text('Mood Journal',
-                        style: kThickFont.copyWith(fontSize: 20)),
-                    onTap: () async {
-                      if (await isMoodCalendarEmpty())
-                        buildEmptyCalendarAlert();
-                      else
-                        moodTrackerCalendarViewChosen(context);
-                    },
                   ), //Mood Select
                 ],
               ),

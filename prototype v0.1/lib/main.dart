@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_menu/Screens/LocateMentalClinic/MentalClinicScreen.dart';
+import 'package:main_menu/Screens/Login/ui/login_page.dart';
 import 'package:main_menu/Screens/MoodTracker/moodtracker_calendar_view.dart';
 import 'Screens/Help/ImmediateHelpScreen.dart';
 import 'Screens/MainMenu/MainMenuScreen.dart';
@@ -31,7 +32,7 @@ class _MyAppState extends State<MyApp> {
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: const Color(0xFFF5F5EF),
         ),
-        home: WelcomeScreen(),
+        home: LoginPage(),
         routes: {
           '/mainmenu/moodtracker': (context) => MoodTrackerMain(),
           '/mainmenu/moodtrackercalendarview': (context) =>

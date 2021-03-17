@@ -40,7 +40,7 @@ class TestMenu extends StatelessWidget with MenuFunction {
                   child: AnimatedButton(
                     topMargin: 27,
                     assetImage: Image.asset('null'),
-                    buttonText: Text('Stress Diagnose',
+                    buttonText: Text('Stress Evaluation',
                         style: kThickFont.copyWith(fontSize: 32)),
                     onTap: () {
                       stressTest(context);
@@ -55,7 +55,7 @@ class TestMenu extends StatelessWidget with MenuFunction {
                   child: AnimatedButton(
                     topMargin: 27,
                     assetImage: Image.asset('null'),
-                    buttonText: Text('Anxiety Diagnose',
+                    buttonText: Text('Anxiety Evaluation',
                         style: kThickFont.copyWith(fontSize: 32)),
                     onTap: () {
                       anxietyTest(context);

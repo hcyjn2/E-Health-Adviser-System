@@ -301,6 +301,15 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalenderView>
                 ),
                 height: 310,
               ),
+              FlatButton(
+                color: Colors.purpleAccent[100],
+                child: Text('CLEAR'),
+                onPressed: () async {
+                  SharedPreferences preferences =
+                      await SharedPreferences.getInstance();
+                  await preferences.clear();
+                },
+              ),
             ],
           ),
         ),

@@ -28,7 +28,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
   DateTime _targetDateTime =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
-  List<MoodRecordDetail> moodRecordDetailList;
+  List<MoodRecordDetail> moodRecordDetailList = [];
   EventList<Event> moodRecords;
   Future calendarFuture;
 
@@ -56,15 +56,14 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     }
   }
 
-  void saveData(List<MoodRecordDetail> moodRecordDetailList,
-      MoodRecordDetail newMoodRecordDetail) async {
+  void saveData(List<MoodRecordDetail> moodRecordDetailList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int counter = prefs.getInt('counter') ?? 0;
 
-    if (moodRecordDetailList == null)
-      moodRecordDetailList = [newMoodRecordDetail];
-    else
-      moodRecordDetailList.add(newMoodRecordDetail);
+    // if (moodRecordDetailList == null)
+    //   moodRecordDetailList = [newMoodRecordDetail];
+    // else
+    //   moodRecordDetailList.add(newMoodRecordDetail);
 
     counter++;
     prefs.setString('key', MoodRecordDetail.encode(moodRecordDetailList));
@@ -85,15 +84,17 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   Future updateUI() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int counter = prefs.getInt('counter');
-
-    if (counter == null) {
-      await saveData(moodRecordDetailList, widget.moodRecordDetail);
-      moodRecordDetailList = await loadData();
-    } else
-      moodRecordDetailList = await loadData();
-
     MoodRecordDetail newRecord = widget.moodRecordDetail;
     DateTime recordDate = DateTime.parse(widget.moodRecordDetail.dateTime);
+
+    if (counter == null)
+      moodRecordDetailList.add(newRecord);
+    // await saveData(moodRecordDetailList);
+    // moodRecordDetailList = await loadData();
+    else {
+      moodRecordDetailList = await loadData();
+      moodRecordDetailList.add(newRecord);
+    }
 
     moodRecords = new EventList<Event>(
       events: {
@@ -108,9 +109,11 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
 
     if (moodRecordDetailList.length > 1) {
       for (var data in moodRecordDetailList) {
+        print(data.title);
         if (data.dateTime == recordDate.toString()) {
           print("number of record: " + moodRecordDetailList.length.toString());
           moodRecordDetailList.remove(data);
+          moodRecordDetailList.add(newRecord);
           print("deleted existing record");
           print("number of record: " + moodRecordDetailList.length.toString());
         } else {
@@ -125,7 +128,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
         }
       }
     }
-    await saveData(moodRecordDetailList, widget.moodRecordDetail);
+    await saveData(moodRecordDetailList);
   }
 
   @override
@@ -137,7 +140,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   @override
   void dispose() {
     super.dispose();
-    saveData(moodRecordDetailList, widget.moodRecordDetail);
+    saveData(moodRecordDetailList);
   }
 
   @override
@@ -146,7 +149,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
       height: double.infinity,
       onSwipeCallback: () async {
         Navigator.pushNamed(context, '/mainmenu');
-        await saveData(moodRecordDetailList, widget.moodRecordDetail);
+        await saveData(moodRecordDetailList);
       },
       child: SafeArea(
         child: Scaffold(
@@ -329,22 +332,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
                   },
                 ),
                 height: 310,
-              ),
-              FlatButton(
-                color: Colors.purpleAccent[100],
-                child: Text('CLEAR'),
-                onPressed: () async {
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  await preferences.clear();
-                },
-              ),
-              FlatButton(
-                color: Colors.grey[400],
-                child: Text('BACK'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/mainmenu');
-                },
               ),
             ],
           ),

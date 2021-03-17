@@ -5,7 +5,6 @@ import 'package:main_menu/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:showcaseview/showcaseview.dart';
 
-
 import 'AnimatedButton.dart';
 import 'MainMenuDrawer.dart';
 
@@ -155,7 +154,7 @@ class _MenuBodyState extends State<MenuBody> {
               color: Colors.grey[400],
               child: Text('OKAY'),
               onPressed: () {
-                  Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
             ),
           );
@@ -166,7 +165,7 @@ class _MenuBodyState extends State<MenuBody> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool showCaseVisibilityStatus = preferences.getBool("isFirstShowcase");
 
-    if(showCaseVisibilityStatus == null){
+    if (showCaseVisibilityStatus == null) {
       preferences.setBool("isFirstShowcase", false);
       return true;
     }
@@ -187,8 +186,8 @@ class _MenuBodyState extends State<MenuBody> {
               elevation: 5.0,
               color: Colors.grey[400],
               child: Text('Get Started'),
-              onPressed: ()  {
-                  Navigator.pop(context);
+              onPressed: () {
+                Navigator.pop(context);
               },
             ),
           );
@@ -197,9 +196,8 @@ class _MenuBodyState extends State<MenuBody> {
 
   @override
   Widget build(BuildContext context) {
-
     isFirstGuide().then((status) {
-      if(status){
+      if (status) {
         buildUserGuideWelcome().then((status) {
           ShowCaseWidget.of(context).startShowCase([
             _sideBarKey,
@@ -226,8 +224,7 @@ class _MenuBodyState extends State<MenuBody> {
               icon: Showcase(
                   key: _sideBarKey,
                   description: 'Tap here to access setting,logout and etc.',
-                  child: Icon(Icons.menu)
-              ),
+                  child: Icon(Icons.menu)),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           ),
@@ -238,11 +235,11 @@ class _MenuBodyState extends State<MenuBody> {
             description: 'And lastly, (placeholder text)',
             showArrow: false,
             child: Text(
-                "E-Health Adviser App",
-                style: kThickFont.copyWith(fontSize: 18, color: Colors.black),
-              ),
+              "E-Health Adviser App",
+              style: kThickFont.copyWith(fontSize: 18, color: Colors.black),
+            ),
           ),
-          backgroundColor: Color.fromRGBO(97, 145, 150, 1),
+          backgroundColor: Color(0xFF99d8e8),
         ),
         drawer: MainMenuDrawer(),
         body: SwipeableWidget(
@@ -281,7 +278,7 @@ class _MenuBodyState extends State<MenuBody> {
                         'assets/Images/test.png',
                         width: 62,
                       ),
-                      buttonText: Text('Diagnosis',
+                      buttonText: Text('Evaluation',
                           style: kThickFont.copyWith(fontSize: 20)),
                       onTap: () {
                         testChosen(context);
@@ -290,7 +287,8 @@ class _MenuBodyState extends State<MenuBody> {
                   ),
                   Showcase(
                     key: _moodKey,
-                    description: 'Tap here to fill in how you are feeling today',
+                    description:
+                        'Tap here to fill in how you are feeling today',
                     child: AnimatedButton(
                       primaryColor: Color.fromRGBO(244, 220, 214, 1),
                       assetImage: Image.asset(

@@ -8,9 +8,7 @@ class MainMenuDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(97, 145, 150, 1)
-            ),
+            decoration: BoxDecoration(color: Color(0xFF99d8e8)),
             child: Column(
               children: <Widget>[
                 CircleAvatar(
@@ -28,7 +26,6 @@ class MainMenuDrawer extends StatelessWidget {
               ],
             ),
           ),
-
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Setting'),

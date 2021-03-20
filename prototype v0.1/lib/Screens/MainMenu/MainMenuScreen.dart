@@ -231,8 +231,7 @@ class _MenuBodyState extends State<MenuBody> {
           centerTitle: true,
           title: Showcase(
             key: _swipeKey,
-            //TODO: need to add appropriate text for the emergency swipe feature
-            description: 'And lastly, (placeholder text)',
+            description: 'And lastly, we have a feature that will soothe the tension. \nSwipe left to access this.',
             showArrow: false,
             child: Text(
               "E-Health Adviser App",

@@ -194,6 +194,47 @@ class _MenuBodyState extends State<MenuBody> {
         });
   }
 
+  bool choice = false;
+  createDeclarationAlert(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Continue"),
+      onPressed: () {
+        Navigator.of(context).pop();
+        choice = true;
+        testChosen(context);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Disclaimer:"),
+      content: Text(
+        "The following tests are meant for personal use to identify symptoms of stress or anxiety. They are not meant to be used as diagnostic tools. Please visit a professional if you need help.",
+        textAlign: TextAlign.justify,
+      ),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+      barrierDismissible: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     isFirstGuide().then((status) {
@@ -231,7 +272,8 @@ class _MenuBodyState extends State<MenuBody> {
           centerTitle: true,
           title: Showcase(
             key: _swipeKey,
-            description: 'And lastly, we have a feature that will soothe the tension. \nSwipe left to access this.',
+            description:
+                'And lastly, we have a feature that will soothe the tension. \nSwipe left to access this.',
             showArrow: false,
             child: Text(
               "E-Health Adviser App",
@@ -280,7 +322,11 @@ class _MenuBodyState extends State<MenuBody> {
                       buttonText: Text('Evaluation',
                           style: kThickFont.copyWith(fontSize: 20)),
                       onTap: () {
-                        testChosen(context);
+                        if (choice == false) {
+                          createDeclarationAlert(context);
+                        } else if (choice == true) {
+                          testChosen(context);
+                        }
                       },
                     ),
                   ),

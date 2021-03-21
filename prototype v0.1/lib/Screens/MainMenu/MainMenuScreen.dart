@@ -198,13 +198,13 @@ class _MenuBodyState extends State<MenuBody> {
   createDeclarationAlert(BuildContext context) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("Cancel"),
+      child: Text("Cancel", style: kThickFont.copyWith(fontSize: 19)),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget continueButton = TextButton(
-      child: Text("Continue"),
+      child: Text("Continue", style: kThickFont.copyWith(fontSize: 19)),
       onPressed: () {
         Navigator.of(context).pop();
         choice = true;
@@ -218,6 +218,7 @@ class _MenuBodyState extends State<MenuBody> {
       content: Text(
         "The following tests are meant for personal use to identify symptoms of stress or anxiety. They are not meant to be used as diagnostic tools. Please visit a professional if you need help.",
         textAlign: TextAlign.justify,
+        style: kThickFont.copyWith(fontSize: 19),
       ),
       actions: [
         cancelButton,

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login_example/utils/constants.dart';
 
 class UserHomePage extends StatefulWidget {
   @override

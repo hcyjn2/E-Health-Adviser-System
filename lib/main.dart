@@ -1,11 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_login_example/screens/Welcome/welcomescreen.dart';
-import 'package:flutter_firebase_login_example/user_home_page.dart';
-import 'package:flutter_firebase_login_example/utils/constants.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:flutter_firebase_login_example/utils_login/constants.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {

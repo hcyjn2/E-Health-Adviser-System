@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_login_example/components/TextField.dart';
-import 'package:flutter_firebase_login_example/utils/constants.dart';
 
 class LoginPWField extends StatelessWidget {
   final ValueChanged<String> onChanged;

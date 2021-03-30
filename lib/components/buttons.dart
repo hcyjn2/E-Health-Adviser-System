@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_login_example/utils/constants.dart';
+import 'package:flutter_firebase_login_example/utils_login/constants.dart';
 
 class LoginSignUpButtons extends StatelessWidget {
   final String text;

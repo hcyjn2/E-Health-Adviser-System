@@ -6,7 +6,7 @@ import 'package:flutter_firebase_login_example/screens/Login/loginscreen.dart';
 import 'package:flutter_firebase_login_example/screens/SignUp/signupscreen.dart';
 import 'package:flutter_firebase_login_example/screens/Welcome/components/welcomebg.dart';
 import 'package:flutter_firebase_login_example/user_home_page.dart';
-import 'package:flutter_firebase_login_example/utils/constants.dart';
+import 'package:flutter_firebase_login_example/utils_login/constants.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Body extends StatefulWidget {

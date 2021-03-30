@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "183333780696",
+    "project_id": "fir-loginsample-ad24f",
+    "storage_bucket": "fir-loginsample-ad24f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183333780696:android:f5ed922e03ecf14eea6bad",
+        "android_client_info": {
+          "package_name": "com.wilsontan.flutter_firebase_login_example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183333780696-peeatd436a4fqf62f51bt62cjle3rqen.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAWpwf9iBuhnbT-plI1dtHZB3LHoXAhqw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183333780696-peeatd436a4fqf62f51bt62cjle3rqen.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

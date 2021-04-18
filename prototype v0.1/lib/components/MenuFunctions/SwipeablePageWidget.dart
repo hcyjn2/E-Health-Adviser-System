@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 enum SwipeDirection { toRight, toLeft }
 
-class SwipeablePageWidget extends StatefulWidget {
+class SwipeablePageWidget extends StatelessWidget {
   /// The `Widget` on which we want to detect the swipe movement.
   final Widget child;
 
@@ -22,52 +22,37 @@ class SwipeablePageWidget extends StatefulWidget {
         super(key: key);
 
   @override
-  _SwipeablePageWidgetState createState() => _SwipeablePageWidgetState();
-}
-
-class _SwipeablePageWidgetState extends State<SwipeablePageWidget> {
-  List<Widget> childrenList = [];
-  int initPage;
-  PageController _pageController;
-  @override
-  void initState() {
-    super.initState();
-    if (widget.direction == SwipeDirection.toRight) {
+  Widget build(BuildContext context) {
+    List<Widget> childrenList = [];
+    int initPage;
+    PageController _pageController;
+    if (direction == SwipeDirection.toRight) {
       childrenList.add(Text(''));
       initPage = 1;
     }
-    childrenList.add(widget.child);
-    if (widget.direction == SwipeDirection.toLeft) {
+    childrenList.add(child);
+    if (direction == SwipeDirection.toLeft) {
       childrenList.add(Text(''));
       initPage = 0;
     }
     _pageController = PageController(initialPage: initPage, keepPage: false);
+    return PageView(
+      controller: _pageController,
+      children: childrenList,
+      onPageChanged: (int page) {
+        onSwipeCallback();
+        changePageAnimation(page, _pageController, initPage);
+      },
+    );
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void changePageAnimation(int page) async {
+  void changePageAnimation(
+      int page, PageController _pageController, int initPage) async {
     await _pageController.animateToPage(
       page,
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
     );
     _pageController.jumpToPage(initPage);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView(
-      controller: _pageController,
-      children: childrenList,
-      onPageChanged: (int page) {
-        widget.onSwipeCallback();
-        changePageAnimation(page);
-      },
-    );
   }
 }

@@ -96,15 +96,15 @@ extension MoodLevelExtension on MoodLevel {
     MoodLevel moodLevel;
     int intValue = doubleValue.round();
 
-    if (intValue == 1.0)
+    if (intValue == 1)
       moodLevel = MoodLevel.ReallyTerrible;
-    else if (intValue == 2.0)
+    else if (intValue == 2)
       moodLevel = MoodLevel.NotWell;
-    else if (intValue == 3.0)
+    else if (intValue == 3)
       moodLevel = MoodLevel.Meh;
-    else if (intValue == 4.0)
+    else if (intValue == 4)
       moodLevel = MoodLevel.PrettyGood;
-    else if (intValue == 5.0) moodLevel = MoodLevel.Awesome;
+    else if (intValue == 5) moodLevel = MoodLevel.Awesome;
 
     return moodLevel;
   }

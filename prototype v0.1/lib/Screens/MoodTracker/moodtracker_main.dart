@@ -15,16 +15,22 @@ class MoodTrackerMain extends StatefulWidget {
 class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
   MoodLevel moodLevel = MoodLevel.Meh;
 
+  void goToDiary(BuildContext context) {
+    Navigator.pushNamed(
+      context,
+      '/diary',
+      arguments: moodLevel,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: SafeArea(
-            child: Scaffold(
+      child: SafeArea(
+        child: Scaffold(
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -78,22 +84,19 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
                 ),
               ),
               BottomButton(
-                  rippleColor: Colors.grey,
-                  buttonColor: moodTrackerThumbColor,
-                  buttonText: Text(
-                    'Next',
-                    style: kThickFont.copyWith(fontSize: 30),
-                  ),
-                  buttonAction: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/diary',
-                      arguments: moodLevel,
-                    );
-                  })
+                rippleColor: Colors.grey,
+                buttonColor: moodTrackerThumbColor,
+                buttonText: Text(
+                  'Next',
+                  style: kThickFont.copyWith(fontSize: 30),
+                ),
+                buttonAction: () {
+                  goToDiary(context);
+                },
+              ),
             ],
           ),
-        )),
+        ),
       ),
     );
   }

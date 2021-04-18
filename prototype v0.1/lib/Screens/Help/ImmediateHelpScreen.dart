@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:main_menu/components/Help/HelpAudioPlayer.dart';
 import 'package:main_menu/components/Help/HelpVideoPlayer.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 
 import '../../constants.dart';
 
@@ -17,8 +17,7 @@ class ImmediateHelpScreenState extends State<ImmediateHelpScreen>
   String _videoName;
 
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },

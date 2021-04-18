@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
+import 'package:main_menu/components/mood_tracker/MoodEnum.dart';
 import 'package:main_menu/components/mood_tracker/bottom_button.dart';
 import 'package:main_menu/components/mood_tracker/custom_card.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 
 class MoodTrackerDiary extends StatefulWidget {
-  final int moodLevel;
+  final MoodLevel moodLevel;
 
-  MoodTrackerDiary({this.moodLevel});
+  MoodTrackerDiary({
+    Key key,
+    @required this.moodLevel,
+  })  : assert(moodLevel != null),
+        super(key: key);
 
   @override
   _MoodTrackerDiaryState createState() => _MoodTrackerDiaryState();
@@ -23,14 +28,13 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
 
   @override
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Color(0xFFC7FFFB),
+          backgroundColor: moodTrackerDiaryBgColor,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -38,7 +42,7 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
                 height: 20,
               ),
               Text(
-                'What made you feel that way?',
+                moodDiaryMessage,
                 style: kThickFont,
                 textAlign: TextAlign.center,
               ),
@@ -75,40 +79,9 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
                 ),
                 buttonAction: () {
                   if (_diaryContent.isEmpty) {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              'Write something that led to this feeling...',
-                              style: kThickFont.copyWith(
-                                  fontSize: 19, fontWeight: FontWeight.w100),
-                              textAlign: TextAlign.center,
-                            ),
-                            content: MaterialButton(
-                              elevation: 5.0,
-                              color: Colors.grey[400],
-                              child: Text(
-                                'OKAY',
-                                style: kThickFont.copyWith(fontSize: 17),
-                              ),
-                              onPressed: () async {
-                                Navigator.pop(context);
-                              },
-                            ),
-                          );
-                        });
+                    onEmptyDiaryAction();
                   } else {
-                    String dateString = _currentDate.toString();
-                    MoodRecordDetail moodRecordDetail = MoodRecordDetail(
-                        dateTime: dateString,
-                        title: _diaryContent,
-                        moodLevel: widget.moodLevel);
-                    Navigator.pushNamed(
-                      context,
-                      '/calendar',
-                      arguments: moodRecordDetail,
-                    );
+                    nextScreen();
                   }
                 },
               )
@@ -116,6 +89,46 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
           ),
         ),
       ),
+    );
+  }
+
+  void onEmptyDiaryAction() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            moodDiaryNoRecordMessage,
+            style:
+                kThickFont.copyWith(fontSize: 19, fontWeight: FontWeight.w100),
+            textAlign: TextAlign.center,
+          ),
+          content: MaterialButton(
+            elevation: 5.0,
+            color: Colors.grey[400],
+            child: Text(
+              'OKAY',
+              style: kThickFont.copyWith(fontSize: 17),
+            ),
+            onPressed: () async {
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  void nextScreen() {
+    MoodRecordDetail moodRecordDetail = MoodRecordDetail(
+      dateTime: _currentDate.toString(),
+      title: _diaryContent,
+      moodLevel: widget.moodLevel,
+    );
+    Navigator.pushNamed(
+      context,
+      '/calendar',
+      arguments: moodRecordDetail,
     );
   }
 }

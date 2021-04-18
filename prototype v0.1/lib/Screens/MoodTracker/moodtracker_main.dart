@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
+import 'package:main_menu/components/mood_tracker/MoodEnum.dart';
 import 'package:main_menu/components/mood_tracker/bottom_button.dart';
 import 'package:main_menu/components/mood_tracker/custom_card.dart';
 import 'package:main_menu/components/mood_tracker/icon_content.dart';
@@ -13,39 +13,11 @@ class MoodTrackerMain extends StatefulWidget {
 }
 
 class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
-  int moodLevel = 3;
-  IconData emotionIcon = FontAwesomeIcons.meh;
-  String emotionDescription = 'Meh';
-  Color labelColor = Colors.lime[400];
-
-  void updateIconContent() {
-    if (moodLevel == 1) {
-      emotionIcon = FontAwesomeIcons.sadCry;
-      emotionDescription = 'Really Terrible';
-      labelColor = Colors.grey[700];
-    } else if (moodLevel == 2) {
-      emotionIcon = FontAwesomeIcons.frown;
-      emotionDescription = 'Not Doing Well...';
-      labelColor = Colors.orangeAccent[400];
-    } else if (moodLevel == 3) {
-      emotionIcon = FontAwesomeIcons.meh;
-      emotionDescription = 'Meh';
-      labelColor = Colors.lime[400];
-    } else if (moodLevel == 4) {
-      emotionIcon = FontAwesomeIcons.smile;
-      emotionDescription = 'Pretty Good';
-      labelColor = Colors.green[300];
-    } else if (moodLevel == 5) {
-      emotionIcon = FontAwesomeIcons.smileBeam;
-      emotionDescription = 'Awesome!';
-      labelColor = Colors.cyan[300];
-    }
-  }
+  MoodLevel moodLevel = MoodLevel.Meh;
 
   @override
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },
@@ -60,46 +32,54 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
                 height: 20,
               ),
               Text(
-                'How are you feeling today?',
+                moodTrackerMessage,
                 style: kThickFont,
                 textAlign: TextAlign.center,
               ),
               Expanded(
-                  child: CustomCard(
-                colorOfCard: Colors.grey.withOpacity(0.5),
-                cardChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconContent(emotionIcon, emotionDescription, labelColor),
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        activeTrackColor: Colors.white,
-                        inactiveTrackColor: Color(0xFF8D8E98),
-                        thumbColor: Color(0xFFA6FFF8),
-                        thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 14),
-                        overlayShape:
-                            RoundSliderOverlayShape(overlayRadius: 28),
-                        overlayColor: Color(0x29A6FFF8),
-                        trackHeight: 16,
+                child: CustomCard(
+                  colorOfCard: Colors.grey.withOpacity(0.5),
+                  cardChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      IconContent(
+                        icon: moodLevel.emotionIcon,
+                        label: moodLevel.emotionDescription,
+                        labelColor: moodLevel.labelColor,
                       ),
-                      child: Slider(
-                          value: moodLevel.toDouble(),
-                          min: 1,
-                          max: 5,
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          activeTrackColor: Colors.white,
+                          inactiveTrackColor: moodTrackerInactiveTrackColor,
+                          thumbColor: moodTrackerThumbColor,
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 14),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 28),
+                          overlayColor: Color(0x29A6FFF8),
+                          trackHeight: 16,
+                        ),
+                        child: Slider(
+                          value: moodLevel.moodLevel2Double,
+                          min: MoodLevelExtension.worstMoodLevel()
+                              .moodLevel2Double,
+                          max: MoodLevelExtension.bestMoodLevel()
+                              .moodLevel2Double,
                           onChanged: (double newValue) {
                             setState(() {
-                              moodLevel = newValue.round();
-                              updateIconContent();
+                              moodLevel =
+                                  MoodLevelExtension.double2MoodLevel(newValue);
                             });
-                          }),
-                    )
-                  ],
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )),
+              ),
               BottomButton(
                   rippleColor: Colors.grey,
-                  buttonColor: Color(0xFFA6FFF8),
+                  buttonColor: moodTrackerThumbColor,
                   buttonText: Text(
                     'Next',
                     style: kThickFont.copyWith(fontSize: 30),

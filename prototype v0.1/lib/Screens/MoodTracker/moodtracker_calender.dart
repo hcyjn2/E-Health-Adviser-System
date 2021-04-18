@@ -3,10 +3,10 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart' show DateFormat;
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
+import 'package:main_menu/components/mood_tracker/MoodEnum.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,9 +15,13 @@ class MoodTrackerCalender extends StatefulWidget {
   @override
   _MoodTrackerCalenderState createState() => _MoodTrackerCalenderState();
 
-  MoodRecordDetail moodRecordDetail;
+  final MoodRecordDetail moodRecordDetail;
 
-  MoodTrackerCalender({this.moodRecordDetail});
+  MoodTrackerCalender({
+    Key key,
+    @required this.moodRecordDetail,
+  })  : assert(moodRecordDetail != null),
+        super(key: key);
 }
 
 class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
@@ -34,26 +38,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
 
   _getCalendarFuture() async {
     return await updateUI();
-  }
-
-  Icon readMoodLevel(int moodLevel) {
-    switch (moodLevel) {
-      case 1:
-        return Icon(FontAwesomeIcons.sadCry, color: Colors.grey[700]);
-      case 2:
-        return Icon(FontAwesomeIcons.frown, color: Colors.orangeAccent[400]);
-      case 3:
-        return Icon(FontAwesomeIcons.meh, color: Colors.lime[400]);
-      case 4:
-        return Icon(FontAwesomeIcons.smile, color: Colors.green[300]);
-      case 5:
-        return Icon(FontAwesomeIcons.smileBeam, color: Colors.cyan[300]);
-      default:
-        return Icon(
-          FontAwesomeIcons.cross,
-          color: Colors.red,
-        );
-    }
   }
 
   void saveData(List<MoodRecordDetail> moodRecordDetailList) async {
@@ -100,9 +84,10 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
       events: {
         recordDate: [
           new Event(
-              date: recordDate,
-              title: newRecord.title,
-              icon: readMoodLevel(newRecord.moodLevel))
+            date: recordDate,
+            title: newRecord.title,
+            icon: newRecord.moodLevel.icon,
+          ),
         ]
       },
     );
@@ -122,7 +107,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
             new Event(
               date: DateTime.parse(data.dateTime),
               title: data.title,
-              icon: readMoodLevel(data.moodLevel),
+              icon: data.moodLevel.icon,
             ),
           );
         }
@@ -145,8 +130,7 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
 
   @override
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () async {
         Navigator.pushNamed(context, '/mainmenu');
         await saveData(moodRecordDetailList);

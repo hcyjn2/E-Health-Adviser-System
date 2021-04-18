@@ -3,7 +3,7 @@ import 'package:main_menu/Screens/LocateMentalClinic/MentalClinicScreen.dart';
 import 'package:main_menu/Screens/Tests/ResultPage.dart';
 import 'package:main_menu/Screens/Tests/TestQuestionPage.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/Tests/AnxietyTestResult.dart';
 import 'package:main_menu/components/mood_tracker/bottom_button.dart';
 
@@ -102,8 +102,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
   }
 
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },

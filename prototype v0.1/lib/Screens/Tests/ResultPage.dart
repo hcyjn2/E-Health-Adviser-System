@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/Tests/TestEnums.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -40,8 +40,7 @@ class ResultPage extends StatefulWidget {
 class ResultPageState extends State<ResultPage> with MenuFunction {
   @override
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },

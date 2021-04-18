@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -284,11 +284,10 @@ class _MenuBodyState extends State<MenuBody> {
           backgroundColor: Color(0xFF99d8e8),
         ),
         drawer: MainMenuDrawer(),
-        body: SwipeableWidget(
+        body: SwipeablePageWidget(
           onSwipeCallback: () {
             handleSwipe(context);
           },
-          height: double.infinity,
           direction: SwipeDirection.toLeft,
           child: SafeArea(
             child: Center(

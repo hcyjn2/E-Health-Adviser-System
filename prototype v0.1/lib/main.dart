@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:main_menu/Screens/LocateMentalClinic/MentalClinicScreen.dart';
 import 'package:main_menu/Screens/Login/ui/login_page.dart';
 import 'package:main_menu/Screens/MoodTracker/moodtracker_calendar_view.dart';
+
 import 'Screens/Help/ImmediateHelpScreen.dart';
 import 'Screens/MainMenu/MainMenuScreen.dart';
 import 'Screens/MainMenu/TestMenu.dart';
-import 'Screens/Welcome/welcomescreen.dart';
 import 'Screens/MoodTracker/moodtracker_calender.dart';
 import 'Screens/MoodTracker/moodtracker_diary.dart';
 import 'Screens/MoodTracker/moodtracker_main.dart';
-import 'components/mood_tracker/mood_record_detail.dart';
 import 'constants.dart';
 
 void main() => runApp(MyApp());
@@ -44,17 +43,17 @@ class _MyAppState extends State<MyApp> {
         },
         onGenerateRoute: (settings) {
           if (settings.name == '/diary') {
-            int arg = settings.arguments;
             return MaterialPageRoute(
-                builder: (context) => MoodTrackerDiary(
-                      moodLevel: arg,
-                    ));
+              builder: (context) => MoodTrackerDiary(
+                moodLevel: settings.arguments,
+              ),
+            );
           } else if (settings.name == '/calendar') {
-            MoodRecordDetail arg = settings.arguments;
             return MaterialPageRoute(
-                builder: (context) => MoodTrackerCalender(
-                      moodRecordDetail: arg,
-                    ));
+              builder: (context) => MoodTrackerCalender(
+                moodRecordDetail: settings.arguments,
+              ),
+            );
           }
           return null;
         });

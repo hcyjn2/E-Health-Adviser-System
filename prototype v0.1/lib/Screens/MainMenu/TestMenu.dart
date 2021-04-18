@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/Tests/AnxietyTest.dart';
 import 'package:main_menu/components/Tests/StressTest.dart';
 import 'package:main_menu/constants.dart';
@@ -27,8 +27,7 @@ class TestMenu extends StatelessWidget with MenuFunction {
               image: DecorationImage(
                   image: AssetImage('assets/Images/testmenubackground.png'),
                   fit: BoxFit.cover)),
-          child: SwipeableWidget(
-            height: double.infinity,
+          child: SwipeablePageWidget(
             onSwipeCallback: () {
               returnBack(context);
             },

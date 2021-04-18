@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/constants.dart';
 import 'package:main_menu/models/place.dart';
 import 'package:main_menu/services/marker_service.dart';
@@ -65,8 +65,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SwipeableWidget(
-        height: double.infinity,
+      child: SwipeablePageWidget(
         onSwipeCallback: () {
           returnBack(context);
         },

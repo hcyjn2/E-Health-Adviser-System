@@ -5,7 +5,13 @@ class CustomCard extends StatelessWidget {
   final Widget cardChild;
   final Function buttonAction;
 
-  CustomCard({@required this.colorOfCard, this.cardChild, this.buttonAction});
+  CustomCard({
+    Key key,
+    @required this.colorOfCard,
+    this.cardChild,
+    this.buttonAction,
+  })  : assert(colorOfCard != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {

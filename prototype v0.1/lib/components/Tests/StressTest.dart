@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:main_menu/Screens/Tests/ResultPage.dart';
 import 'package:main_menu/Screens/Tests/TestQuestionPage.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
-import 'package:main_menu/components/MenuFunctions/SwipeableWidget.dart';
+import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/Tests/StressAdvices.dart';
 import 'package:main_menu/components/Tests/StressTestResult.dart';
 
@@ -92,8 +92,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
   }
 
   Widget build(BuildContext context) {
-    return SwipeableWidget(
-      height: double.infinity,
+    return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
       },

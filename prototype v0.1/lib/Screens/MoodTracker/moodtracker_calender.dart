@@ -43,12 +43,6 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
   void saveData(List<MoodRecordDetail> moodRecordDetailList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int counter = prefs.getInt('counter') ?? 0;
-
-    // if (moodRecordDetailList == null)
-    //   moodRecordDetailList = [newMoodRecordDetail];
-    // else
-    //   moodRecordDetailList.add(newMoodRecordDetail);
-
     counter++;
     prefs.setString('key', MoodRecordDetail.encode(moodRecordDetailList));
     prefs.setInt('counter', counter);
@@ -324,29 +318,3 @@ class _MoodTrackerCalenderState extends State<MoodTrackerCalender>
     );
   }
 }
-
-// FlatButton(
-// color: Colors.blueAccent[100],
-// child: Text('SAVE'),
-// onPressed: () async {
-// await saveData(moodRecordDetailList, widget.moodRecordDetail);
-// setState(() {});
-// },
-// ),
-// FlatButton(
-// color: Colors.amberAccent[100],
-// child: Text('LOAD'),
-// onPressed: () async {
-// await updateUI();
-// setState(() {});
-// },
-// )
-// FlatButton(
-// color: Colors.purpleAccent[100],
-// child: Text('CLEAR'),
-// onPressed: () async {
-// SharedPreferences preferences =
-//     await SharedPreferences.getInstance();
-// await preferences.clear();
-// },
-// ),

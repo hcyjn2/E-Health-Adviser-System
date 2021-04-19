@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/MoodTracker/MoodTrackerCalendarBrains.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/mood_tracker/MoodEnum.dart';
@@ -125,10 +126,12 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
       title: _diaryContent,
       moodLevel: widget.moodLevel,
     );
+    MoodTrackerCalenderBrains brains = MoodTrackerCalenderBrains();
+    brains.saveRecord(moodRecordDetail);
     Navigator.pushNamed(
       context,
       '/calendar',
-      arguments: moodRecordDetail,
+      arguments: brains,
     );
   }
 }

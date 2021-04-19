@@ -23,6 +23,12 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
     );
   }
 
+  void changeSlide(double newSlide) {
+    setState(() {
+      moodLevel = MoodLevelExtension.double2MoodLevel(newSlide);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SwipeablePageWidget(
@@ -72,10 +78,7 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
                           max: MoodLevelExtension.bestMoodLevel()
                               .moodLevel2Double,
                           onChanged: (double newValue) {
-                            setState(() {
-                              moodLevel =
-                                  MoodLevelExtension.double2MoodLevel(newValue);
-                            });
+                            changeSlide(newValue);
                           },
                         ),
                       ),

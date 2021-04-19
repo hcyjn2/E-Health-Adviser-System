@@ -13,10 +13,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class MoodTrackerCalenderView extends StatefulWidget {
   @override
-  _MoodTrackerCalenderState createState() => _MoodTrackerCalenderState();
+  _MoodTrackerCalenderViewState createState() =>
+      _MoodTrackerCalenderViewState();
 }
 
-class _MoodTrackerCalenderState extends State<MoodTrackerCalenderView>
+class _MoodTrackerCalenderViewState extends State<MoodTrackerCalenderView>
     with MenuFunction {
   //initialize properties
   DateTime _currentDate =

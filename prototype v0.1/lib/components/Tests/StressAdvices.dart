@@ -4,13 +4,13 @@ import 'Advice.dart';
 
 class StressAdvices {
   static final StressAdvices _instance = StressAdvices._internal();
-  static List<Advice> _advices = List();
+  static List<Advice> _advices = [];
   factory StressAdvices() {
     return _instance;
   }
   List<Advice> getAdvices(int amount) {
     List<int> advicesChosen = [];
-    List<Advice> advices = List();
+    List<Advice> advices = [];
     for (int i = 0; i < amount; i++) {
       int randomIndex = Random().nextInt(_advices.length);
       if (advicesChosen.contains(randomIndex)) {

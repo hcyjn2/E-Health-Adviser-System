@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class LoginBG extends StatelessWidget {
   final Widget child;
+
   const LoginBG({
     Key key,
     @required this.child,

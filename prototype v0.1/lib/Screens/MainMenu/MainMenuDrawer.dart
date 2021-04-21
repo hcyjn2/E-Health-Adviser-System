@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class MainMenuDrawer extends StatelessWidget {
+
+class MainMenuDrawer extends StatefulWidget {
+  @override
+  _MainMenuDrawerState createState() => _MainMenuDrawerState();
+}
+
+class _MainMenuDrawerState extends State<MainMenuDrawer> {
+  void _signOutButtonOnPressed() async {
+    await FirebaseAuth.instance.signOut();
+    if(FirebaseAuth.instance.currentUser==null){
+      //if user logged out then back to main page
+      //back to first page
+            Navigator.popUntil(context, (route) => route.isFirst);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,9 +57,8 @@ class MainMenuDrawer extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.arrow_back),
               title: Text('Logout'),
-              onTap: () {
-                print("User have logged out");
-              }),
+              onTap: () => _signOutButtonOnPressed(),
+          ),
         ],
       ),
     );

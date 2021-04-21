@@ -1,11 +1,46 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:main_menu/Screens/Login/loginscreen.dart';
-import 'package:main_menu/Screens/SignUp/signupscreen.dart';
-import 'package:main_menu/Screens/Welcome/components/welcomebg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:main_menu/components/buttons.dart';
 import 'package:main_menu/constants.dart';
+import 'package:main_menu/screens/Login/loginscreen.dart';
+import 'package:main_menu/screens/SignUp/signupscreen.dart';
+import 'package:main_menu/screens/Welcome/components/welcomebg.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  @override
+  void initState() {
+    super.initState();
+    initializeFlutterFire();
+  }
+
+  void initializeFlutterFire() async {
+    try {
+      // Wait for Firebase to initialize and set `_initialized` state to true
+      await Firebase.initializeApp();
+      checkUserStatus();
+    } catch (e) {
+      print("unable to setup");
+      Fluttertoast.showToast(msg: "unable to setup firebase");
+    }
+  }
+
+  void checkUserStatus() {
+    //check user status
+    //if logged in then navigate
+
+    User currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      Navigator.pushReplacementNamed(context, '/mainmenu');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

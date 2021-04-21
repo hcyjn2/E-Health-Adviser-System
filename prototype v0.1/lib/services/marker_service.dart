@@ -3,7 +3,7 @@ import 'package:main_menu/models/place.dart';
 
 class MarkerService {
   List<Marker> getMarkers(List<Place> places) {
-    var markers = List<Marker>();
+    var markers = [];
 
     places.forEach((place) {
       Marker marker = Marker(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:main_menu/Screens/MoodTracker/MoodTrackerCalendarBrains.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
@@ -48,7 +49,12 @@ class _MenuBodyState extends State<MenuBody> {
   }
 
   void moodTrackerCalendarViewChosen(BuildContext context) {
-    Navigator.pushNamed(context, '/mainmenu/moodtrackercalendarview');
+    MoodTrackerCalenderBrains brains = MoodTrackerCalenderBrains();
+    Navigator.pushNamed(
+      context,
+      '/calendar',
+      arguments: brains,
+    );
   }
 
   void mentalSpecialistMapChosen(BuildContext context) {

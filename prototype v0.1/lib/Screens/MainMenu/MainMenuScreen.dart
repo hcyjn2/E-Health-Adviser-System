@@ -116,12 +116,12 @@ class _MenuBodyState extends State<MenuBody> {
               children: [
                 MaterialButton(
                   elevation: 5.0,
-                  color: Colors.lightGreenAccent[100],
-                  child: Text('YES'),
+                  color: Colors.redAccent[100],
+                  child: Text('NO', style: kThickFont.copyWith(fontSize: 14)),
                   onPressed: () async {
                     setState(() {
-                      //YES Action
-                      moodTrackerChosen(context);
+                      //NO Action
+                      Navigator.pop(context);
                     });
                   },
                 ),
@@ -130,12 +130,12 @@ class _MenuBodyState extends State<MenuBody> {
                 ),
                 MaterialButton(
                   elevation: 5.0,
-                  color: Colors.redAccent[100],
-                  child: Text('NO'),
+                  color: Colors.lightGreenAccent[100],
+                  child: Text('YES', style: kThickFont.copyWith(fontSize: 14)),
                   onPressed: () async {
                     setState(() {
-                      //NO Action
-                      Navigator.pop(context);
+                      //YES Action
+                      moodTrackerChosen(context);
                     });
                   },
                 ),
@@ -158,7 +158,7 @@ class _MenuBodyState extends State<MenuBody> {
             content: MaterialButton(
               elevation: 5.0,
               color: Colors.grey[400],
-              child: Text('OKAY'),
+              child: Text('OKAY', style: kThickFont.copyWith(fontSize: 14)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -203,14 +203,25 @@ class _MenuBodyState extends State<MenuBody> {
   bool choice = false;
   createDeclarationAlert(BuildContext context) {
     // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("Cancel", style: kThickFont.copyWith(fontSize: 19)),
+    Widget cancelButton = MaterialButton(
+      elevation: 5.0,
+      color: Colors.grey,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('BACK', style: kThickFont.copyWith(fontSize: 14)),
+      ),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
-    Widget continueButton = TextButton(
-      child: Text("Continue", style: kThickFont.copyWith(fontSize: 19)),
+
+    Widget continueButton = MaterialButton(
+      elevation: 5.0,
+      color: Colors.lightGreenAccent[100],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text('PROCEED', style: kThickFont.copyWith(fontSize: 14)),
+      ),
       onPressed: () {
         Navigator.of(context).pop();
         choice = true;
@@ -228,7 +239,13 @@ class _MenuBodyState extends State<MenuBody> {
       ),
       actions: [
         cancelButton,
+        SizedBox(
+          width: 15,
+        ),
         continueButton,
+        SizedBox(
+          width: 40,
+        ),
       ],
     );
 

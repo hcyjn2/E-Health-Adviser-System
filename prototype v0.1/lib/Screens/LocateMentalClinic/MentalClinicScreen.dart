@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:main_menu/components/MentalHealthClinic/Map.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/constants.dart';
@@ -8,8 +9,6 @@ import 'package:main_menu/models/place.dart';
 import 'package:main_menu/services/marker_service.dart';
 import 'package:main_menu/services/places_service.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-const MAP_API_KEY = 'AIzaSyAVN-cKkBDRSc2NKC5WdtIPmaMs3HR5reQ';
 
 class MentalClinicMap extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
   double latitude;
   double longitude;
   GoogleMapController mapController;
-  Future mapFuture;
+  Future<Map> mapFuture;
   List<Place> places;
   List<Marker> markers;
   BitmapDescriptor markerIcon;
@@ -29,7 +28,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
     mapController = controller;
   }
 
-  Future initializeMap() async {
+  Future<Map> initializeMap() async {
     markerIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(size: Size(48, 48)), 'assets/Images/marker.png');
 
@@ -46,6 +45,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
     } catch (e) {
       print(e);
     }
+    return Map(places: places, markers: markers);
   }
 
   void _launchMapsUrl(double lat, double lng) async {
@@ -93,8 +93,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
               FutureBuilder(
                 future: mapFuture,
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done &&
-                      places != null) {
+                  if (snapshot.connectionState == ConnectionState.done) {
                     return Column(
                       children: [
                         Container(
@@ -109,7 +108,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: GoogleMap(
-                                markers: Set<Marker>.of(markers),
+                                markers: Set<Marker>.of(snapshot.data.markers),
                                 onMapCreated: _onMapCreated,
                                 initialCameraPosition: CameraPosition(
                                   target: LatLng(latitude, longitude),
@@ -121,15 +120,19 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                         ),
                         Container(
                           child: ListView.builder(
-                            itemCount: places.length,
+                            itemCount: snapshot.data.places.length,
                             itemBuilder: (context, index) {
                               double distance;
-                              if (places[index].geometry.location.lat != null)
+                              if (snapshot.data.places[index].geometry.location
+                                      .lat !=
+                                  null)
                                 distance = Geolocator.distanceBetween(
                                     latitude,
                                     longitude,
-                                    places[index].geometry.location.lat,
-                                    places[index].geometry.location.lng);
+                                    snapshot.data.places[index].geometry
+                                        .location.lat,
+                                    snapshot.data.places[index].geometry
+                                        .location.lng);
 
                               return Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -140,7 +143,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                                       borderRadius: BorderRadius.circular(10)),
                                   child: ListTile(
                                     title: Text(
-                                      places[index].name,
+                                      snapshot.data.places[index].name,
                                       style: TextStyle(fontSize: 15),
                                     ),
                                     subtitle: RichText(
@@ -150,7 +153,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                                           children: <TextSpan>[
                                             TextSpan(
                                                 text:
-                                                    '${places[index].vicinity} \u00b7  '),
+                                                    '${snapshot.data.places[index].vicinity} \u00b7  '),
                                             TextSpan(
                                                 style: kThickFont.copyWith(
                                                     fontSize: 9),
@@ -161,11 +164,10 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                                     trailing: IconButton(
                                       onPressed: () {
                                         _launchMapsUrl(
-                                            places[index].geometry.location.lat,
-                                            places[index]
-                                                .geometry
-                                                .location
-                                                .lng);
+                                            snapshot.data.places[index].geometry
+                                                .location.lat,
+                                            snapshot.data.places[index].geometry
+                                                .location.lng);
                                       },
                                       alignment: Alignment.centerRight,
                                       icon: Icon(

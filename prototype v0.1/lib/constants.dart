@@ -33,3 +33,5 @@ const kLabelTextStyle = TextStyle(
   fontWeight: FontWeight.w600,
   fontFamily: 'Manrope',
 );
+
+const MAP_API_KEY = 'AIzaSyAVN-cKkBDRSc2NKC5WdtIPmaMs3HR5reQ';

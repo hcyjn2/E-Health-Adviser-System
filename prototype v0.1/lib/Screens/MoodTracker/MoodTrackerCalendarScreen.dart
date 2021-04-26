@@ -8,7 +8,6 @@ import 'package:main_menu/Screens/MoodTracker/MoodTrackerCalendarBrains.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MoodTrackerCalenderScreen extends StatefulWidget {
   final MoodTrackerCalenderBrains brains;
@@ -214,15 +213,6 @@ class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
                   },
                 ),
                 height: 310,
-              ),
-              FlatButton(
-                color: Colors.purpleAccent[100],
-                child: Text('CLEAR'),
-                onPressed: () async {
-                  SharedPreferences preferences =
-                      await SharedPreferences.getInstance();
-                  await preferences.clear();
-                },
               ),
             ],
           ),

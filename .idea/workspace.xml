@@ -10,7 +10,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="573ce9eb-9619-4eb0-a4af-64a296f78859" name="Default Changelist" comment="Stress and Anxiety Tests and back to main menu functionality" />
+    <list default="true" id="573ce9eb-9619-4eb0-a4af-64a296f78859" name="Default Changelist" comment="Stress and Anxiety Tests and back to main menu functionality">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/MainMenuScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/MainMenuScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MoodTracker/MoodTrackerCalendarScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MoodTracker/MoodTrackerCalendarScreen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/MoodEnum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/MoodEnum.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/icon_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/icon_content.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/constants.dart" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,6 +35,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1o0Zv5DOtIXUZ7fhS8G0f5lpX4e" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -41,16 +50,16 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\Tests" />
+      <recent name="C:\DevTools\E-Health-Adviser-System\lib\Screens\Tests" />
+      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\MenuFunctions" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\DevTools\E-Health-Adviser-System\prototype v0.1" />
       <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\MenuFunctions" />
       <recent name="C:\DevTools\E-Health-Adviser-System\lib\components" />
       <recent name="C:\DevTools\E-Health-Adviser-System" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\Tests" />
-      <recent name="C:\DevTools\E-Health-Adviser-System\lib\Screens\Tests" />
-      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\MenuFunctions" />
     </key>
   </component>
   <component name="RunManager">
@@ -108,37 +117,47 @@
     <option name="LAST_COMMIT_MESSAGE" value="Stress and Anxiety Tests and back to main menu functionality" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="92" y="92" width="1736" height="856" key="AVDManager" timestamp="1612520582977">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="484" y="329" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619096812057">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
+    <state x="484" y="329" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1619096812057" />
+    <state x="123" y="127" width="2315" height="1186" key="AVDManager" timestamp="1619097199123">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="123" y="127" width="2315" height="1186" key="AVDManager/0.0.2560.1440@0.0.2560.1440" timestamp="1619097199123" />
     <state x="92" y="92" width="1736" height="856" key="AVDManager/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612520582977" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1612521344218">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521344218" />
-    <state width="960" height="144" key="GridCell.Tab.0.bottom" timestamp="1612521349032">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1698" height="392" key="GridCell.Tab.0.bottom" timestamp="1619097250239">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
+    <state width="1698" height="392" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
-    <state width="960" height="144" key="GridCell.Tab.0.center" timestamp="1612521349032">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1698" height="392" key="GridCell.Tab.0.center" timestamp="1619097250239">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
+    <state width="1698" height="392" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
-    <state width="960" height="144" key="GridCell.Tab.0.left" timestamp="1612521349032">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1698" height="392" key="GridCell.Tab.0.left" timestamp="1619097250239">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
+    <state width="1698" height="392" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
-    <state width="960" height="144" key="GridCell.Tab.0.right" timestamp="1612521349032">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1698" height="392" key="GridCell.Tab.0.right" timestamp="1619097250239">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
+    <state width="1698" height="392" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1612520286255">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="540" y="263" key="IDE.errors.dialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612520286255" />
-    <state x="461" y="165" key="SettingsEditor" timestamp="1612426955047">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="615" y="228" key="SettingsEditor" timestamp="1619096808422">
+      <screen x="0" y="0" width="2560" height="1440" />
     </state>
+    <state x="615" y="228" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1619096808422" />
     <state x="461" y="165" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612426955047" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1612520306193">
       <screen x="0" y="0" width="1920" height="1040" />

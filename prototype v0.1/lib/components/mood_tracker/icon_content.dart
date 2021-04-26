@@ -39,7 +39,22 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           label,
-          style: kLabelTextStyle.copyWith(color: labelColor),
+          style: kThickFont.copyWith(
+            color: labelColor,
+            fontSize: 26,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(1.0, 1.0),
+                blurRadius: 1.0,
+                color: Color(0xFFDADADA),
+              ),
+              Shadow(
+                offset: Offset(1.0, 1.0),
+                blurRadius: 3.0,
+                color: Color(0xFF4C4C4C),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: breakHeight,

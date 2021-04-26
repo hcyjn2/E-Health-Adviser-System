@@ -50,15 +50,15 @@ extension MoodLevelExtension on MoodLevel {
     Color labelColor;
 
     if (this == MoodLevel.ReallyTerrible)
-      labelColor = Colors.grey[700];
+      labelColor = Colors.deepPurple[200];
     else if (this == MoodLevel.NotWell)
-      labelColor = Colors.orangeAccent[400];
+      labelColor = Colors.orange[300];
     else if (this == MoodLevel.Meh)
-      labelColor = Colors.lime[400];
+      labelColor = Color(0xFFFFDA8F);
     else if (this == MoodLevel.PrettyGood)
-      labelColor = Colors.green[300];
+      labelColor = Colors.green[200];
     else if (this == MoodLevel.Awesome)
-      labelColor = Colors.cyan[300];
+      labelColor = Colors.cyan[200];
     else if (this == MoodLevel.NotSet) labelColor = Colors.red;
 
     return labelColor;

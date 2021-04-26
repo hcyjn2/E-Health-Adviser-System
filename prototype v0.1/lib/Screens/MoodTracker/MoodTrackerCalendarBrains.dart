@@ -67,7 +67,8 @@ class MoodTrackerCalenderBrains {
   }
 
   Future _initData() async {
-    _moodRecordDetailList = await _loadData();
+    List<MoodRecordDetail> savedList = await _loadData();
+    if (savedList != null) _moodRecordDetailList.addAll(savedList);
 
     MoodRecordDetail firstRecord = _moodRecordDetailList.first;
     DateTime firstRecordDate =

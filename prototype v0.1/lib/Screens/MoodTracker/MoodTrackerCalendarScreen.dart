@@ -226,6 +226,7 @@ class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
               ),
             ],
           ),
+          resizeToAvoidBottomInset: false,
         ),
       ),
     );

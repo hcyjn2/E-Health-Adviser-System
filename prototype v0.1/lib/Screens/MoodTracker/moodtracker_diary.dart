@@ -88,6 +88,7 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
               )
             ],
           ),
+          resizeToAvoidBottomInset: false,
         ),
       ),
     );

@@ -99,6 +99,7 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
               ),
             ],
           ),
+          resizeToAvoidBottomInset: false,
         ),
       ),
     );

@@ -7,8 +7,8 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
       body: SignUpBody(
         child: Column(),
-        ),
+      ),
+      resizeToAvoidBottomInset: false, // set it to false
     );
   }
 }
-

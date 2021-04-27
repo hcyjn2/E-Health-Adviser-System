@@ -6,8 +6,7 @@ import 'package:main_menu/constants.dart';
 import 'package:main_menu/screens/Login/loginscreen.dart';
 import 'package:main_menu/screens/SignUp/signupscreen.dart';
 import 'package:main_menu/screens/Welcome/components/welcomebg.dart';
-
-import 'file:///C:/DevTools/E-Health-Adviser-System/prototype%20v0.1/lib/components/LoginSignupWelcome/buttons.dart';
+import 'package:main_menu/components/LoginSignupWelcome/buttons.dart';
 
 class Body extends StatefulWidget {
   @override

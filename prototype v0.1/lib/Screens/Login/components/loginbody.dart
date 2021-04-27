@@ -4,10 +4,9 @@ import 'package:main_menu/Screens/ForgetPassword/forgotpw.dart';
 import 'package:main_menu/components/LoginSignupWelcome/EmailField.dart';
 import 'package:main_menu/screens/Login/components/loginbg.dart';
 import 'package:main_menu/screens/SignUp/signupscreen.dart';
-
-import 'file:///C:/DevTools/E-Health-Adviser-System/prototype%20v0.1/lib/components/LoginSignupWelcome/LoginCheckAcc.dart';
-import 'file:///C:/DevTools/E-Health-Adviser-System/prototype%20v0.1/lib/components/LoginSignupWelcome/PasswordField.dart';
-import 'file:///C:/DevTools/E-Health-Adviser-System/prototype%20v0.1/lib/components/LoginSignupWelcome/buttons.dart';
+import 'package:main_menu/components/LoginSignupWelcome/LoginCheckAcc.dart';
+import 'package:main_menu/components/LoginSignupWelcome/PasswordField.dart';
+import 'package:main_menu/components/LoginSignupWelcome/buttons.dart';
 
 class LoginBody extends StatefulWidget {
   LoginBody({

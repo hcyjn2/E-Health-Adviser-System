@@ -13,8 +13,10 @@ class MoodTrackerMain extends StatefulWidget {
 }
 
 class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
+  //initialize variables
   MoodLevel moodLevel = MoodLevel.Meh;
 
+  //navigate to Mood Record Diary page
   void goToDiary(BuildContext context) {
     Navigator.pushNamed(
       context,
@@ -23,6 +25,7 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
     );
   }
 
+  //update the mood icon as you drag the bar
   void changeSlide(double newSlide) {
     setState(() {
       moodLevel = MoodLevelExtension.double2MoodLevel(newSlide);
@@ -43,11 +46,15 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
               SizedBox(
                 height: 20,
               ),
+
+              //page title
               Text(
                 moodTrackerMessage,
                 style: kThickFont,
                 textAlign: TextAlign.center,
               ),
+
+              //mood icon window
               Expanded(
                 child: CustomCard(
                   colorOfCard: Colors.grey.withOpacity(0.5),
@@ -59,6 +66,8 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
                         label: moodLevel.emotionDescription,
                         labelColor: moodLevel.labelColor,
                       ),
+
+                      //mood selection bar
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
                           activeTrackColor: Colors.white,
@@ -86,6 +95,8 @@ class _MoodTrackerMainState extends State<MoodTrackerMain> with MenuFunction {
                   ),
                 ),
               ),
+
+              //proceed button
               BottomButton(
                 rippleColor: Colors.grey,
                 buttonColor: moodTrackerThumbColor,

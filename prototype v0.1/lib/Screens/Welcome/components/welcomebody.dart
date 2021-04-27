@@ -2,11 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:main_menu/components/buttons.dart';
 import 'package:main_menu/constants.dart';
 import 'package:main_menu/screens/Login/loginscreen.dart';
 import 'package:main_menu/screens/SignUp/signupscreen.dart';
 import 'package:main_menu/screens/Welcome/components/welcomebg.dart';
+
+import 'file:///C:/DevTools/E-Health-Adviser-System/prototype%20v0.1/lib/components/LoginSignupWelcome/buttons.dart';
 
 class Body extends StatefulWidget {
   @override

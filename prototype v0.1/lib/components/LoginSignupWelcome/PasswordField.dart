@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:main_menu/components/TextField.dart';
+import 'package:main_menu/components/LoginSignupWelcome/TextField.dart';
 
-class ReenterPWField extends StatefulWidget {
+class LoginPWField extends StatefulWidget {
   final ValueChanged<String> onChanged;
 
-  const ReenterPWField({
+  const LoginPWField({
     Key key,
     this.onChanged,
   }) : super(key: key);
 
   @override
-  _ReenterPWFieldState createState() => _ReenterPWFieldState();
+  _LoginPWFieldState createState() => _LoginPWFieldState();
 }
 
-class _ReenterPWFieldState extends State<ReenterPWField> {
+class _LoginPWFieldState extends State<LoginPWField> {
   bool _isHidden = true;
 
   @override
   Widget build(BuildContext context) {
     return LoginTextField(
       child: TextFormField(
-        onChanged: widget.onChanged,
         obscureText: _isHidden,
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
-          hintText: "Re-enter your password",
+          hintText: "Password",
           hintStyle: TextStyle(
             fontSize: 18,
             fontFamily: 'DejaVuSerif',

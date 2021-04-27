@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:main_menu/components/EmailField.dart';
-import 'package:main_menu/components/LoginCheckAcc.dart';
-import 'package:main_menu/components/PasswordField.dart';
-import 'package:main_menu/components/ReenterPWField.dart';
-import 'package:main_menu/components/buttons.dart';
+import 'package:main_menu/components/LoginSignupWelcome/EmailField.dart';
+import 'package:main_menu/components/LoginSignupWelcome/LoginCheckAcc.dart';
+import 'package:main_menu/components/LoginSignupWelcome/PasswordField.dart';
+import 'package:main_menu/components/LoginSignupWelcome/ReenterPWField.dart';
+import 'package:main_menu/components/LoginSignupWelcome/buttons.dart';
 import 'package:main_menu/screens/Login/loginscreen.dart';
 import 'package:main_menu/screens/SignUp/components/signupbg.dart';
 import 'package:main_menu/signupcomplete.dart';
@@ -28,42 +28,40 @@ class _SignUpBodyState extends State<SignUpBody> {
       if (_password == _reEnterPassword) {
         _handleFirebaseRegister();
       } else {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-              'The passwords do not match.\n Please try again.',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'DejaVuSerif',
-            fontWeight: FontWeight.normal
-          ),
-            ),
-          );
-        });
-  }
-    } else  {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text(
-             'Email cannot be empty.\n Please try again.',
-             textAlign: TextAlign.center,
-              style: TextStyle(
-            fontSize: 18,
-            fontFamily: 'DejaVuSerif',
-            fontWeight: FontWeight.normal
-          ),
-            ),
-          );
-        });
+        return showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text(
+                  'The passwords do not match.\n Please try again.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'DejaVuSerif',
+                      fontWeight: FontWeight.normal),
+                ),
+              );
+            });
+      }
+    } else {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text(
+                'Email cannot be empty.\n Please try again.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontFamily: 'DejaVuSerif',
+                    fontWeight: FontWeight.normal),
+              ),
+            );
+          });
     }
   }
 
-    void _handleFirebaseRegister() async {
+  void _handleFirebaseRegister() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: _email, password: _password);
@@ -108,6 +106,7 @@ class _SignUpBodyState extends State<SignUpBody> {
       print(e);
     }
   }
+
   _showRegisterSuccessDialog() async {
     {
       return showDialog(
@@ -126,6 +125,7 @@ class _SignUpBodyState extends State<SignUpBody> {
           });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return SignUpBG(

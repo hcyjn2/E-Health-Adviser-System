@@ -23,9 +23,68 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
   List<Place> places;
   List<Marker> markers;
   BitmapDescriptor markerIcon;
+  bool locationWorks = false;
+
+  void onGeolocatorProblemAction(BuildContext context, String problemText) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            problemText,
+            style:
+                kThickFont.copyWith(fontSize: 19, fontWeight: FontWeight.w100),
+            textAlign: TextAlign.center,
+          ),
+          content: MaterialButton(
+            elevation: 5.0,
+            color: Colors.grey[400],
+            child: Text(
+              'OKAY',
+              style: kThickFont.copyWith(fontSize: 17),
+            ),
+            onPressed: () async {
+              returnBack(context);
+            },
+          ),
+        );
+      },
+    );
+  }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
+  }
+
+  Future<Map> initData() async {
+    Map map = Map(places: [], markers: []);
+    LocationPermission permission;
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      onGeolocatorProblemAction(context, servicesDisabled);
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied, next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines
+        // your App should show an explanatory UI now.
+        onGeolocatorProblemAction(context, permissionDenied);
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      onGeolocatorProblemAction(context, permissionDeniedForever);
+    } else {
+      map = await initializeMap();
+      locationWorks = true;
+    }
+
+    return map;
   }
 
   Future<Map> initializeMap() async {
@@ -35,7 +94,6 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
     try {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.low);
-
       latitude = position.latitude;
       longitude = position.longitude;
       places = (latitude != null && longitude != null)
@@ -58,7 +116,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
 
   @override
   void initState() {
-    mapFuture = initializeMap();
+    mapFuture = initData();
     super.initState();
   }
 
@@ -93,7 +151,8 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
               FutureBuilder(
                 future: mapFuture,
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      locationWorks) {
                     return Column(
                       children: [
                         Container(

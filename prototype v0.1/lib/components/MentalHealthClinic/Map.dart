@@ -8,7 +8,7 @@ class Map {
   Map({
     @required List<Place> places,
     @required List<Marker> markers,
-  }) : assert(places != [] && markers != []) {
+  }) {
     this.places = places;
     this.markers = markers;
   }

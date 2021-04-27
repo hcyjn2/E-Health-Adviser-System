@@ -19,6 +19,17 @@ const String moodDiaryMessage = 'What made you feel that way?';
 const String moodDiaryNoRecordMessage =
     'Write something that led to this feeling...';
 
+const String emptyTestAnswerChosen = "Don't forget to pick your answer!";
+
+const String permissionDenied =
+    "Location permissions are denied. Please enable location services for this app and then try again.";
+
+const String permissionDeniedForever =
+    "Location permissions are denied forever. Please enable location services for this app and then try again.";
+
+const String servicesDisabled =
+    "Location services are disabled. Please enable location services and then try again.";
+
 const kThickFont = TextStyle(
   fontSize: 47,
   fontWeight: FontWeight.w900,

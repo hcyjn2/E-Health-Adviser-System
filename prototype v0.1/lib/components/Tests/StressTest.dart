@@ -5,6 +5,7 @@ import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/components/Tests/StressAdvices.dart';
 import 'package:main_menu/components/Tests/StressTestResult.dart';
+import 'package:main_menu/constants.dart';
 
 import 'TestEnums.dart';
 
@@ -61,8 +62,39 @@ class StressTestState extends State<StressTest> with MenuFunction {
     });
   }
 
+  void onEmptyTestAnswerAction(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            emptyTestAnswerChosen,
+            style:
+                kThickFont.copyWith(fontSize: 19, fontWeight: FontWeight.w100),
+            textAlign: TextAlign.center,
+          ),
+          content: MaterialButton(
+            elevation: 5.0,
+            color: Colors.grey[400],
+            child: Text(
+              'OKAY',
+              style: kThickFont.copyWith(fontSize: 17),
+            ),
+            onPressed: () async {
+              Navigator.pop(context);
+            },
+          ),
+        );
+      },
+    );
+  }
+
   nextQuestion() {
     print('Next pressed');
+    if (testAnswerChosen == AnswerSet.None) {
+      onEmptyTestAnswerAction(context);
+      return;
+    }
     answers.add(testAnswerChosen);
     totalScore += testAnswerChosen.points;
     if (questionCounter + 1 < widget.questionCount) {

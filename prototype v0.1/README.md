@@ -25,8 +25,9 @@ List of external libraries used in this project:
 How to Run it?
 1. Install Android Studio, Flutter and Dart.
 2. Open Android Studio.
-3. Select Open an Existing Project
-4. Select this folder.
+3. Select Get From Version Control.
+4. Put the GitHub link(https://github.com/hcyjn2/E-Health-Adviser-System)
+   in the URL section and click Clone.
 5. Create an AVD(skip if you already have one).
 6. Make sure Dart and Flutter is activated for the current project.
 7. Open the AVD.

@@ -6,24 +6,39 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="573ce9eb-9619-4eb0-a4af-64a296f78859" name="Default Changelist" comment="Stress and Anxiety Tests and back to main menu functionality">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" />
+    <list default="true" id="d234e386-eed9-40f6-8c0b-0fa013964a0c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/AnimatedButton.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/AnimatedButton.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/MainMenuDrawer.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/MainMenuDrawer.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/MainMenuScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MainMenu/MainMenuScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MoodTracker/MoodTrackerCalendarScreen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/Screens/MoodTracker/MoodTrackerCalendarScreen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/MoodEnum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/MoodEnum.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/icon_content.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/components/mood_tracker/icon_content.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prototype v0.1/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/prototype v0.1/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -50,16 +65,16 @@
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\Tests" />
-      <recent name="C:\DevTools\E-Health-Adviser-System\lib\Screens\Tests" />
-      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\MenuFunctions" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\DevTools\E-Health-Adviser-System\prototype v0.1" />
       <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\MenuFunctions" />
       <recent name="C:\DevTools\E-Health-Adviser-System\lib\components" />
       <recent name="C:\DevTools\E-Health-Adviser-System" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\Tests" />
+      <recent name="C:\DevTools\E-Health-Adviser-System\lib\Screens\Tests" />
+      <recent name="C:\DevTools\E-Health-Adviser-System\lib\components\MenuFunctions" />
     </key>
   </component>
   <component name="RunManager">
@@ -73,7 +88,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="573ce9eb-9619-4eb0-a4af-64a296f78859" name="Default Changelist" comment="" />
+      <changelist id="d234e386-eed9-40f6-8c0b-0fa013964a0c" name="Default Changelist" comment="" />
       <created>1612425695362</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -104,7 +119,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -121,48 +148,58 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="484" y="329" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1619096812057" />
-    <state x="123" y="127" width="2315" height="1186" key="AVDManager" timestamp="1619097199123">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="92" y="92" width="1737" height="857" key="AVDManager" timestamp="1619510677325">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="92" y="92" width="1737" height="857" key="AVDManager/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619510677325" />
     <state x="123" y="127" width="2315" height="1186" key="AVDManager/0.0.2560.1440@0.0.2560.1440" timestamp="1619097199123" />
     <state x="92" y="92" width="1736" height="856" key="AVDManager/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612520582977" />
     <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1612521344218">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521344218" />
-    <state width="1698" height="392" key="GridCell.Tab.0.bottom" timestamp="1619097250239">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="1877" height="169" key="GridCell.Tab.0.bottom" timestamp="1619522961234">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="169" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619522961234" />
     <state width="1698" height="392" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.bottom/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
-    <state width="1698" height="392" key="GridCell.Tab.0.center" timestamp="1619097250239">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="1877" height="169" key="GridCell.Tab.0.center" timestamp="1619522961233">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="169" key="GridCell.Tab.0.center/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619522961233" />
     <state width="1698" height="392" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.center/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
-    <state width="1698" height="392" key="GridCell.Tab.0.left" timestamp="1619097250239">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="1877" height="169" key="GridCell.Tab.0.left" timestamp="1619522961233">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="169" key="GridCell.Tab.0.left/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619522961233" />
     <state width="1698" height="392" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.left/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
-    <state width="1698" height="392" key="GridCell.Tab.0.right" timestamp="1619097250239">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="1877" height="169" key="GridCell.Tab.0.right" timestamp="1619522961234">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state width="1877" height="169" key="GridCell.Tab.0.right/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619522961234" />
     <state width="1698" height="392" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1619097250239" />
     <state width="960" height="144" key="GridCell.Tab.0.right/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612521349032" />
     <state x="540" y="263" key="IDE.errors.dialog" timestamp="1612520286255">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="540" y="263" key="IDE.errors.dialog/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612520286255" />
-    <state x="615" y="228" key="SettingsEditor" timestamp="1619096808422">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1619456587796">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619456587796" />
     <state x="615" y="228" key="SettingsEditor/0.0.2560.1440@0.0.2560.1440" timestamp="1619096808422" />
     <state x="461" y="165" key="SettingsEditor/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612426955047" />
     <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1612520306193">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="253" key="Vcs.Push.Dialog.v2/1920.0.1536.832/0.0.1920.1040@0.0.1920.1040" timestamp="1612520306193" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619576442824">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040/1920.10.1920.1040@0.0.1920.1040" timestamp="1619576442824" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1612471793755">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

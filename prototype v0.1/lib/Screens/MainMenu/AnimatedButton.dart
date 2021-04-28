@@ -35,7 +35,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
   @override
   void initState() {
     super.initState();
-
+    //Setting the animation
     _animationController =
         AnimationController(vsync: this, duration: Duration(seconds: 3));
 
@@ -69,6 +69,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
 
   @override
   void dispose() {
+    //dispose the animation when it is done
     super.dispose();
 
     _animationController.dispose();
@@ -85,6 +86,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
           scale: _scaleAnimation.value,
           child: InkWell(
             onTap: () {
+              //When tap, animation will be played
               _scaleAnimationController.forward();
               widget.onTap();
             },

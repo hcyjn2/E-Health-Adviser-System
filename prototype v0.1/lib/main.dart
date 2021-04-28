@@ -22,7 +22,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    //TODO : need to make the user stay logged in.
     //Starting point of the app will be the WelcomeScreen. if user is logged in then the starting screen is MainMenuScreen().
     return MaterialApp(
         debugShowCheckedModeBanner: false,

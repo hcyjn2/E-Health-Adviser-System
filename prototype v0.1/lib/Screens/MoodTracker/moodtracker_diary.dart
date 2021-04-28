@@ -9,8 +9,10 @@ import 'package:main_menu/components/mood_tracker/mood_record_detail.dart';
 import 'package:main_menu/constants.dart';
 
 class MoodTrackerDiary extends StatefulWidget {
+  //initialize moodlevel variable
   final MoodLevel moodLevel;
 
+  //grab data from previous page
   MoodTrackerDiary({
     Key key,
     @required this.moodLevel,
@@ -22,6 +24,7 @@ class MoodTrackerDiary extends StatefulWidget {
 }
 
 class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
+  //initialize variables
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String _diaryContent = '';
@@ -42,11 +45,15 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
               SizedBox(
                 height: 20,
               ),
+
+              //page title
               Text(
                 moodDiaryMessage,
                 style: kThickFont,
                 textAlign: TextAlign.center,
               ),
+
+              //text box for user input
               Expanded(
                 child: CustomCard(
                   colorOfCard: Colors.white.withOpacity(0.9),
@@ -69,6 +76,8 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
                   ),
                 ),
               ),
+
+              //proceed button
               BottomButton(
                 rippleColor: Colors.grey,
                 buttonColor: Colors.redAccent[400].withOpacity(0.75),
@@ -94,10 +103,12 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
     );
   }
 
+  //input validation to check if input is empty
   void onEmptyDiaryAction() {
     showDialog(
       context: context,
       builder: (context) {
+        //alert pop-up window
         return AlertDialog(
           title: Text(
             moodDiaryNoRecordMessage,
@@ -121,6 +132,7 @@ class _MoodTrackerDiaryState extends State<MoodTrackerDiary> with MenuFunction {
     );
   }
 
+  //navigate to mood calendar page and pass the input data(mood level and mood record diary) to mood tracker calendar brain
   void nextScreen() {
     MoodRecordDetail moodRecordDetail = MoodRecordDetail(
       dateTime: _currentDate.toString(),

@@ -16,6 +16,7 @@ class MentalClinicMap extends StatefulWidget {
 }
 
 class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
+  //initialize variables
   double latitude;
   double longitude;
   GoogleMapController mapController;
@@ -25,6 +26,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
   BitmapDescriptor markerIcon;
   bool locationWorks = false;
 
+  //map widget error window
   void onGeolocatorProblemAction(BuildContext context, String problemText) {
     showDialog(
       context: context,
@@ -56,6 +58,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
     mapController = controller;
   }
 
+  //grab device location data
   Future<Map> initData() async {
     Map map = Map(places: [], markers: []);
     LocationPermission permission;
@@ -87,6 +90,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
     return map;
   }
 
+  //initialize map widget
   Future<Map> initializeMap() async {
     markerIcon = await BitmapDescriptor.fromAssetImage(
         ImageConfiguration(size: Size(48, 48)), 'assets/Images/marker.png');
@@ -106,6 +110,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
     return Map(places: places, markers: markers);
   }
 
+  //navigate to the google map/browser with the given coordinates
   void _launchMapsUrl(double lat, double lng) async {
     final url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lng';
     if (await canLaunch(url))
@@ -138,6 +143,8 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                   color: Colors.grey[400],
                   borderRadius: BorderRadius.circular(10.0),
                 ),
+
+                //page title
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text('Nearby Mental Clinics',
@@ -148,6 +155,8 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                           color: Colors.blueAccent)),
                 ),
               ),
+
+              //map widget with nearby mental clinics as the way points on the map
               FutureBuilder(
                 future: mapFuture,
                 builder: (context, snapshot) {
@@ -177,6 +186,8 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                             ),
                           ),
                         ),
+
+                        //bottom list view which shows the name and details about the mental clinics nearby
                         Container(
                           child: ListView.builder(
                             itemCount: snapshot.data.places.length,
@@ -251,6 +262,7 @@ class _MentalClinicMapState extends State<MentalClinicMap> with MenuFunction {
                       ],
                     );
                   } else {
+                    //loading indicator for map widget
                     return Column(
                       children: [
                         Padding(

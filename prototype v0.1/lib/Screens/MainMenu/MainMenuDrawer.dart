@@ -46,6 +46,7 @@ class _MainMenuDrawerState extends State<MainMenuDrawer> {
                   ListTile(
                     leading: Icon(Icons.settings),
                     title: Text('Setting'),
+                    //This is for handling setting of notification
                     onTap: () {
                       print("Go into setting");
                     },
@@ -53,7 +54,8 @@ class _MainMenuDrawerState extends State<MainMenuDrawer> {
                   ListTile(
                       leading: Icon(Icons.all_inbox_rounded),
                       title: Text('Resources'),
-                     onTap: () {
+                      //put in references that we have used
+                      onTap: () {
                         Navigator.push(
                         context,
                        MaterialPageRoute(

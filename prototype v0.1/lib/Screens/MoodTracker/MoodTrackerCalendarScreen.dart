@@ -10,7 +10,9 @@ import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
 import 'package:main_menu/constants.dart';
 
 class MoodTrackerCalenderScreen extends StatefulWidget {
+  //initialize brains variable
   final MoodTrackerCalenderBrains brains;
+  //grab data from previous page
   MoodTrackerCalenderScreen({
     Key key,
     @required this.brains,
@@ -23,7 +25,7 @@ class MoodTrackerCalenderScreen extends StatefulWidget {
 
 class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
     with MenuFunction {
-  //initialize properties
+  //initialize variables
   DateTime _currentDate =
       DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
   String _currentMonth = DateFormat.yMMM().format(DateTime.now());
@@ -48,6 +50,7 @@ class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
           body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              //page title
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
                 child: Text(
@@ -67,6 +70,7 @@ class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
                 child: new Row(
                   children: <Widget>[
                     Expanded(
+                        //current month label
                         child: Text(
                       _currentMonth,
                       style: TextStyle(
@@ -74,6 +78,8 @@ class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
                         fontSize: 24.0,
                       ),
                     )),
+
+                    //calendar nagivation buttons
                     FlatButton(
                       color: Colors.redAccent[100],
                       child: Text('PREV'),
@@ -109,6 +115,7 @@ class _MoodTrackerCalenderScreenState extends State<MoodTrackerCalenderScreen>
                 margin: EdgeInsets.symmetric(horizontal: 7.5),
                 child: Builder(
                   builder: (context) {
+                    //Mood Calendar
                     return //calendar properties
                         CalendarCarousel<Event>(
                       dayCrossAxisAlignment: CrossAxisAlignment.start,

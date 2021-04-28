@@ -302,7 +302,7 @@ class _MenuBodyState extends State<MenuBody> {
           title: Showcase(
             key: _swipeKey,
             description:
-                'And lastly, we have a feature that will soothe the tension. \nSwipe left to access this.',
+                'Then, we have a feature that will soothe the tension. \nSwipe Left to access this. \n\n Finally, Swipe Right from any page \n to go back to the main menu.',
             showArrow: false,
             child: Text(
               "E-Health Adviser App",

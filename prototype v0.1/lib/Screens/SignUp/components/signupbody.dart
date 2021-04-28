@@ -23,6 +23,7 @@ class _SignUpBodyState extends State<SignUpBody> {
   String _password;
   String _reEnterPassword;
 
+  //code below allows user to sign out when pressed on button
   void _signUpButtonOnPressed() async {
     if (_email != null && _email != "") {
       if (_password == _reEnterPassword) {
@@ -61,6 +62,9 @@ class _SignUpBodyState extends State<SignUpBody> {
     }
   }
 
+  //code below is to show that the user has successfully create account.
+  //once successful, redirect to SignUpComplete screen.
+  //if not, alertdialogs will appear respectively.
   void _handleFirebaseRegister() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:main_menu/constants.dart';
 
+/// Enumerations and appropriate extensions to replace usega of numeric and textual data parameters
 enum Tests {
   Stress,
   Anxiety,

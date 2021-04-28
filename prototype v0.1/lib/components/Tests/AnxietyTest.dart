@@ -12,7 +12,6 @@ import 'AnxietyAdvices.dart';
 import 'TestEnums.dart';
 
 class AnxietyTest extends StatefulWidget {
-  final int questionCount = 7;
   AnxietyTestState createState() => AnxietyTestState();
 }
 
@@ -31,7 +30,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
 
   ///Total Score
   int totalScore = 0;
-
+  //init questions and default answer
   @override
   initState() {
     super.initState();
@@ -48,6 +47,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
     questionCounter = 0;
   }
 
+  //Display new selected question
   setSelectedAnxietyAnswer(AnswerSet value) {
     print("Anxiety Test answer $value is chosen");
     setState(() {
@@ -55,6 +55,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
     });
   }
 
+  //Display a remainder to answer the question, if th user forgot
   void onEmptyTestAnswerAction(BuildContext context) {
     showDialog(
       context: context,
@@ -82,20 +83,25 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
     );
   }
 
+  //Handle next button pressed
   nextQuestion() {
     print('Next pressed');
+    //Remind the user to answer the question
     if (testAnswerChosen == AnswerSet.None) {
       onEmptyTestAnswerAction(context);
       return;
     }
+    //update everything according to the answer chosen
     answers.add(testAnswerChosen);
     totalScore += testAnswerChosen.points;
-    if (questionCounter + 1 < widget.questionCount) {
+    //if questions finished then go to result page
+    if (questionCounter + 1 < anxietyQuestions.length) {
       setState(() {
         testAnswerChosen = AnswerSet.None;
         questionCounter++;
       });
     } else {
+      //provide a button to access locate nearby clinics function if anxiety level is worse than should be
       final Widget locateButton = BottomButton(
         buttonColor: Color.fromRGBO(178, 220, 214, 1),
         buttonText: Text(
@@ -118,7 +124,8 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
               builder: (BuildContext context) => ResultPage(
                     testType: Tests.Anxiety,
                     resultScore: totalScore /
-                        (widget.questionCount * AnswerSetExtension.maxScore()),
+                        (anxietyQuestions.length *
+                            AnswerSetExtension.maxScore()),
                     resultPhrase: results.result.name,
                     resultColor: results.result.color,
                     resultExplanation:
@@ -175,7 +182,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
         ],
         onAction: nextQuestion,
         header: 'Simply answer next ' +
-            widget.questionCount.toString() +
+            anxietyQuestions.length.toString() +
             ' questions',
       ),
     );

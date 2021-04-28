@@ -2,8 +2,8 @@
 
 GitHub Link: https://github.com/hcyjn2/E-Health-Adviser-System
 
-Everything in the this application is developed by Group 11a besides the
-external libraries such as sharedpreferences, calendar_carousel and etc.
+Everything in the lib folder of this application is developed by Group 11a.
+Additionally, there were external libraries used, provided below.
 
 List of external libraries used in this project:
 1. audioplayers
@@ -22,12 +22,15 @@ List of external libraries used in this project:
 14. fluttertoast
 15. firebase_core
 
+
+Note: submission includes only source code files, which can't be run without the surrounding flutter framework.
 How to Run it?
 1. Install Android Studio, Flutter and Dart.
 2. Open Android Studio.
 3. Select Get From Version Control.
 4. Put the GitHub link(https://github.com/hcyjn2/E-Health-Adviser-System)
-   in the URL section and click Clone.
+   in the URL section and click Clone. (You will obtain the full project, which haven't been changed since the date of submission.
+   For proofs check version control records)
 5. Create an AVD(skip if you already have one).
 6. Make sure Dart and Flutter is activated for the current project.
 7. Open the AVD.

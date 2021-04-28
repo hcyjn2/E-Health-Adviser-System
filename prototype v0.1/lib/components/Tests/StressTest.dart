@@ -10,7 +10,6 @@ import 'package:main_menu/constants.dart';
 import 'TestEnums.dart';
 
 class StressTest extends StatefulWidget {
-  final int questionCount = 13;
   StressTestState createState() => StressTestState();
 }
 
@@ -30,6 +29,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
   ///Total Score
   int totalScore = 0;
 
+  //init questions and default answer
   @override
   initState() {
     super.initState();
@@ -55,6 +55,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
     questionCounter = 0;
   }
 
+  //Display new selected question
   setSelectedStressAnswer(AnswerSet value) {
     print("Stress Test answer $value is chosen");
     setState(() {
@@ -62,6 +63,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
     });
   }
 
+  //Display a remainder to answer the question, if th user forgot
   void onEmptyTestAnswerAction(BuildContext context) {
     showDialog(
       context: context,
@@ -89,15 +91,19 @@ class StressTestState extends State<StressTest> with MenuFunction {
     );
   }
 
+  //Handle next button pressed
   nextQuestion() {
     print('Next pressed');
+    //Remind the user to answer the question
     if (testAnswerChosen == AnswerSet.None) {
       onEmptyTestAnswerAction(context);
       return;
     }
+    //update everything according to the answer chosen
     answers.add(testAnswerChosen);
     totalScore += testAnswerChosen.points;
-    if (questionCounter + 1 < widget.questionCount) {
+    //if questions finished then go to result page
+    if (questionCounter + 1 < stressQuestions.length) {
       setState(() {
         testAnswerChosen = AnswerSet.None;
         questionCounter++;
@@ -111,7 +117,8 @@ class StressTestState extends State<StressTest> with MenuFunction {
               builder: (BuildContext context) => ResultPage(
                     testType: Tests.Stress,
                     resultScore: totalScore /
-                        (widget.questionCount * AnswerSetExtension.maxScore()),
+                        (stressQuestions.length *
+                            AnswerSetExtension.maxScore()),
                     resultPhrase: results.result.name,
                     resultColor: results.result.color,
                     resultExplanation:
@@ -165,7 +172,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
         ],
         onAction: nextQuestion,
         header: 'Simply answer next ' +
-            widget.questionCount.toString() +
+            stressQuestions.length.toString() +
             ' questions',
       ),
     );

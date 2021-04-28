@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:main_menu/Screens/Welcome/welcomescreen.dart';
+import 'package:main_menu/components/ReferencesPage/referencescreen.dart';
 
 
 class MainMenuDrawer extends StatefulWidget {
@@ -52,9 +53,14 @@ class _MainMenuDrawerState extends State<MainMenuDrawer> {
                   ListTile(
                       leading: Icon(Icons.all_inbox_rounded),
                       title: Text('Resources'),
-                      onTap: () {
-                        print("go to resources");
-                      }),
+                     onTap: () {
+                        Navigator.push(
+                        context,
+                       MaterialPageRoute(
+    	                builder: (context) => ReferenceScreen()),
+                       );
+                      }
+                      ),
                   ListTile(
                       leading: Icon(Icons.arrow_back),
                       title: Text('Logout'),

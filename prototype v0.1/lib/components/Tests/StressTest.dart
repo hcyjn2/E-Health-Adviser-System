@@ -103,9 +103,7 @@ class StressTestState extends State<StressTest> with MenuFunction {
         questionCounter++;
       });
     } else {
-      StressTestResult results = StressTestResult(
-        resultScore: totalScore,
-      );
+      StressTestResult results = StressTestResult(totalScore);
       StressAdvices stressAdvices = StressAdvices();
       Navigator.push(
           context,

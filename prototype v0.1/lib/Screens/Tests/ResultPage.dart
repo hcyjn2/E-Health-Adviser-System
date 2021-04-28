@@ -2,19 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:main_menu/components/MenuFunctions/MenuFunction.dart';
 import 'package:main_menu/components/MenuFunctions/SwipeablePageWidget.dart';
+import 'package:main_menu/components/Tests/Advice.dart';
 import 'package:main_menu/components/Tests/TestEnums.dart';
+import 'package:main_menu/constants.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-import '../../components/Tests/Advice.dart';
-import '../../constants.dart';
-
 class ResultPage extends StatefulWidget {
+  /// This parameter stores level of severity of the results
   final String resultPhrase;
+
+  /// This parameter stores the score of the results obtained
   final double resultScore;
+
+  /// This parameter holds the name of the test, for which results are displayed
   final Tests testType;
+
+  /// This parameter stores extra widgets to be displayed at the end of the results, if specified.
   final List<Widget> body;
+
+  /// This parameter stores list of advices on how to keep healthy mental state
   final List<Advice> advices;
+
+  /// This parameter stores the color that identifies the results severity
   final Color resultColor;
+
+  /// This parameter stores brief explanation and suggestions for the results obtained
   final Text resultExplanation;
 
   ResultPage({
@@ -40,6 +52,7 @@ class ResultPage extends StatefulWidget {
 class ResultPageState extends State<ResultPage> with MenuFunction {
   @override
   Widget build(BuildContext context) {
+    //This widget allows to return back to menu on swipe to the right
     return SwipeablePageWidget(
       onSwipeCallback: () {
         returnBack(context);
@@ -50,6 +63,7 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.max,
             children: [
+              //Displaying the test type
               Container(
                 margin: EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
                 decoration: BoxDecoration(
@@ -66,6 +80,7 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                       )),
                 ),
               ),
+              //Displaying color bar that shows your results severity
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -110,6 +125,7 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                   textAlign: TextAlign.left,
                 ),
               ),
+              //Displaying test results explanation in the scrollable box
               Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
@@ -139,6 +155,7 @@ class ResultPageState extends State<ResultPage> with MenuFunction {
                   textAlign: TextAlign.left,
                 ),
               ),
+              //Displaying advices on keeping healthy mental state in the scrollable box
               Flexible(
                 flex: 2,
                 fit: FlexFit.tight,

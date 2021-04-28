@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:main_menu/constants.dart';
 
-import '../../constants.dart';
-
+//This class is used to describe mental health advices.
+//Every advice has a header and the body. Additionally you may adjust the color of both parts
 class Advice extends StatelessWidget {
+  /// This parameter is used to store advice's header
   final String header;
+
+  /// This parameter is sued to store advice's body
   final String text;
+
+  /// This parameter can be used to customize headers color. Default is black.
   final Color headerColor;
+
+  /// This parameter can be used to customize the color of the body. Default is green.
   final Color textColor;
 
   Advice({

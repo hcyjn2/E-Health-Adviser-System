@@ -1,8 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
-import '../../constants.dart';
+import 'package:main_menu/constants.dart';
 
 enum Tests {
   Stress,

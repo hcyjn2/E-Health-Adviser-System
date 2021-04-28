@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+/// Enumeration that defines all the swipe direction options
 enum SwipeDirection { toRight, toLeft }
 
 class SwipeablePageWidget extends StatelessWidget {
@@ -23,6 +24,9 @@ class SwipeablePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Creating a PageView with one empty page and the widget passed to the constructor as a child.
+    //This is done to access swipe detector.
+    //Note: initPage is set to the screen with the widget passed to a constructor
     List<Widget> childrenList = [];
     int initPage;
     PageController _pageController;
@@ -39,13 +43,17 @@ class SwipeablePageWidget extends StatelessWidget {
     return PageView(
       controller: _pageController,
       children: childrenList,
+      //Call the function every time swipe is done
       onPageChanged: (int page) {
+        //Call function passed to a constructor
         onSwipeCallback();
+        //Change from empty screen back to normal page.
         changePageAnimation(page, _pageController, initPage);
       },
     );
   }
 
+  //Animates changing the screen back to initial page
   void changePageAnimation(
       int page, PageController _pageController, int initPage) async {
     await _pageController.animateToPage(

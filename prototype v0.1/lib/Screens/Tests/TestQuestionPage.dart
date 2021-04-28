@@ -9,6 +9,7 @@ class TestQuestionPage extends StatelessWidget {
   ///Header of the test
   final String header;
 
+  /// Prefix before every question, the default one is 'In the LAST MONTH, how often have you:'
   final String questionPrefix;
 
   ///Represents groups of widgets for the answer choices of test
@@ -17,6 +18,7 @@ class TestQuestionPage extends StatelessWidget {
   ///Function that executes when next button is pressed
   final Function onAction;
 
+  /// This parameter stores the current question number
   final int questionNumber;
 
   TestQuestionPage({
@@ -56,6 +58,7 @@ class TestQuestionPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
+              //Display current question number
               child: Text('Question ' + questionNumber.toString() + '.',
                   textAlign: TextAlign.left,
                   style: kThickFont.copyWith(fontSize: 20)),
@@ -71,6 +74,7 @@ class TestQuestionPage extends StatelessWidget {
                     style: kThickFont.copyWith(fontSize: 20),
                   ),
                 ),
+                //Display a box that contains a question
                 Container(
                   height: 85,
                   margin: EdgeInsets.symmetric(horizontal: 20),

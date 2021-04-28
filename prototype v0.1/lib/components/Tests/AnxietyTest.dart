@@ -110,8 +110,7 @@ class AnxietyTestState extends State<AnxietyTest> with MenuFunction {
         },
         rippleColor: Colors.grey,
       );
-      final AnxietyTestResult results =
-          AnxietyTestResult(resultScore: totalScore);
+      final AnxietyTestResult results = AnxietyTestResult(totalScore);
       final AnxietyAdvices anxietyAdvices = AnxietyAdvices();
       Navigator.push(
           context,

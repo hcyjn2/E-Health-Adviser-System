@@ -29,6 +29,7 @@ class MenuBody extends StatefulWidget {
 }
 
 class _MenuBodyState extends State<MenuBody> {
+  //For First time user guide
   GlobalKey _sideBarKey = GlobalKey();
   GlobalKey _localClinicKey = GlobalKey();
   GlobalKey _diagnosisKey = GlobalKey();
@@ -168,6 +169,7 @@ class _MenuBodyState extends State<MenuBody> {
   }
 
   Future<bool> isFirstGuide() async {
+    //Storing local data for first showcase boolean
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool showCaseVisibilityStatus = preferences.getBool("isFirstShowcase");
 
@@ -179,6 +181,7 @@ class _MenuBodyState extends State<MenuBody> {
   }
 
   Future<Widget> buildUserGuideWelcome() {
+    //A dialog for first time user guide
     return showDialog(
         context: context,
         builder: (context) {
@@ -261,9 +264,11 @@ class _MenuBodyState extends State<MenuBody> {
 
   @override
   Widget build(BuildContext context) {
+    //Check if this is a first time user
     isFirstGuide().then((status) {
       if (status) {
         buildUserGuideWelcome().then((status) {
+          //Start the guide
           ShowCaseWidget.of(context).startShowCase([
             _sideBarKey,
             _localClinicKey,
